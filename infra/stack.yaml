@@ -1,0 +1,86 @@
+# The TFT meta pipeline as code. `python run.py` deploys everything below before each run.
+#
+#   raw bucket ──ObjectCreated──▶ Validate ──▶ staged bucket ──ObjectCreated──▶ Load ──▶ MetaDb
+#                                    └──▶ quarantine bucket                              │
+#   every hour ─────────────────────────────────────────────────────────▶ Aggregate ◀──┘
+#                                                                            └──▶ public bucket (site/*.json)
+#
+# AWS equivalents: bucket = S3, function = Lambda, trigger = S3 event notification,
+# schedule = EventBridge rule, queue = SQS dead-letter queue, database = RDS for MySQL.
+stack: tft-meta
+region: local-1
+
+resources:
+  RawBucket: {type: bucket, name: tft-raw}
+  StagedBucket: {type: bucket, name: tft-staged}
+  QuarantineBucket: {type: bucket, name: tft-quarantine}
+  PublicBucket: {type: bucket, name: tft-public}
+  FailedEvents: {type: queue, name: tft-failed-events}
+
+  MetaDb:
+    type: database
+    engine: mysql
+    host: ${env:DB_HOST:127.0.0.1}
+    port: ${env:DB_PORT:3307}
+    name: ${env:DB_NAME:tft}
+    user: ${env:DB_USER:tft}
+    password: ${env:DB_PASSWORD:tft-local}
+    schema: sql/schema.sql
+
+  Validate:
+    type: function
+    description: Checks raw match files; stages valid matches and quarantines the rest.
+    handler: functions.validate.handler.handler
+    timeout: 60
+    memory: 512
+    dead_letter: FailedEvents
+    environment:
+      STAGED_BUCKET: ${StagedBucket.name}
+      QUARANTINE_BUCKET: ${QuarantineBucket.name}
+      STATIC_DATA: data/set18.json
+
+  Load:
+    type: function
+    description: Upserts staged matches into the normalized MySQL tables.
+    handler: functions.load.handler.handler
+    timeout: 120
+    memory: 1024
+    dead_letter: FailedEvents
+    environment: &db
+      DB_HOST: ${MetaDb.host}
+      DB_PORT: ${MetaDb.port}
+      DB_NAME: ${MetaDb.name}
+      DB_USER: ${MetaDb.user}
+      DB_PASSWORD: ${MetaDb.password}
+      STATIC_DATA: data/set18.json
+
+  Aggregate:
+    type: function
+    description: Computes stats and tier lists and publishes them for the website.
+    handler: functions.aggregate.handler.handler
+    timeout: 300
+    memory: 1024
+    retries: 0
+    environment:
+      <<: *db
+      PUBLIC_BUCKET: ${PublicBucket.name}
+
+  RawUploaded:
+    type: trigger
+    source: ${RawBucket}
+    target: Validate
+    events: ["ObjectCreated:*"]
+    prefix: raw/
+    suffix: .ndjson
+
+  Staged:
+    type: trigger
+    source: ${StagedBucket}
+    target: Load
+    events: ["ObjectCreated:*"]
+    suffix: .ndjson
+
+  Hourly:
+    type: schedule
+    expression: rate(1 hour)
+    target: Aggregate

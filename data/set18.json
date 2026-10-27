@@ -1,0 +1,1650 @@
+{
+ "set": 18,
+ "mutator": "TFTSet18",
+ "champions": [
+  {
+   "id": "DA_18_Akali_AD",
+   "name": "Akali",
+   "cost": 1,
+   "traits": [
+    "DA_18_Inferno",
+    "DA_18_Adaptor",
+    "DA_18_Slayer"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_akali/skins/base/images/tft18_akali_splash_tile_2.png"
+  },
+  {
+   "id": "DA_18_Camille",
+   "name": "Camille",
+   "cost": 1,
+   "traits": [
+    "DA_18_Coven",
+    "DA_18_Slayer"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_camille/skins/base/images/tft18_camille_splash_tile_2.png"
+  },
+  {
+   "id": "DA_Cinderling18",
+   "name": "Cinderling",
+   "cost": 1,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Hunter"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cinderling/skins/base/images/t_18_cinderling_teamplannersplash.png"
+  },
+  {
+   "id": "DA_Karma18",
+   "name": "Karma",
+   "cost": 1,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_18_Spellweaver"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_karma/skins/base/images/tft18_karma_splash_tile_70.png"
+  },
+  {
+   "id": "DA_18_Kobuko",
+   "name": "Kobuko",
+   "cost": 1,
+   "traits": [
+    "DA_18_Sprykin",
+    "DA_18_Brawler"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kobuko/skins/base/images/tft18_kobuko_splash_tile_2.png"
+  },
+  {
+   "id": "DA_18_Leona",
+   "name": "Leona",
+   "cost": 1,
+   "traits": [
+    "DA_18_Solar",
+    "DA_18_Defender"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leona/skins/base/images/tft18_leona_splash_tile_10.png"
+  },
+  {
+   "id": "DA_18_Ornn",
+   "name": "Ornn",
+   "cost": 1,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_Defender"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ornn/skins/base/images/tft18_ornn_splash_tile_2.png"
+  },
+  {
+   "id": "DA_18_Sentry",
+   "name": "Pebbles",
+   "cost": 1,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Invoker"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentry/skins/base/images/t_18_sentry_teamplannersplash.png"
+  },
+  {
+   "id": "DA_18_Rakan",
+   "name": "Rakan",
+   "cost": 1,
+   "traits": [
+    "DA_18_Fae",
+    "DA_Juggernaut18",
+    "DA_18_Vanguard"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rakan/skins/base/images/tft18_rakan_splash_tile_9.png"
+  },
+  {
+   "id": "DA_18_RekSai",
+   "name": "Rek'Sai",
+   "cost": 1,
+   "traits": [
+    "DA_18_Blackthorn",
+    "DA_18_Brawler"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_reksai/skins/base/images/tft18_reksai_splash_tile_17.png"
+  },
+  {
+   "id": "DA_18_Varus",
+   "name": "Varus",
+   "cost": 1,
+   "traits": [
+    "DA_18_Inferno",
+    "DA_18_Rapidfire"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_varus/skins/base/images/tft18_varus_splash_tile_9.png"
+  },
+  {
+   "id": "DA_18_Veigar",
+   "name": "Veigar",
+   "cost": 1,
+   "traits": [
+    "DA_18_Blackthorn",
+    "DA_18_Sprykin",
+    "DA_18_Spellweaver"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_veigar/skins/base/images/tft18_veigar_splash_tile_13.png"
+  },
+  {
+   "id": "DA_18_Xayah",
+   "name": "Xayah",
+   "cost": 1,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_Fae",
+    "DA_18_Rapidfire"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_xayah/skins/base/images/tft18_xayah_splash_tile_8.png"
+  },
+  {
+   "id": "DA_18_Yorick",
+   "name": "Yorick",
+   "cost": 1,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_Juggernaut18",
+    "DA_18_Summoner"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yorick/skins/base/images/tft18_yorick_splash_tile_30.png"
+  },
+  {
+   "id": "DA_18_Alistar",
+   "name": "Alistar",
+   "cost": 2,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_Brawler"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alistar/skins/base/images/tft18_alistar_splash_tile_40.png"
+  },
+  {
+   "id": "DA_18_Caitlyn",
+   "name": "Caitlyn",
+   "cost": 2,
+   "traits": [
+    "DA_18_Coven",
+    "DA_18_Hunter"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_caitlyn/skins/base/images/tft18_caitlyn_splash_tile_30.png"
+  },
+  {
+   "id": "DA_18_Elise",
+   "name": "Elise",
+   "cost": 2,
+   "traits": [
+    "DA_18_Coven",
+    "DA_18_Vanguard"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elise/skins/base/images/tft18_elise_splash_tile_24.png"
+  },
+  {
+   "id": "DA_Gromp18_AP",
+   "name": "Gromp",
+   "cost": 2,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Adaptor"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gromp/skins/base/images/t_18_gromp_teamplannersplash.png"
+  },
+  {
+   "id": "DA_18_Kayle",
+   "name": "Kayle",
+   "cost": 2,
+   "traits": [
+    "DA_18_Solar",
+    "DA_18_Rapidfire"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kayle/skins/base/images/tft18_kayle_splash_tile_42.png"
+  },
+  {
+   "id": "DA_18_LeBlanc",
+   "name": "LeBlanc",
+   "cost": 2,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_Spellweaver"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leblanc/skins/base/images/tft18_leblanc_splash_tile_5.png"
+  },
+  {
+   "id": "DA_Murkwolf18",
+   "name": "Murkwolf",
+   "cost": 2,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Slayer"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_murkwolf/skins/base/images/t_18_murkwolf_teamplannersplash.png"
+  },
+  {
+   "id": "DA_Scuttlecrab18",
+   "name": "Scuttlecrab",
+   "cost": 2,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_Juggernaut18"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_scuttlecrab/skins/base/images/t_18_scuttlecrab_teamplannersplash.png"
+  },
+  {
+   "id": "DA_18_Sejuani",
+   "name": "Sejuani",
+   "cost": 2,
+   "traits": [
+    "DA_18_Solar",
+    "DA_Juggernaut18"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sejuani/skins/base/images/tft18_sejuani_splash_tile_26.png"
+  },
+  {
+   "id": "DA_18_Shen",
+   "name": "Shen",
+   "cost": 2,
+   "traits": [
+    "DA_18_Inferno",
+    "DA_18_Defender"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_shen/skins/base/images/tft18_shen_splash_tile_16.png"
+  },
+  {
+   "id": "DA_18_Teemo",
+   "name": "Teemo",
+   "cost": 2,
+   "traits": [
+    "DA_18_Sprykin",
+    "DA_18_Invoker"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_teemo/skins/base/images/tft18_teemo_splash_tile_0.png"
+  },
+  {
+   "id": "DA_18_Warwick",
+   "name": "Warwick",
+   "cost": 2,
+   "traits": [
+    "DA_18_Blackthorn",
+    "DA_18_Slayer"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_warwick/skins/base/images/tft18_warwick_splash_tile_35.png"
+  },
+  {
+   "id": "DA_18_Yunara",
+   "name": "Yunara",
+   "cost": 2,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_18_Executioner"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yunara/skins/base/images/tft18_yunara_splash_tile_0.png"
+  },
+  {
+   "id": "DA_18_Azir",
+   "name": "Azir",
+   "cost": 3,
+   "traits": [
+    "DA_18_Blackthorn",
+    "DA_18_Executioner",
+    "DA_18_Summoner"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_azir/skins/base/images/tft18_azir_splash_tile_5.png"
+  },
+  {
+   "id": "DA_18_Cassiopeia",
+   "name": "Cassiopeia",
+   "cost": 3,
+   "traits": [
+    "DA_18_Coven",
+    "DA_18_Spellweaver"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cassiopeia/skins/base/images/tft18_cassiopeia_splash_tile_18.png"
+  },
+  {
+   "id": "DA_18_Diana",
+   "name": "Diana",
+   "cost": 3,
+   "traits": [
+    "DA_18_Lunar",
+    "DA_18_Slayer",
+    "DA_18_Vanguard"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_diana/skins/base/images/tft18_diana_splash_tile_0.png"
+  },
+  {
+   "id": "DA_Fiddlesticks18",
+   "name": "Fiddlesticks",
+   "cost": 3,
+   "traits": [
+    "DA_FloraFatalis18",
+    "DA_18_Defender",
+    "DA_18_Spellweaver"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_fiddlesticks/skins/base/images/tft18_fiddlesticks_splash_tile_46.png"
+  },
+  {
+   "id": "DA_18_Hecarim",
+   "name": "Hecarim",
+   "cost": 3,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_Vanguard"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_hecarim/skins/base/images/tft18_hecarim_splash_tile_5.png"
+  },
+  {
+   "id": "DA_18_KhaZix",
+   "name": "Kha'Zix",
+   "cost": 3,
+   "traits": [
+    "DA_18_Rival"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_khazix/skins/base/images/tft18_khazix_splash_tile_0.png"
+  },
+  {
+   "id": "DA_KogMaw18_AD",
+   "name": "Kog'Maw",
+   "cost": 3,
+   "traits": [
+    "DA_18_Caustic",
+    "DA_18_Adaptor",
+    "DA_18_Invoker"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kogmaw/skins/base/images/tft18_kogmaw_splash_tile_3.png"
+  },
+  {
+   "id": "DA_Krug18",
+   "name": "Krug",
+   "cost": 3,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Brawler"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_krug/skins/base/images/t_18_krug_teamplannersplash.png"
+  },
+  {
+   "id": "DA_CrimsonRaptor18",
+   "name": "Mama Beak",
+   "cost": 3,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Summoner",
+    "DA_18_Rapidfire"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_raptor/skins/base/images/t_18_crimsonraptor_teamplannersplash.png"
+  },
+  {
+   "id": "DA_18_MasterYi_AD",
+   "name": "Master Yi",
+   "cost": 3,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_18_Adaptor"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_masteryi/skins/base/images/tft18_masteryi_splash_tile_52.png"
+  },
+  {
+   "id": "DA_18_Rammus",
+   "name": "Rammus",
+   "cost": 3,
+   "traits": [
+    "DA_18_Sprykin",
+    "DA_18_Defender"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rammus/skins/base/images/tft18_rammus_splash_tile_26.png"
+  },
+  {
+   "id": "DA_18_Rengar",
+   "name": "Rengar",
+   "cost": 3,
+   "traits": [
+    "DA_18_Rival"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rengar/skins/base/images/tft18_rengar_splash_tile_0.png"
+  },
+  {
+   "id": "DA_18_Tristana",
+   "name": "Tristana",
+   "cost": 3,
+   "traits": [
+    "DA_18_Fae",
+    "DA_18_Sprykin",
+    "DA_18_Hunter"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_tristana/skins/base/images/tft18_tristana_splash_tile_61.png"
+  },
+  {
+   "id": "DA_Vi18",
+   "name": "Vi",
+   "cost": 3,
+   "traits": [
+    "DA_Primal18",
+    "DA_Juggernaut18"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_vi/skins/base/images/tft18_vi_splash_tile_39.png"
+  },
+  {
+   "id": "DA_18_Ahri",
+   "name": "Ahri",
+   "cost": 4,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_18_Spellweaver"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ahri/skins/base/images/tft18_ahri_splash_tile_27.png"
+  },
+  {
+   "id": "DA_Amumu18",
+   "name": "Amumu",
+   "cost": 4,
+   "traits": [
+    "DA_18_Inferno",
+    "DA_Juggernaut18"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_amumu/skins/base/images/tft18_amumu_splash_tile_17.png"
+  },
+  {
+   "id": "DA_18_Aphelios",
+   "name": "Aphelios",
+   "cost": 4,
+   "traits": [
+    "DA_18_Lunar",
+    "DA_18_Rapidfire"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_aphelios/skins/base/images/tft18_aphelios_splash_tile_0.png"
+  },
+  {
+   "id": "DA_Brambleback18",
+   "name": "Brambleback",
+   "cost": 4,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Slayer"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_brambleback/skins/base/images/t_18_brambleback_teamplannersplash.png"
+  },
+  {
+   "id": "DA_18_Ezreal",
+   "name": "Ezreal",
+   "cost": 4,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_Executioner"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ezreal/skins/base/images/tft18_ezreal_splash_tile_1.png"
+  },
+  {
+   "id": "DA_18_Lillia",
+   "name": "Lillia",
+   "cost": 4,
+   "traits": [
+    "DA_18_Fae",
+    "DA_18_Defender"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lillia/skins/base/images/tft18_lillia_splash_tile_28.png"
+  },
+  {
+   "id": "DA_18_Malphite",
+   "name": "Malphite",
+   "cost": 4,
+   "traits": [
+    "DA_18_Blackthorn",
+    "DA_18_Battlemage"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_malphite/skins/base/images/tft18_malphite_splash_tile_27.png"
+  },
+  {
+   "id": "DA_18_Morgana",
+   "name": "Morgana",
+   "cost": 4,
+   "traits": [
+    "DA_18_Coven",
+    "DA_18_Invoker"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_morgana/skins/base/images/tft18_morgana_splash_tile_26.png"
+  },
+  {
+   "id": "DA_Nidalee18_AP",
+   "name": "Nidalee",
+   "cost": 4,
+   "traits": [
+    "DA_Primal18",
+    "DA_18_Adaptor"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_nidalee/skins/base/images/tft18_nidalee_splash_tile_0.png"
+  },
+  {
+   "id": "DA_Sentinel18",
+   "name": "Sentinel",
+   "cost": 4,
+   "traits": [
+    "DA_Riftbeast18",
+    "DA_18_Vanguard",
+    "DA_18_Invoker"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentinel/skins/base/images/t_18_sentinel_teamplannersplash.png"
+  },
+  {
+   "id": "DA_18_Sett",
+   "name": "Sett",
+   "cost": 4,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_18_Brawler"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sett/skins/base/images/tft18_sett_splash_tile_38.png"
+  },
+  {
+   "id": "DA_18_Sivir",
+   "name": "Sivir",
+   "cost": 4,
+   "traits": [
+    "DA_Primal18",
+    "DA_18_Hunter"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sivir/skins/base/images/tft18_sivir_splash_tile_61.png"
+  },
+  {
+   "id": "DA_18_Soraka",
+   "name": "Soraka",
+   "cost": 4,
+   "traits": [
+    "DA_FloraFatalis18",
+    "DA_18_Executioner"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_soraka/skins/base/images/tft18_soraka_splash_tile_53.png"
+  },
+  {
+   "id": "DA_18_Zyra",
+   "name": "Zyra",
+   "cost": 4,
+   "traits": [
+    "DA_18_ZyraUniqueTrait",
+    "DA_18_Summoner"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_zyra/skins/base/images/tft18_zyra_splash_tile_0.png"
+  },
+  {
+   "id": "DA_18_Alune",
+   "name": "Alune",
+   "cost": 5,
+   "traits": [
+    "DA_AluneUniqueTrait18",
+    "DA_18_Lunar",
+    "DA_18_Spellweaver"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alune/skins/base/images/tft18_alune_splash_tile_15.png"
+  },
+  {
+   "id": "DA_18_Ashe",
+   "name": "Ashe",
+   "cost": 5,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_18_Hunter"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ashe/skins/base/images/tft18_ashe_splash_tile_76.png"
+  },
+  {
+   "id": "DA_Draven18",
+   "name": "Draven",
+   "cost": 5,
+   "traits": [
+    "DA_DravenUniqueTrait18"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_draven/skins/base/images/tft18_draven_splash_tile_5.png"
+  },
+  {
+   "id": "DA_18_ElderDragon",
+   "name": "Elder Dragon",
+   "cost": 5,
+   "traits": [
+    "DA_18_ApexPredator",
+    "DA_Riftbeast18"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elderdragon/skins/base/images/t_18_elderdragon_teamplannersplash.png"
+  },
+  {
+   "id": "DA_18_GnarSmall",
+   "name": "Gnar",
+   "cost": 5,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_Sprykin",
+    "DA_18_Brawler"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gnar/skins/base/images/tft18_gnar_splash_tile_0.png"
+  },
+  {
+   "id": "DA_18_Ivern",
+   "name": "Ivern",
+   "cost": 5,
+   "traits": [
+    "DA_18_Greenfather"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ivern/skins/base/images/tft18_ivern_splash_tile_0.png"
+  },
+  {
+   "id": "DA_18_Kennen",
+   "name": "Kennen",
+   "cost": 5,
+   "traits": [
+    "DA_18_Inferno",
+    "DA_18_Executioner"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kennen/skins/base/images/tft18_kennen_splash_tile_8.png"
+  },
+  {
+   "id": "DA_Lux18_Base",
+   "name": "Lux",
+   "cost": 5,
+   "traits": [
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/skins/base/images/tft18_lux_splash_tile_7.png"
+  },
+  {
+   "id": "DA_Lux18_Blackthorn",
+   "name": "Lux (Blackthorn)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Blackthorn",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_blackthorn_teamplanner.png"
+  },
+  {
+   "id": "DA_Lux18_Blossom",
+   "name": "Lux (Blossom)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Blossom",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_blossom_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Lux_Coven",
+   "name": "Lux (Coven)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Coven",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_coven_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Lux_Elderwood",
+   "name": "Lux (Elderwood)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Elderwood",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_elderwood_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Lux_Fae",
+   "name": "Lux (Fae)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Fae",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_fae_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Lux_Inferno",
+   "name": "Lux (Inferno)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Inferno",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_inferno_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Lux_Moonbeam",
+   "name": "Lux (Lunar)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Lunar",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_moonbeam_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Lux_Primal",
+   "name": "Lux (Primal)",
+   "cost": 5,
+   "traits": [
+    "DA_Primal18",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_primal_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Lux_Sunbeam",
+   "name": "Lux (Solar)",
+   "cost": 5,
+   "traits": [
+    "DA_18_Solar",
+    "DA_18_LuxUniqueTrait"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_sunbeam_teamplanner.png"
+  },
+  {
+   "id": "DA_18_Maokai",
+   "name": "Maokai",
+   "cost": 5,
+   "traits": [
+    "DA_18_Maokai_UniqueTrait",
+    "DA_Juggernaut18"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_maokai/skins/base/images/tft18_maokai_splash_tile_0.png"
+  },
+  {
+   "id": "DA_Taric18",
+   "name": "Taric",
+   "cost": 5,
+   "traits": [
+    "DA_Emerald18",
+    "DA_18_Vanguard"
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_taric/skins/base/images/tft18_taric_splash_tile_1.png"
+  }
+ ],
+ "traits": [
+  {
+   "id": "DA_18_Adaptor",
+   "name": "Adaptor",
+   "breakpoints": [
+    2,
+    3,
+    4
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_adaptor.png"
+  },
+  {
+   "id": "DA_18_ApexPredator",
+   "name": "Apex Predator",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_apexpredator.png"
+  },
+  {
+   "id": "DA_AluneUniqueTrait18",
+   "name": "Attuned",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_attuned.png"
+  },
+  {
+   "id": "DA_18_LuxUniqueTrait",
+   "name": "Avatar",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_avatar.png"
+  },
+  {
+   "id": "DA_18_Blackthorn",
+   "name": "Blackthorn",
+   "breakpoints": [
+    2,
+    4,
+    6
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgod.png"
+  },
+  {
+   "id": "DA_18_Blossom",
+   "name": "Blossom",
+   "breakpoints": [
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_blossom.png"
+  },
+  {
+   "id": "DA_DravenUniqueTrait18",
+   "name": "Bounty Seeker",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_bountyseeker.png"
+  },
+  {
+   "id": "DA_18_Brawler",
+   "name": "Brawler",
+   "breakpoints": [
+    2,
+    4,
+    6
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_brawler.png"
+  },
+  {
+   "id": "DA_18_Caustic",
+   "name": "Caustic",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_caustic.png"
+  },
+  {
+   "id": "DA_18_Coven",
+   "name": "Coven",
+   "breakpoints": [
+    3,
+    4,
+    5,
+    7
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_coven.png"
+  },
+  {
+   "id": "DA_18_Defender",
+   "name": "Defender",
+   "breakpoints": [
+    2,
+    4,
+    6
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_defender.png"
+  },
+  {
+   "id": "DA_18_Elderwood",
+   "name": "Elderwood",
+   "breakpoints": [
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_elderwood.png"
+  },
+  {
+   "id": "DA_Emerald18",
+   "name": "Emerald Aspect",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_emeraldaspect.png"
+  },
+  {
+   "id": "DA_18_Executioner",
+   "name": "Executioner",
+   "breakpoints": [
+    2,
+    3,
+    4
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_executioner.png"
+  },
+  {
+   "id": "DA_18_Fae",
+   "name": "Fae",
+   "breakpoints": [
+    2,
+    4
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_fae.png"
+  },
+  {
+   "id": "DA_FloraFatalis18",
+   "name": "Flora Fatalis",
+   "breakpoints": [
+    1,
+    2
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_florafatalis.png"
+  },
+  {
+   "id": "DA_18_Greenfather",
+   "name": "Greenfather",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_greenfather.png"
+  },
+  {
+   "id": "DA_18_Hunter",
+   "name": "Hunter",
+   "breakpoints": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_hunter.png"
+  },
+  {
+   "id": "DA_18_Inferno",
+   "name": "Inferno",
+   "breakpoints": [
+    2,
+    3,
+    5,
+    7
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_inferno.png"
+  },
+  {
+   "id": "DA_18_Invoker",
+   "name": "Invoker",
+   "breakpoints": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_invoker.png"
+  },
+  {
+   "id": "DA_Juggernaut18",
+   "name": "Juggernaut",
+   "breakpoints": [
+    2,
+    4,
+    6
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_juggernaut.png"
+  },
+  {
+   "id": "DA_18_Lunar",
+   "name": "Lunar",
+   "breakpoints": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_lunar.png"
+  },
+  {
+   "id": "DA_18_Battlemage",
+   "name": "Monolith",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_monolith.png"
+  },
+  {
+   "id": "DA_18_Maokai_UniqueTrait",
+   "name": "Old Growth",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgrowth.png"
+  },
+  {
+   "id": "DA_Primal18",
+   "name": "Primal",
+   "breakpoints": [
+    2,
+    4
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_primal.png"
+  },
+  {
+   "id": "DA_18_Rapidfire",
+   "name": "Rapidfire",
+   "breakpoints": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rapidfire.png"
+  },
+  {
+   "id": "DA_18_Slayer",
+   "name": "Ravager",
+   "breakpoints": [
+    2,
+    4,
+    6
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_ravager.png"
+  },
+  {
+   "id": "DA_Riftbeast18",
+   "name": "Riftbeast",
+   "breakpoints": [
+    3,
+    5,
+    7,
+    10
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_riftbeast.png"
+  },
+  {
+   "id": "DA_18_Rival",
+   "name": "Rival",
+   "breakpoints": [
+    1,
+    2
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rival.png"
+  },
+  {
+   "id": "DA_18_Solar",
+   "name": "Solar",
+   "breakpoints": [
+    3
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_solar.png"
+  },
+  {
+   "id": "DA_18_Spellweaver",
+   "name": "Spellweaver",
+   "breakpoints": [
+    2,
+    4,
+    6
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_spellweaver.png"
+  },
+  {
+   "id": "DA_18_Sprykin",
+   "name": "Sprykin",
+   "breakpoints": [
+    3,
+    5,
+    7
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_sprykin.png"
+  },
+  {
+   "id": "DA_18_Summoner",
+   "name": "Summoner",
+   "breakpoints": [
+    2,
+    3
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_summoner.png"
+  },
+  {
+   "id": "DA_18_ZyraUniqueTrait",
+   "name": "Thornmaiden",
+   "breakpoints": [
+    1
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_zyraorigin.png"
+  },
+  {
+   "id": "DA_18_Vanguard",
+   "name": "Vanguard",
+   "breakpoints": [
+    2,
+    4,
+    6
+   ],
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_vanguard.png"
+  }
+ ],
+ "items": [
+  {
+   "id": "TFT_Item_AdaptiveHelm",
+   "name": "Adaptive Helm",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_adaptivehelm.png"
+  },
+  {
+   "id": "TFT_Item_ArchangelsStaff",
+   "name": "Archangel's Staff",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_archangelsstaff.png"
+  },
+  {
+   "id": "TFT_Item_Bloodthirster",
+   "name": "Bloodthirster",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bloodthirster.png"
+  },
+  {
+   "id": "TFT_Item_BlueBuff",
+   "name": "Blue Buff",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bluebuff.png"
+  },
+  {
+   "id": "TFT_Item_BrambleVest",
+   "name": "Bramble Vest",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bramblevest.png"
+  },
+  {
+   "id": "TFT_Item_Crownguard",
+   "name": "Crownguard",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_crownguard.png"
+  },
+  {
+   "id": "TFT_Item_Deathblade",
+   "name": "Deathblade",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_deathblade.png"
+  },
+  {
+   "id": "TFT_Item_DragonsClaw",
+   "name": "Dragon's Claw",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_dragonsclaw.png"
+  },
+  {
+   "id": "TFT_Item_GuardianAngel",
+   "name": "Edge of Night",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_guardianangel.png"
+  },
+  {
+   "id": "TFT_Item_SpectralGauntlet",
+   "name": "Evenshroud",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spectralgauntlet.png"
+  },
+  {
+   "id": "TFT_Item_GargoyleStoneplate",
+   "name": "Gargoyle Stoneplate",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_gargoylestoneplate.png"
+  },
+  {
+   "id": "TFT_Item_MadredsBloodrazor",
+   "name": "Giant Slayer",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_madredsbloodrazor.png"
+  },
+  {
+   "id": "TFT_Item_GuinsoosRageblade",
+   "name": "Guinsoo's Rageblade",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_guinsoosrageblade.png"
+  },
+  {
+   "id": "TFT_Item_UnstableConcoction",
+   "name": "Hand Of Justice",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_unstableconcoction.png"
+  },
+  {
+   "id": "TFT_Item_HextechGunblade",
+   "name": "Hextech Gunblade",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_hextechgunblade.png"
+  },
+  {
+   "id": "TFT_Item_InfinityEdge",
+   "name": "Infinity Edge",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_infinityedge.png"
+  },
+  {
+   "id": "TFT_Item_IonicSpark",
+   "name": "Ionic Spark",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_ionicspark.png"
+  },
+  {
+   "id": "TFT_Item_JeweledGauntlet",
+   "name": "Jeweled Gauntlet",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_jeweledgauntlet.png"
+  },
+  {
+   "id": "TFT_Item_RunaansHurricane",
+   "name": "Kraken's Fury",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_krakenslayer.png"
+  },
+  {
+   "id": "TFT_Item_LastWhisper",
+   "name": "Last Whisper",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_lastwhisper.png"
+  },
+  {
+   "id": "TFT_Item_Morellonomicon",
+   "name": "Morellonomicon",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_morellonomicon.png"
+  },
+  {
+   "id": "TFT_Item_Leviathan",
+   "name": "Nashor's Tooth",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_leviathan.png"
+  },
+  {
+   "id": "TFT_Item_FrozenHeart",
+   "name": "Protector's Vow",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_frozenheart.png"
+  },
+  {
+   "id": "TFT_Item_Quicksilver",
+   "name": "Quicksilver",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_quicksilver.png"
+  },
+  {
+   "id": "TFT_Item_RabadonsDeathcap",
+   "name": "Rabadon's Deathcap",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rabadonsdeathcap.png"
+  },
+  {
+   "id": "TFT_Item_RapidFireCannon",
+   "name": "Red Buff",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rapidfirecannon.png"
+  },
+  {
+   "id": "TFT_Item_SpearOfShojin",
+   "name": "Spear of Shojin",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spearofshojin.png"
+  },
+  {
+   "id": "TFT_Item_Redemption",
+   "name": "Spirit Visage",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spiritvisagerr.png"
+  },
+  {
+   "id": "TFT_Item_NightHarvester",
+   "name": "Steadfast Heart",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_nightharvester.png"
+  },
+  {
+   "id": "TFT_Item_SteraksGage",
+   "name": "Sterak's Gage",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_steraksgage.png"
+  },
+  {
+   "id": "TFT_Item_PowerGauntlet",
+   "name": "Striker's Flail",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_powergauntlet.png"
+  },
+  {
+   "id": "TFT_Item_RedBuff",
+   "name": "Sunfire Cape",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_redbuff.png"
+  },
+  {
+   "id": "TFT_Item_TacticiansRing",
+   "name": "Tactician's Cape",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansring.png"
+  },
+  {
+   "id": "TFT_Item_ForceOfNature",
+   "name": "Tactician's Crown",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_forceofnature.png"
+  },
+  {
+   "id": "TFT_Item_TacticiansScepter",
+   "name": "Tactician's Shield",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansscepter.png"
+  },
+  {
+   "id": "TFT_Item_ThiefsGloves",
+   "name": "Thief's Gloves",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_thiefsgloves.png"
+  },
+  {
+   "id": "TFT_Item_TitansResolve",
+   "name": "Titan's Resolve",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_titansresolve.png"
+  },
+  {
+   "id": "TFT_Item_StatikkShiv",
+   "name": "Void Staff",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_voidstaff.png"
+  },
+  {
+   "id": "TFT_Item_WarmogsArmor",
+   "name": "Warmog's Armor",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_warmogsarmor.png"
+  }
+ ],
+ "augments": [
+  {
+   "id": "DA_AdvancedLoanPlus",
+   "name": "Advanced Loan+",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/advancedloan_ii.png"
+  },
+  {
+   "id": "TFT9_Augment_Commander_Ascension",
+   "name": "Ascension",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/ascension2.png"
+  },
+  {
+   "id": "TFT_Augment_PowerUp",
+   "name": "Augmented Power",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/powerup_i.png"
+  },
+  {
+   "id": "TFT_Augment_BackupDancers",
+   "name": "Backup Dancers",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/backupdancers_ii.png"
+  },
+  {
+   "id": "DA_BandOfThievesII",
+   "name": "Band of Thieves II",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bandthieves3.png"
+  },
+  {
+   "id": "DA_18_PrimalAugment_Sivir",
+   "name": "Beast Within",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+  },
+  {
+   "id": "DA_18_PrimalAugmentPlus_Nidalee",
+   "name": "Beast Within+",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+  },
+  {
+   "id": "DA_18_BigGrabBag",
+   "name": "Big Grab Bag",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/grab-bag-ii.png"
+  },
+  {
+   "id": "TFT_Augment_BlazingSoul2",
+   "name": "Blazing Soul II",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/blazing-soul-iii.png"
+  },
+  {
+   "id": "TFT_Augment_TheDarkinBlade",
+   "name": "Blood Offering",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/trailofblood_ii.png"
+  },
+  {
+   "id": "DA_BonusGift",
+   "name": "Bonus Gifts",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+  },
+  {
+   "id": "TFT_Augment_BoosterPackPlusPlus",
+   "name": "Booster Pack++",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/choiceui/boosterpack1_ii.png"
+  },
+  {
+   "id": "DA_BronzeForLifeII",
+   "name": "Bronze For Life II",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bronzeforlife_iii.png"
+  },
+  {
+   "id": "DA_BuildABud",
+   "name": "Build A Bud",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/constructacompanion_iii.png"
+  },
+  {
+   "id": "DA_CallToChaos",
+   "name": "Call To Chaos",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/calltochaos_iii.png"
+  },
+  {
+   "id": "DA_CalledShot",
+   "name": "Called Shot",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/calledshot_i.png"
+  },
+  {
+   "id": "DA_CelestialBlessingI",
+   "name": "Celestial Blessing I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/celestialblessing1.png"
+  },
+  {
+   "id": "DA_ChampDeliveryPlusPlus",
+   "name": "Champ Delivery++",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+  },
+  {
+   "id": "TFT9_Augment_CustomerIsAlwaysRight",
+   "name": "Component Buffet",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/the-customer-is-always-right-i.png"
+  },
+  {
+   "id": "DA_18_FloraFatalisAugment",
+   "name": "Consuming Flora",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+  },
+  {
+   "id": "TFT_Augment_CrownguardSpirit",
+   "name": "Crown's Will",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/will-of-the-crown-ii.png"
+  },
+  {
+   "id": "TFT6_Augment_Twins2",
+   "name": "Double Trouble",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/double-trouble-ii.png"
+  },
+  {
+   "id": "TFT_Augment_EarlyLearning",
+   "name": "Early Learnings",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/earlylearning_ii.png"
+  },
+  {
+   "id": "TFT6_Augment_Distancing",
+   "name": "Exiles I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/exiles1.png"
+  },
+  {
+   "id": "TFT_Augment_ExplosiveGrowth",
+   "name": "Explosive Growth",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/explosivegrowth_ii.png"
+  },
+  {
+   "id": "DA_ExplosiveGrowth",
+   "name": "Explosive Growth",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/explosivegrowth_ii.png"
+  },
+  {
+   "id": "DA_ForgeAFriend",
+   "name": "Forge A Friend",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/constructacompanion_iii.png"
+  },
+  {
+   "id": "DA_GainGold",
+   "name": "Gain 21 Gold",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/windfall2.png"
+  },
+  {
+   "id": "TFT_Augment_GiantAndMighty",
+   "name": "Giant and Mighty",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/giantandmighty_iii.png"
+  },
+  {
+   "id": "TFT_Augment_GoldDestiny",
+   "name": "Gold Destiny",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldendestiny_ii.png"
+  },
+  {
+   "id": "DA_GoldDestiny",
+   "name": "Gold Destiny",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldendestiny_ii.png"
+  },
+  {
+   "id": "DA_GroupHugI",
+   "name": "Group Hug I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/grouphug1_i.png"
+  },
+  {
+   "id": "TFT_Augment_GroupHug1",
+   "name": "Group Hug I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/grouphug1_i.png"
+  },
+  {
+   "id": "DA_HardCommit",
+   "name": "Hard Commit",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/hardcommit_iii.png"
+  },
+  {
+   "id": "TFT9_Augment_HealingOrbsI",
+   "name": "Healing Orbs I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/healing-orbs-i.png"
+  },
+  {
+   "id": "DA_HealingOrbsI",
+   "name": "Healing Orbs I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/healing-orbs-i.png"
+  },
+  {
+   "id": "TFT_Augment_InvestedPlus",
+   "name": "Invested+",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/invested-iii.png"
+  },
+  {
+   "id": "DA_InvestedPlus",
+   "name": "Invested+",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/invested-iii.png"
+  },
+  {
+   "id": "TFT_Augment_ItemCollector2",
+   "name": "Item Collector II",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/itemcollector_ii.png"
+  },
+  {
+   "id": "DA_ItemGrabBag",
+   "name": "Item Grab Bag I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/itemgrabbag1.png"
+  },
+  {
+   "id": "DA_KnowYourEnemy",
+   "name": "Know Your Enemy",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/know-your-enemy-ii.png"
+  },
+  {
+   "id": "TFT7_Augment_LuckyGlovesPlus",
+   "name": "Lucky Gloves+",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/lucky-gloves-iii.png"
+  },
+  {
+   "id": "TFT11_Augment_BloodBank",
+   "name": "Lunch Money",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bloodbank_i.png"
+  },
+  {
+   "id": "TFT6_Augment_MakeshiftArmor1",
+   "name": "Makeshift Armor I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/makeshift1.png"
+  },
+  {
+   "id": "DA_18_RiftbeastTraitAugment",
+   "name": "Omega Riftbeast",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+  },
+  {
+   "id": "DA_18_OneTwoFive",
+   "name": "One, Two, Five!",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/one-two-five-i.png"
+  },
+  {
+   "id": "TFT_Augment_Overheal",
+   "name": "Overheal",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/overheal_ii.png"
+  },
+  {
+   "id": "DA_PatienceIsAVirtue",
+   "name": "Patience Is A Virtue",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/patienceisavirtue_i.png"
+  },
+  {
+   "id": "TFT9_Augment_LearningFromExperience2",
+   "name": "Patient Study",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/learning-from-experience-ii.png"
+  },
+  {
+   "id": "TFT_Augment_Placebo",
+   "name": "Placebo",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/placebo_i.png"
+  },
+  {
+   "id": "TFT7_Augment_Preparation2",
+   "name": "Preparation II",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/preparation-ii.png"
+  },
+  {
+   "id": "DA_PrismaticDestiny",
+   "name": "Prismatic Destiny",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/prismaticdestiny_iii.png"
+  },
+  {
+   "id": "DA_PromisedProtection",
+   "name": "Promised Protection",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/promisedprotection_ii.png"
+  },
+  {
+   "id": "TFT_Augment_PsychicForge",
+   "name": "Psychic Forge",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/psychicforge_ii.png"
+  },
+  {
+   "id": "TFT9_Augment_PumpingUp2",
+   "name": "Pumping Up II",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/pumping-up-ii.png"
+  },
+  {
+   "id": "TFT9_Augment_PumpingUp3",
+   "name": "Pumping Up III",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/pumping-up-iii.png"
+  },
+  {
+   "id": "DA_18_ResidualMagicPlus",
+   "name": "Residual Magic +",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+  },
+  {
+   "id": "TFT9_Augment_Commander_RollingForDays",
+   "name": "Rolling For Days I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/rolling-for-days-i.png"
+  },
+  {
+   "id": "DA_SilverSpoon",
+   "name": "Silver Spoon",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/silver-spoon-i.png"
+  },
+  {
+   "id": "TFT9_Augment_DravenSpoilsOfWar2",
+   "name": "Spoils of War II",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/spoils-of-war-legend-ii.png"
+  },
+  {
+   "id": "TFT9_Augment_StarsAreBorn",
+   "name": "Stars Are Born",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/stars-are-born-ii.png"
+  },
+  {
+   "id": "TFT9_Augment_StarterKit",
+   "name": "Starter Kit",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/starter-kit-iii.png"
+  },
+  {
+   "id": "TFT_Augment_SubscriptionService",
+   "name": "Subscription Service",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/subscriptionservice_iii.png"
+  },
+  {
+   "id": "TFT_Augment_TacticiansKitchen",
+   "name": "Tactician's Kitchen",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/tacticianskitchen_iii.png"
+  },
+  {
+   "id": "TFT6_Augment_TheGoldenEgg",
+   "name": "The Golden Egg",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/the-golden-egg-iii.png"
+  },
+  {
+   "id": "TFT_Augment_TombRaider1",
+   "name": "Tomb Raider I",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/tombraider_ii.png"
+  },
+  {
+   "id": "DA_TradeSector",
+   "name": "Trade Sector",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/trade2.png"
+  },
+  {
+   "id": "TFT_Augment_Underdogs",
+   "name": "Underdogs",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/underdogs1.png"
+  },
+  {
+   "id": "TFT_Augment_UpwardMobility",
+   "name": "Upward Mobility",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/upwardmobility_iii.png"
+  },
+  {
+   "id": "TFT6_Augment_ThriftShop",
+   "name": "Wise Spending",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/wisespending3.png"
+  },
+  {
+   "id": "DA_WorththeWait",
+   "name": "Worth the Wait",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/worththewait_ii.png"
+  },
+  {
+   "id": "TFT9_Augment_YouHaveMyBow",
+   "name": "You Have My Bow",
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/you-have-my-bow-ii.png"
+  }
+ ]
+}

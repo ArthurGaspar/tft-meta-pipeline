@@ -215,6 +215,13 @@ td { padding: 7px 8px; border-bottom: 1px solid color-mix(in srgb, var(--line) 6
 .hexboard .shot.team0 { stroke: var(--team-0); } .hexboard .shot.team1 { stroke: var(--team-1); }
 .hexboard .shot.crit { stroke: var(--gold); stroke-width: 3; }
 .hexboard .burst { fill: none; stroke-width: 3; }
+.hexboard .zone { stroke-width: 2; }
+.hexboard .zone.team0 { fill: color-mix(in srgb, var(--team-0) 30%, transparent); stroke: var(--team-0); }
+.hexboard .zone.team1 { fill: color-mix(in srgb, var(--team-1) 30%, transparent); stroke: var(--team-1); }
+.hexboard .beam { stroke-width: 5; stroke-linecap: round; }
+.hexboard .beam.team0 { stroke: var(--team-0); } .hexboard .beam.team1 { stroke: var(--team-1); }
+.hexboard .shieldbar { fill: var(--ink); opacity: 0.85; }
+.hexboard .ring.disabled { stroke-dasharray: 4 3; stroke: var(--gold) !important; }
 .hexboard .burst.team0 { stroke: var(--team-0); } .hexboard .burst.team1 { stroke: var(--team-1); }
 .team-label.team0 { color: var(--team-0); } .team-label.team1 { color: var(--team-1); }
 .btn { border: 1px solid var(--line); background: var(--panel-2); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
@@ -235,3 +242,9 @@ td { padding: 7px 8px; border-bottom: 1px solid color-mix(in srgb, var(--line) 6
 .search { border: 1px solid var(--line); background: var(--panel-2); border-radius: 6px; padding: 5px 10px; color: var(--ink); min-width: 0; width: 160px; }
 .item-slots { display: grid; gap: 6px; margin-top: 10px; }
 .item-slots select { border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); border-radius: 6px; padding: 5px 8px; }
+.effects li { white-space: pre-line; }
+.effects { margin: 10px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); display: grid; gap: 4px; }
+.spell { margin-top: 12px; padding: 10px 12px; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--line); }
+.spell-text { white-space: pre-line; font-size: 13px; color: var(--ink-2); margin: 6px 0; }
+.badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-3); }
+.badge.real { color: var(--good); border-color: var(--good); }

@@ -23,6 +23,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Kunai Strike",
+    "desc": "Adaptor : Throw a volley of kunai at the target, dealing @PhysicalDamageCalc1@ physical damage. If the target is Burning, deal an additional @PhysicalDamageCalc2@ damage.\n\nAdaptor : If the Ability kills, cast it again.",
+    "vars": {}
    }
   },
   {
@@ -45,6 +50,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Defensive Sweep",
+    "desc": "Slice the target for @PhysicalDamageCalc1@ physical damage and gain @AbilityShield@ Shield for @ShieldDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -67,6 +77,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Razor Leaves",
+    "desc": "Summon five razor-sharp leaves that converge on the current target, dealing a total of @PhysicalDamageCalc1@ physical damage and applying @WoundLevel@% Wound and @BurnAmount@% Burn for @WoundDuration@ seconds.\n\nScarlet Buff: Cinderling gains @TraitADOnCast@ Attack Damage each cast.\n\nWound: Reduces healing received.\nBurn: Deals a percent of the target's max Health as true damage every second.",
+    "vars": {}
    }
   },
   {
@@ -89,6 +104,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Karmic Bond",
+    "desc": "Tether the current target, dealing @MagicDamageCalc1@ magic damage over @TetherDuration@ seconds. Then release a burst of power around them, dealing @MagicDamageCalc2@ magic damage to all enemies in a @AoEHexRange@ Hex radius and @SlowPercent@% Slowing them for @SlowDuration@ seconds.\n\nSlow: Reduce Attack Speed",
+    "vars": {}
    }
   },
   {
@@ -111,6 +131,57 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Dance of Life",
+    "desc": "Restore @HealthCalc1@ Health over @Duration@ seconds. The next attack is replaced with a bash that deals @MagicDamageCalc1@ magic damage.",
+    "vars": {
+     "PermanentHealthPerInterest": [
+      30.0,
+      10.0,
+      12.0,
+      20.0,
+      30.0,
+      30.0,
+      30.0
+     ],
+     "Duration": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+     ],
+     "Heal": [
+      60.0,
+      350.0,
+      400.0,
+      475.0,
+      100.0,
+      110.0,
+      120.0
+     ],
+     "DamageHPPercent": [
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.15
+     ],
+     "HRHealthPerRound": [
+      15.0,
+      60.0,
+      80.0,
+      200.0,
+      15.0,
+      15.0,
+      15.0
+     ]
+    }
    }
   },
   {
@@ -133,6 +204,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Shield Bash",
+    "desc": "Passive: Start combat with @GenericCalc1@ bonus Armor and Magic Resist that decays over @DecayDuration@ seconds.\n\nActive: Bash the current target, dealing @MagicDamageCalc1@ magic damage and Stunning them for @StunDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -155,6 +231,11 @@
     "startMana": 40.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Bellows Breath",
+    "desc": "Active: Gain @ShieldCalc1@ Shield for @ShieldDuration@ seconds and deal @MagicDamageCalc1@ magic damage to enemies in a cone.\n\nQuest: Each player combat, Ornn stores damage blocked as Forge Power, increased by @DamageTaken3StarScalar@ at 3-star. Gain an Artifact Anvil each time he gains enough Forge Power. (Forge Power: @Stack@ / @GenericCalc1@)",
+    "vars": {}
    }
   },
   {
@@ -177,6 +258,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Azure Laser",
+    "desc": "Begin consuming @PercentManaPerSecond@ max Mana per second and channeling a laser on the target. Each second while casting, deal @MagicDamageCalc1@ magic damage to them and reduce their Magic Resist by @MRReduction@.\n\nTeal Buff: Gain @TraitManaRegenTooltip@ Mana Regen for every @TraitChannelSecondsTooltip@ seconds channeled.",
+    "vars": {}
    }
   },
   {
@@ -200,6 +286,11 @@
     "startMana": 35.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Entrancing Dance",
+    "desc": "Gain @ShieldCalc1@ Shield for @ShieldDuration@ seconds. Then grant the ally who has dealt the most damage this combat @AttackSpeedCalc1@ decaying Attack Speed for @AttackSpeedDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -222,6 +313,11 @@
     "startMana": 40.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Uproot",
+    "desc": "Passive: Restore @HealthCalc2@ Health each second, tripled for @SpellMultiplierDuration@ seconds after casting.\n\nActive: Lunge out of the ground, Stunning adjacent enemies for @KnockupDuration@ second and dealing @MagicDamageCalc1@ magic damage to them.",
+    "vars": {}
    }
   },
   {
@@ -244,6 +340,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Piercing Arrow",
+    "desc": "Wind up, then fire an arrow at the most enemies in line with the target. It deals @PhysicalDamageCalc1@ physical damage to enemies hit, reduced by @DamageReductionPerHit@ for each enemy it passes through (minimum @MinDamagePercent@).",
+    "vars": {}
    }
   },
   {
@@ -267,6 +368,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Primordial Burst",
+    "desc": "Launch a giant blast at the target that deals @MagicDamageCalc1@ magic damage, increased to @MagicDamageCalc2@ if they're below @HPThreshold@ max Health.\n\nIf they die, permanently gain @APOnKill@% Ability Power.\n\nCurrent bonus: @Stack@%",
+    "vars": {}
    }
   },
   {
@@ -290,6 +396,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Deadly Plumage",
+    "desc": "Gain @AttackSpeed@ Attack Speed for the next @NumAttacks@ attacks. These attacks are replaced with feathers that deal @PhysicalDamageCalc1@ physical damage and reduce Armor by @GenericCalc1@ .",
+    "vars": {}
    }
   },
   {
@@ -313,6 +424,11 @@
     "startMana": 50.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Last Rites",
+    "desc": "Passive: On death, spawn a Spirit Walker with @HealthCalc2@ max Health which immediately taunts, forcing enemies to attack it.\n\nActive: Restore @HealthCalc1@ Health and strike the target, dealing @PhysicalDamageCalc1@ physical damage.",
+    "vars": {}
    }
   },
   {
@@ -335,6 +451,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Triumphant Roar",
+    "desc": "Roar, restoring @HealthCalc1@ Health, cleansing disables, and healing the two lowest percent Health allies for @HealthCalc2@ . Then slam the current target, dealing @MagicDamageCalc1@ magic damage and Stunning them for @StunDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -357,6 +478,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Headshot",
+    "desc": "Passive: Every third attack is replaced with a Headshot that deals @PhysicalDamageCalc1@ physical damage.",
+    "vars": {}
    }
   },
   {
@@ -379,6 +505,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Spider Queen",
+    "desc": "Transform into a spider and gain @SpiderHealthBuff@ max Health. Attacks while in Spider Form deal @MagicDamageCalc1@ bonus magic damage and heal for @HealthCalc1@ . Subsequent casts grant @DecayingAS@ decaying Attack Speed for @ASBuffDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -401,6 +532,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Belchy Bubble",
+    "desc": "Adaptor : Belch a noxious bubble at the current target that explodes on the first enemy hit, dealing @MagicDamageCalc1@ magic damage. Enemies within a 1 hex radius of the explosion take @MagicDamageCalc2@ magic damage over @PoisonDurationAP@ seconds.\n\nAdaptor : Heavily slows the target.\n\nPurple Buff: Every @TraitTimer@ seconds, Gromp gains @TraitTimedAP@ Ability Power.",
+    "vars": {}
    }
   },
   {
@@ -423,6 +559,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Solar Judgement",
+    "desc": "Passive: Kayle ascends based on her star level, granting her stacking bonuses.\n\n1st Ascension: Attacks deal @MagicDamageCalc1@ bonus magic damage.\n2nd Ascension: Attacks @ShredLevel@% Shred enemies hit for @ShredDuration@ seconds.\n3rd Ascension: Attacks fire waves, dealing @MagicDamageCalc2@ magic damage to all other units hit.\n4th Ascension: Gain infinite range. Every @NumAttacksForBigWave4Star@rd wave is much larger.\n\nShred: Reduce Magic Resist",
+    "vars": {}
    }
   },
   {
@@ -445,6 +586,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Mirror Image",
+    "desc": "Passive: After player combat, your strongest LeBlanc has a @PercentChanceToPrint@ chance to create a copy of an ally on your board, increased by @PercentChanceToPrintKillBonus@ per takedown.\n\nActive: Launch a mirror image at the current target, dealing @MagicDamageCalc1@ magic damage and @MagicDamageCalc2@ to adjacent enemies.",
+    "vars": {}
    }
   },
   {
@@ -467,6 +613,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Rending Claws",
+    "desc": "Leap to the lowest Health enemy within @LeapHexRadius@ Hexes and deal @PhysicalDamageCalc1@ physical damage. The next @NumEmpoweredAttacks@ attacks gain @EmpowerAspd@ Attack Speed and deal @PhysicalDamageCalc2@ bonus physical damage.\n\nGrey Buff: Gain Precision and @TraitBaseCrit@ Critical Strike Chance, increased up to @TraitBonusCrit@ based on missing Health.",
+    "vars": {}
    }
   },
   {
@@ -489,6 +640,11 @@
     "startMana": 40.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Can You Dig It?",
+    "desc": "Passive: Attacks are replaced by a dance that deals @PhysicalDamageCalc1@ physical damage to all adjacent enemies.\n\nActive: Burrow underground, gaining @BurrowDurability@ Durability for @BurrowDuration@ seconds and healing @HealthCalc1@ over the duration.\n\nGreen Buff: When allies fall below @TraitHealthThreshold@ Health, they restore @TraitPercentHeal@ max Health.",
+    "vars": {}
    }
   },
   {
@@ -511,6 +667,11 @@
     "startMana": 40.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Sun's Wrath",
+    "desc": "Gain @ShieldCalc1@ Shield for @ShieldDuration@ seconds. Then cleave in a cone, dealing @MagicDamageCalc1@ magic damage and strike in a line, dealing @MagicDamageCalc2@ magic damage to enemies hit.",
+    "vars": {}
    }
   },
   {
@@ -533,6 +694,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Ki Barrier",
+    "desc": "Grant @ShieldCalc1@ Shield to Shen and @ShieldCalc2@ Shield to a nearby damaged ally for @MagicShieldDuration@ seconds. Both of their next @NumAttacksBuff@ attacks gain @AttackSpeedBuff@ Attack Speed and deal @MagicDamageCalc1@ bonus magic damage.",
+    "vars": {}
    }
   },
   {
@@ -555,6 +721,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Fungus Among Us",
+    "desc": "Throw 2 clusters of mushrooms that deal @MagicDamageCalc1@ magic damage to the @NumEnemiesHit@ nearest enemies. Then hurl a giant mushroom that deals @MagicDamageCalc2@ magic damage to the target.\n\nEach cast has a @PercentChanceOfForage@ chance to forage an extra mushroom that can be collected for bonus effects.\n\nRed: @RedRerolls@ Reroll (Reds Foraged: @Stack@)\nGreen: @GreenHealth@ Tactician Health (Greens Foraged: @GenericCalc1@)\nYellow: @YellowXP@ XP (Yellows Foraged: @GenericCalc2@)",
+    "vars": {}
    }
   },
   {
@@ -577,6 +748,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Jaws of The Beast",
+    "desc": "Bite the current target, dealing @PhysicalDamageCalc1@ physical damage and healing for @GenericCalc1@ of the damage dealt. Gain @AttackSpeedBuff@ Attack Speed for the rest of combat.",
+    "vars": {}
    }
   },
   {
@@ -599,6 +775,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Cultivation of Spirit",
+    "desc": "Dash, then launch an orb at the current target that deals @PhysicalDamageCalc1@ physical damage and splits, dealing @PhysicalDamageCalc2@ physical damage to @NumSecondaryTargets@ nearby enemies.",
+    "vars": {}
    }
   },
   {
@@ -622,6 +803,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Arise!",
+    "desc": "Gain @AttackSpeed@ Attack Speed and summon @SoldiersToSpawn@ soldiers for the next @NumAttacks@ attacks. These attacks are replaced by commands which direct each soldier to deal @MagicDamageCalc1@ magic damage per attack.",
+    "vars": {}
    }
   },
   {
@@ -644,6 +830,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Noxious Blast",
+    "desc": "Poison the target and the nearest non-poisoned enemy, dealing @MagicDamageCalc1@ magic damage over @Duration@ seconds. Poisons stack.",
+    "vars": {}
    }
   },
   {
@@ -667,6 +858,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Pale Barrier",
+    "desc": "Gain @ShieldCalc1@ shield for @ShieldDuration@ seconds and send out @NumOrbs@ moonlight orbs spread among enemies within 2 hexes, each dealing @MagicDamageCalc1@ magic damage.",
+    "vars": {}
    }
   },
   {
@@ -690,6 +886,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Harvest",
+    "desc": "Reduce the Magic Resist of the @NumTargets@ nearest enemies by @MRReduction@. Then drain life from them over @CastDuration@ seconds, healing for @HealthCalc1@ Health and dealing @MagicDamageCalc1@ magic damage to each over the duration.",
+    "vars": {}
    }
   },
   {
@@ -712,6 +913,11 @@
     "startMana": 50.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Spirit of Dread",
+    "desc": "Gain @Resists@ Armor and Magic Resist for 3 seconds and restore @HealthCalc1@ Health over the duration. Launch spectral riders at the @NumEnemies@ nearest enemies, dealing @MagicDamageCalc1@ magic damage and Stunning them for @StunDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -733,6 +939,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Taste Their Fear",
+    "desc": "Leap to the farthest enemy within @LeapRangeHexes@ Hexes, dealing @MagicDamageCalc1@ magic damage. If they have no adjacent allies, deal @MagicDamageCalc2@ magic damage instead and gain @IsolateManaGrant@ mana.",
+    "vars": {}
    }
   },
   {
@@ -756,6 +967,11 @@
     "startMana": 15.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Raining Artillery",
+    "desc": "Adaptor : Launch acid at the target and the other nearest enemy, dealing @PhysicalDamageCalc1@ physical damage. Enemies below @ADBonusDamageThreshold@ max Health take @PhysicalDamageCalc2@ physical damage instead.\n\nAdaptor: Damages enemies over time.",
+    "vars": {}
    }
   },
   {
@@ -778,6 +994,11 @@
     "startMana": 80.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Rock and Roll",
+    "desc": "Passive: On death, split into two Kruglettes with @HealthCalc1@ Health which immediately taunt, forcing enemies to attack them.\n\nActive: Gain @HealthCalc2@ max Health, then roll into the target, dealing @PhysicalDamageCalc1@ damage.\n\nSlate Buff: On death, Krug and Kruglettes Shield allies for @TraitShieldHealth@ max Health.",
+    "vars": {}
    }
   },
   {
@@ -801,6 +1022,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Flock Family",
+    "desc": "Summon 4 untargetable Tiny Beaks nearby for @GenericCalc1@ seconds. Whenever Mama Beak attacks, Tiny Beaks attack the same enemy, dealing @PhysicalDamageCalc1@ physical damage.\n\nOrange Buff: Dealing physical damage reduces enemy Armor by @ArmorReduc@.",
+    "vars": {}
    }
   },
   {
@@ -823,6 +1049,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Wuju Style",
+    "desc": "Passive: Every third attack is a Double Strike. On takedown, gain a burst of movement speed.\n\nAdaptor : Double Strikes grant @AttackSpeedCalc1@ stacking Attack Speed.\n\nAdaptor : Double Strikes deal bonus damage and heal.",
+    "vars": {}
    }
   },
   {
@@ -845,6 +1076,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Defensive Ball Curl",
+    "desc": "Taunt, forcing enemies to attack this champion. For @Duration@ seconds, gain @ShieldCalc1@ Shield and @ArmorMR@ Armor and Magic Resist.\n\nWhen the Shield breaks, deal @PhysicalDamageCalc1@ physical damage to enemies in @DamageHexRange@ Hexes.",
+    "vars": {}
    }
   },
   {
@@ -866,6 +1102,11 @@
     "startMana": 10.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Savagery",
+    "desc": "Jump to the lowest percent Health enemy within @JumpHexRange@ hexes and stab them, dealing @PhysicalDamageCalc1@ physical damage. Then heal for @HealthCalc1@ , increased to up to @HealthCalc2@ based on their missing Health.",
+    "vars": {}
    }
   },
   {
@@ -889,6 +1130,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Explosive Charge",
+    "desc": "Attach an explosive charge to the target that lasts @Duration@ seconds. While active, gain infinite range and @AttackSpeedCalc1@ Attack Speed. After the duration, the charge explodes and splits damage between all enemies within 2 hexes, dealing @PhysicalDamageCalc1@ physical damage + @PhysicalDamageCalc2@ for each attack while casting.\n\nIf an enemy with an explosive charge on them dies, it attaches to Tristana's new target.",
+    "vars": {}
    }
   },
   {
@@ -911,6 +1157,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Furious Fists",
+    "desc": "Passive: On attack, restore @HealthCalc1@ Health.\n\nActive: Unleash a primal roar, restoring @HealthCalc3@ Health. Then gain @SpellAS@ Attack Speed, @SpellDurability@ Durability, and is unstoppable for @SpellDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -933,6 +1184,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Spirit Bomb",
+    "desc": "Launch a spirit bomb at the location within @AbilityCenterHexRange@ hexes that has the most surrounding enemies. It deals @MagicDamageCalc1@ magic damage to enemies in a @HexRadius@ hex radius, reduced by @HexPercentDamageFalloffTooltip@ per hex away from the epicenter.",
+    "vars": {}
    }
   },
   {
@@ -955,6 +1211,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Tantrum",
+    "desc": "Passive: Every second, restore @HealthCalc1@ Health and deal @MagicDamageCalc1@ magic damage to enemies within @PassiveHexRadius@ hex.\n\nActive: Deal @MagicDamageCalc3@ magic damage to enemies within @BigHexRadius@ hexes and Stun them for @StunDuration@ seconds, increased to @GenericCalc1@ seconds if the target is Burning.\n\nBurn: Deals a percent of the target's max Health as true damage every second.",
+    "vars": {}
    }
   },
   {
@@ -977,6 +1238,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Moonlight's Onslaught",
+    "desc": "Equip Severum and swipe the target @GenericCalc1@ times over @Duration@ seconds, each dealing @PhysicalDamageCalc1@ physical damage.\n\nAfter the onslaught finishes, fire a blast that deals @PhysicalDamageCalc2@ physical damage split among all enemies in a 2 Hex radius.",
+    "vars": {}
    }
   },
   {
@@ -999,6 +1265,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Crimson Fury",
+    "desc": "Passive: When the target dies, leap at the next target, dealing @PhysicalDamageCalc1@ physical damage.\n\nActive: Gain @FrenzyADPercent@ Attack Damage for @Duration@ seconds. During this time ignore @GenericCalc1@ Armor.\n\nRed Buff: Attacks @BurnAmount@% Burn enemies and heal Brambleback for @TraitMaxHealthHeal@ max Health.",
+    "vars": {}
    }
   },
   {
@@ -1021,6 +1292,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Forest's Flurry",
+    "desc": "Blink away from the current target, deal @PhysicalDamageCalc1@ physical damage to them, and gain @AttackSpeedCalc1@ Attack Speed.\n\nEvery 4th cast consumes the Attack Speed granted from Forest's Flurry and fires a blast through the largest group of enemies that deals @PhysicalDamageCalc2@ physical damage, reduced by @DamageReductionPerHit@ for each enemy it passes through (minimum @MinDamagePercent@).",
+    "vars": {}
    }
   },
   {
@@ -1043,6 +1319,11 @@
     "startMana": 40.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Lilting Lullaby",
+    "desc": "Restore @HealthCalc1@ Health and send @NumEnemiesToFireAt@ butterflies at nearby enemies. Enemies hit take @MagicDamageCalc1@ magic damage and Sleep for @SleepDuration@ seconds. If they take @DamageNeededToAwaken@ damage, they wake up and take an additional @WakeupDamage@ max Health magic damage.",
+    "vars": {}
    }
   },
   {
@@ -1065,6 +1346,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Petrified Bark",
+    "desc": "Gain @ShieldCalc1@ Shield for @ShieldDuration@ seconds and become petrified. When the shield breaks, unleash a wave of dark energy, dealing @MagicDamageCalc1@ magic damage to enemies within @AoEHexRange@ hexes.",
+    "vars": {}
    }
   },
   {
@@ -1087,6 +1373,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Withering Curse",
+    "desc": "Passive: Gain @Omnivamp@ Omnivamp.\n\nActive: Fire a dark blast at @NumEnemiesCursed@ nearby enemies, dealing @MagicDamageCalc1@ magic damage to them and cursing them for @SpellDuration@ seconds. Then, spawn a @HexRangeAOE@ Hex withering zone for the same duration that deals @MagicDamageCalc2@ magic damage per second. Cursed enemies take @MagicDamageCalc3@ more damage per curse.",
+    "vars": {}
    }
   },
   {
@@ -1109,6 +1400,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Javelin Toss",
+    "desc": "Adaptor : Gain @BonusAttackSpeed@ Attack Speed for the next @NumEmpoweredAttacks@ attacks. These attacks are replaced with javelins that deal @MagicDamageCalc1@ magic damage. The 3rd attack instead targets the furthest enemy with the least items and deals @MagicDamageCalc2@ magic damage.\n\nAdaptor : Transform into a Melee cougar Assassin that swipes enemies.",
+    "vars": {}
    }
   },
   {
@@ -1132,6 +1428,11 @@
     "startMana": 60.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Azure Shockwave",
+    "desc": "Gain @ShieldCalc1@ Shield for @ShieldDuration@ seconds. Slam the ground, sending a fissure in the direction of the most enemies. Enemies hit are briefly knocked up, take @MagicDamageCalc1@ magic damage, and are Mana Reaved for @ManaReaveFlat@.\n\nBlue Buff: Each time Sentinel casts, allies gain @TraitAlliesManaRegen@ Mana Regen.\n\nMana Reave: Increase the Mana cost of the next Ability cast.",
+    "vars": {}
    }
   },
   {
@@ -1154,6 +1455,11 @@
     "startMana": 60.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Haymaker",
+    "desc": "Passive: Upon falling below @ManaHPThreshold@ max Health the first time each combat, gain 100 mana.\n\nActive: Wind up a big punch, rapidly healing for @HealthCalc1@ before dealing @PhysicalDamageCalc1@ physical damage in a large cone.",
+    "vars": {}
    }
   },
   {
@@ -1176,6 +1482,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Boomerang Blade",
+    "desc": "Throw a large crossblade that deals @PhysicalDamageCalc1@ physical damage to the current target and bounces @NumBounces@ times between nearby enemies, dealing @PhysicalDamageCalc2@ physical damage each bounce. When this kills an enemy, bounce @BonusKillBounces@ additional times.",
+    "vars": {}
    }
   },
   {
@@ -1198,6 +1509,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Starcall",
+    "desc": "Call down a star on the current target, dealing @MagicDamageCalc1@ magic damage. If a star has previously fallen on them, call down @NumAdditionalStars@ additional stars that each deal @MagicDamageCalc2@ magic damage.",
+    "vars": {}
    }
   },
   {
@@ -1220,6 +1536,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Rampant Growth",
+    "desc": "Spawn @NumPlantsToSpawn@ plants around the battlefield that attack the nearest enemy @ThornSpitterNumAttacks@ times. Each attack deals @MagicDamageCalc1@ magic damage.",
+    "vars": {}
    }
   },
   {
@@ -1243,6 +1564,66 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Moonfall",
+    "desc": "Rain @NumMoonshards@ moonshards split among the @NumEnemies@ nearest enemies, dealing @MagicDamageCalc1@ magic damage each.\n\nIf the moon is full, instead crash it onto the board, dealing @MagicDamageCalc2@ magic damage split among all enemies.",
+    "vars": {
+     "MagicDamage": [
+      0.0,
+      380.0,
+      570.0,
+      900.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ShredDuration": [
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0
+     ],
+     "ShredPercent": [
+      20.0,
+      20.0,
+      20.0,
+      20.0,
+      20.0,
+      20.0,
+      20.0
+     ],
+     "PrimaryMagicDamage": [
+      0.0,
+      160.0,
+      240.0,
+      380.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "AttackSpeed": [
+      0.4,
+      0.2,
+      0.25,
+      0.3,
+      0.4,
+      0.4,
+      0.4
+     ],
+     "AttackSpeedDuration": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+     ]
+    }
    }
   },
   {
@@ -1265,6 +1646,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Spirit Rift",
+    "desc": "Fire an arrow through the most enemies in a line that deals @PhysicalDamageCalc1@ physical damage, reduced by @DamageFalloffPerEnemy@ per enemy hit (minimum @MinDamagePercent@). If no enemies are hit refund @ManaRefund@ of mana spent.\n\nThe arrow leaves a trail for @RiftDuration@ seconds that deals @PhysicalDamageCalc2@ + @MaxHealthDamagePerSecond@ max Health physical damage per second to enemies within and @ChillPercent@% Slows them.\n\nSlow: Reduce Attack Speed",
+    "vars": {}
    }
   },
   {
@@ -1286,6 +1672,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Whirling Death",
+    "desc": "Passive: Attacks target random enemies in range and apply a bleed that deals @PhysicalDamageCalc1@ physical damage over @BleedDuration@ seconds. Every attack has a @GenericCalc1@ chance to deal @SpinningAxeDamageRatio@ bonus physical damage and apply @SpinningAxeBleedStacks@ bleeds instead.\n\nActive: Throw two giant axes towards the enemy with the most bleeds. Deal @PhysicalDamageCalc3@ physical damage to enemies hit and consume their bleed, instantly dealing the remaining damage. The axes then return, dealing @GenericCalc2@ physical damage to enemies hit. If no enemies are hit refund @ManaRefund@ of mana spent.",
+    "vars": {}
    }
   },
   {
@@ -1308,6 +1699,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Heat Without Equal",
+    "desc": "Passive: Attacks deal @AttackAoERatio@ damage to enemies adjacent to the target.\n\nActive: Become invulnerable and fly into the air. On return, stun all enemies for @StunDuration@ seconds, gain @Omnivamp@ Omnivamp, and Ignite them for @IgniteDuration@ seconds. Ignited enemies take @IgniteMaxHealthDamage@ max Health physical damage per second. Replace this ability with Flame Breath and immediately cast it.\n\nFlame Breath: Spew fire at the most enemies in a line through the target, dealing @PhysicalDamageCalc2@ physical damage, reduced by @DamageReductionPerHit@ for each enemy it passes through (minimum @MinimumDamageThreshold@.) Ignite those enemies for @IgniteDuration@ seconds.\n\nElder Dragon Buff: Damaging an enemy below @TraitExecuteThreshold@ Health executes them.",
+    "vars": {}
    }
   },
   {
@@ -1331,6 +1727,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Rage Gene",
+    "desc": "Passive: Gain @RagePerSecond@ Rage per second and @RagePerAttack@ Rage per attack.\n\nActive: Transform into Mega Gnar and leap into the largest group of enemies within @TransformSearchRadius@ hexes. Then, deal @PhysicalDamageCalc3@ physical damage to enemies within @TransformHexRadius@ hexes, reduce their Armor and Magic Resist by @GenericCalc1@ , and Stun them for @StunDuration@ second. Mega Gnar gains @HealthCalc1@ Health, and replaces his Ability with Grab n' Throw.\n\nGrab n' Throw: Throw the target at the farthest enemy, dealing @PhysicalDamageCalc1@ physical damage to them and @PhysicalDamageCalc2@ physical damage to enemies they pass through. If there's only 1 enemy left, throw them off the battlefield instead.",
+    "vars": {}
    }
   },
   {
@@ -1352,6 +1753,11 @@
     "startMana": 50.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Triggerseed",
+    "desc": "Passive: Shields from this Ability can critically strike with Precision.\n\nActive: Grant @NumAlliesToShield@ allies @ShieldCalc1@ Shield and @DamageAmpAmount@ Damage Amp for @ShieldDuration@ seconds. Then deal @MagicDamageCalc1@ magic damage to enemies adjacent to them. After casting @CastThreshold@ times, also grant @AttackSpeed@ stacking Attack Speed to targets.",
+    "vars": {}
    }
   },
   {
@@ -1374,6 +1780,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Firestorm",
+    "desc": "Charge up, gaining @APPerBurningEnemy@ Ability Power per Burning enemy. Then, gain @ShieldCalc1@ Shield for @ShieldDuration@ seconds and rush through a nearby group of enemies, dealing @MagicDamageCalc1@ magic damage to each.\n\nAfter rushing, unleash a @FirestormHexRadius@ Hex firestorm that deals a total of @MagicDamageCalc2@ magic damage split among all enemies hit over @FirestormDuration@ seconds.",
+    "vars": {}
    }
   },
   {
@@ -1395,6 +1806,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the largest group of enemies that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit.",
+    "vars": {}
    }
   },
   {
@@ -1417,6 +1833,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nBlackthorn Bonus: Stuns targets hit for @BlackthornStunDuration@ second.",
+    "vars": {}
    }
   },
   {
@@ -1439,6 +1860,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nBlossom Bonus: The first target hit is dealt @BlossomBonusDamageRatio@ bonus damage.",
+    "vars": {}
    }
   },
   {
@@ -1461,6 +1887,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nCoven Bonus: Reduces the Armor and Magic Resist of targets hit by @CovenResistReduction@ for the rest of combat.",
+    "vars": {}
    }
   },
   {
@@ -1483,6 +1914,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nElderwood Bonus: Casts grant all allies @ElderwoodHealthIncrease@ increased max Health for the rest of combat.",
+    "vars": {}
    }
   },
   {
@@ -1505,6 +1941,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nFae Bonus: Heals the lowest percent Health ally for @FaeHealRatio@ of ability damage dealt.",
+    "vars": {}
    }
   },
   {
@@ -1527,6 +1968,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nInferno Bonus: Restores @InfernoManaRestore@ mana per takedown.",
+    "vars": {}
    }
   },
   {
@@ -1549,6 +1995,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nLunar Bonus: Applies @LunarVulnerablePercent@% Vulnerable to enemies hit for @LunarVulnerableDuration@ seconds.\n\nVulnerable: Increases damage taken",
+    "vars": {}
    }
   },
   {
@@ -1571,6 +2022,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nPrimal Bonus: Gain @PrimalAttackSpeed@ Attack Speed for @PrimalASDuration@ seconds after cast.",
+    "vars": {}
    }
   },
   {
@@ -1593,6 +2049,11 @@
     "startMana": 20.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain @ManaCalc1@ mana.\n\nActive: Fire a laser towards the most enemies in a line that deals @MagicDamageCalc1@ magic damage, reduced by @DamageReductionPerUnit@ for each enemy hit (minimum @MinimumFalloffDamageRatio@).\n\nSolar Bonus: Deal @SolarBonusDamageRatio@ bonus damage. For each unique 3-star champion fielded, deal an additional @SolarBonusDamagePer3StarRadio@ bonus damage.",
+    "vars": {}
    }
   },
   {
@@ -1615,6 +2076,11 @@
     "startMana": 30.0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Sow the Seeds",
+    "desc": "Passive: After every @DamageMitigatedPerSapling@ damage blocked, a sapling jumps towards a nearby enemy and deals @MagicDamageCalc1@ magic damage. On death, @SaplingsOnDeath@ saplings jump out.\n\nActive: Deal @MagicDamageCalc2@ magic damage to target and restore @HealthCalc1@ + @ActiveMissingHealthHeal@ missing Health.",
+    "vars": {}
    }
   },
   {
@@ -1637,6 +2103,11 @@
     "startMana": 0,
     "crit": 0.25,
     "critMult": 1.4
+   },
+   "spell": {
+    "name": "Emerald Radiance",
+    "desc": "Passive: The first time Taric or his paired ally drops below @PassivePercentHealthThreshold@ Health, unleash emerald energy from both of them, granting @ShieldCalc1@ Shield to allies within @PassiveHexRadius@ Hexes for @PassiveShieldDuration@ seconds.\n\nActive: Restore @HealthCalc1@ Health. Taric and his paired ally deal @MagicDamageCalc1@ bonus magic damage on their next @NumAttacks@ attacks.",
+    "vars": {}
    }
   }
  ],
@@ -1649,7 +2120,28 @@
     3,
     4
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_adaptor.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_adaptor.png",
+   "desc": "Innate: Adaptor abilities change depending on if their Attack Damage or Ability Power is higher.\n\nAdaptors gain Ability Power or Attack Damage, depending on which is higher.\n(@MinUnits@) @ADAPGain*100@% OR\n(@MinUnits@) @ADAPGain*100@% OR\n(@MinUnits@) @ADAPGain*100@% OR",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "ADAPGain": 0.25
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "ADAPGain": 0.35
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "ADAPGain": 0.5
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_ApexPredator",
@@ -1657,7 +2149,14 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_apexpredator.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_apexpredator.png",
+   "desc": "Elder Dragon takes up 2 team slots and grants +2 to the Riftbeast trait.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {}
+    }
+   ]
   },
   {
    "id": "DA_AluneUniqueTrait18",
@@ -1665,7 +2164,17 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_attuned.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_attuned.png",
+   "desc": "Your strongest Alune cycles to a new phase of the moon after each cast. While the moon is at or below half full, your team gains @Durability*100@% Durabilty. While above, your team gains @DamageAmp*100@% Damage Amp.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {
+      "DamageAmp": 0.07,
+      "Durability": 0.05
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_LuxUniqueTrait",
@@ -1673,7 +2182,14 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_avatar.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_avatar.png",
+   "desc": "Having an Avatar on your bench or board transforms all other Avatars in your shop to the Trait of that Avatar.\n\nAn Avatar's chosen Trait is counted twice for Trait bonuses.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {}
+    }
+   ]
   },
   {
    "id": "DA_18_Blackthorn",
@@ -1683,7 +2199,30 @@
     4,
     6
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgod.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgod.png",
+   "desc": "The ally on the Blackthorn hex is sacrificed before combat, granting your champions Health.\n\nBlackthorn champions gain additional stats based on the sacrifice's Role, Star Level, and Cost.\n(@MinUnits@) @Health@\n(@MinUnits@) @Health@ ; Bonus is @StatMultiplier*100@% stronger\n(@MinUnits@) @Health@ ; Bonus is @StatMultiplier*100@% stronger",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "Health": 175.0
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "Health": 350.0,
+      "StatMultiplier": 0.3
+     }
+    },
+    {
+     "minUnits": 6,
+     "values": {
+      "Health": 600.0,
+      "StatMultiplier": 0.5
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Blossom",
@@ -1695,7 +2234,46 @@
     9,
     11
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_blossom.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_blossom.png",
+   "desc": "After combat, your Wisps are empowered.\n\nBlossom champions gain Attack Damage, Ability Power, and @BonusHealth*100@% max Health.\n(@MinUnits@) Wisps are upgraded, @ADAP*100@%\n(@MinUnits@) Wisps are in every shop, @ADAP*100@%\n(@MinUnits@) Gain @GoldPerCharmPurchased@ gold after buying a Wisp, @ADAP*100@%\n(@MinUnits@) You can buy 2 Wisps per round, @ADAP*100@%\n(@MinUnits@) Wisps overflow with power, @ADAP*100@%",
+   "effects": [
+    {
+     "minUnits": 3,
+     "values": {
+      "ADAP": 0.12,
+      "BonusHealth": 0.1
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "ADAP": 0.3,
+      "BonusHealth": 0.1
+     }
+    },
+    {
+     "minUnits": 7,
+     "values": {
+      "ADAP": 0.5,
+      "BonusHealth": 0.1,
+      "GoldPerCharmPurchased": 4.0
+     }
+    },
+    {
+     "minUnits": 9,
+     "values": {
+      "ADAP": 0.55,
+      "BonusHealth": 0.1
+     }
+    },
+    {
+     "minUnits": 11,
+     "values": {
+      "ADAP": 1.0,
+      "BonusHealth": 0.1
+     }
+    }
+   ]
   },
   {
    "id": "DA_DravenUniqueTrait18",
@@ -1703,7 +2281,14 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_bountyseeker.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_bountyseeker.png",
+   "desc": "Choose a bounty. Your strongest Draven can progress on the bounty to earn its reward. Upon completing a bounty, choose another.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {}
+    }
+   ]
   },
   {
    "id": "DA_18_Brawler",
@@ -1713,7 +2298,31 @@
     4,
     6
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_brawler.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_brawler.png",
+   "desc": "Your team gains @BrawlerTeamHealth@ max Health. Brawlers gain more.\n(@MinUnits@) @BrawlerHealthPercent*100@%\n(@MinUnits@) @BrawlerHealthPercent*100@%\n(@MinUnits@) @BrawlerHealthPercent*100@%",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "BrawlerTeamHealth": 120.0,
+      "BrawlerHealthPercent": 0.25
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "BrawlerTeamHealth": 120.0,
+      "BrawlerHealthPercent": 0.4
+     }
+    },
+    {
+     "minUnits": 6,
+     "values": {
+      "BrawlerTeamHealth": 120.0,
+      "BrawlerHealthPercent": 0.65
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Caustic",
@@ -1721,7 +2330,17 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_caustic.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_caustic.png",
+   "desc": "Caustic damage @ShredPercent@% Shreds and Sunders enemies for @ShredDuration@ seconds.\n\nShred: Reduce Magic Resist\nSunder: Reduce Armor",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {
+      "ShredDuration": 4.0,
+      "ShredPercent": 30.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Coven",
@@ -1732,7 +2351,42 @@
     5,
     7
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_coven.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_coven.png",
+   "desc": "Gather Essence by killing champions, plus more by losing player combat.\n\nBeginning at @EssenceForRitualTooltip@ Essence, choose to convert Essence to rewards or continue gathering Essence. Each reward requires increasing amounts of Essence.\n(@MinUnits@) @EssencePerDeath@ Essence per kill, @EssencePerLoss@ Essence per loss\n(@MinUnits@) @EssencePerDeath@ per kill, @EssencePerLoss@ per loss\n(@MinUnits@) @EssencePerDeath@ per kill, @EssencePerLoss@ per loss\n(@MinUnits@) @EssencePerDeath@ per kill, @EssencePerLoss@ per loss",
+   "effects": [
+    {
+     "minUnits": 3,
+     "values": {
+      "EssencePerDeath": 2.0,
+      "EssenceForRitualTooltip": 40.0,
+      "EssencePerLoss": 22.0
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "EssencePerDeath": 2.0,
+      "EssenceForRitualTooltip": 40.0,
+      "EssencePerLoss": 28.0
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "EssencePerDeath": 3.0,
+      "EssenceForRitualTooltip": 40.0,
+      "EssencePerLoss": 35.0
+     }
+    },
+    {
+     "minUnits": 7,
+     "values": {
+      "EssencePerDeath": 10.0,
+      "EssenceForRitualTooltip": 40.0,
+      "EssencePerLoss": 60.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Defender",
@@ -1742,7 +2396,31 @@
     4,
     6
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_defender.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_defender.png",
+   "desc": "Your team gains @NonDefenderDefenseGain@ Armor and Magic Resist. Defenders gain more.\n(@MinUnits@) @DefenderDefenseGain@\n(@MinUnits@) @DefenderDefenseGain@\n(@MinUnits@) @DefenderDefenseGain@",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "NonDefenderDefenseGain": 12.0,
+      "DefenderDefenseGain": 25.0
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "NonDefenderDefenseGain": 12.0,
+      "DefenderDefenseGain": 60.0
+     }
+    },
+    {
+     "minUnits": 6,
+     "values": {
+      "NonDefenderDefenseGain": 12.0,
+      "DefenderDefenseGain": 115.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Elderwood",
@@ -1754,7 +2432,32 @@
     9,
     11
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_elderwood.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_elderwood.png",
+   "desc": "Gain placeable Elderwood plants.\n(@MinUnits@) A Stonebark Tree and a Lifebloom\n(@MinUnits@) A second Stonebark Tree and Stonebark Trees gain @StonebarkTreeBonusHealth@ Health\n(@MinUnits@) and the Deepwood Protector\n(@MinUnits@) Plants star up to 2-star\n(@MinUnits@) Plants star up to 3-star and the forest comes to life",
+   "effects": [
+    {
+     "minUnits": 3,
+     "values": {}
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "StonebarkTreeBonusHealth": 200.0
+     }
+    },
+    {
+     "minUnits": 7,
+     "values": {}
+    },
+    {
+     "minUnits": 9,
+     "values": {}
+    },
+    {
+     "minUnits": 11,
+     "values": {}
+    }
+   ]
   },
   {
    "id": "DA_Emerald18",
@@ -1762,7 +2465,14 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_emeraldaspect.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_emeraldaspect.png",
+   "desc": "Drag an ally onto your strongest Taric to pair them, granting the ally powerful bonuses from Taric's Ability.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {}
+    }
+   ]
   },
   {
    "id": "DA_18_Executioner",
@@ -1772,7 +2482,29 @@
     3,
     4
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_executioner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_executioner.png",
+   "desc": "(@MinUnits@) Executioners gain Precision and @CritChance*100@% Critical Strike Chance.\n(@MinUnits@) Additionally, enemies bleed for @BonusBleedPercent*100@% bonus true damage over @BleedDuration@ seconds.\n(@MinUnits@) Bleed damage increased to @BonusBleedPercent*100@%.",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "CritChance": 0.15
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "BleedDuration": 3.0,
+      "BonusBleedPercent": 0.25
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "BonusBleedPercent": 0.35
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Fae",
@@ -1781,7 +2513,26 @@
     2,
     4
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_fae.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_fae.png",
+   "desc": "Your team's damage, healing, and shielding attracts Pixies.\n\nEach Pixie grants Fae champions Attack Damage and Ability Power, and after they fall below @HealThreshold*100@% Health, they heal for each Pixie.\n(@MinUnits@) @ADAP@% and @Heal@% Heal.\n(@MinUnits@) @ADAP@% and @Heal@% Heal. After attracting 7 Pixies, start attracting Golden Pixies instead which grant gold.",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "ADAP": 4.5,
+      "Heal": 3.0,
+      "HealThreshold": 0.5
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "ADAP": 7.0,
+      "Heal": 5.0,
+      "HealThreshold": 0.5
+     }
+    }
+   ]
   },
   {
    "id": "DA_FloraFatalis18",
@@ -1790,7 +2541,22 @@
     1,
     2
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_florafatalis.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_florafatalis.png",
+   "desc": "Flora Fatalis champions harvest enemies on takedown, gaining:\n(@MinUnits@) @Mana@ Mana\n(@MinUnits@) and grant a @PercentHeal*100@% max Health heal to the lowest Health ally.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {
+      "Mana": 10.0
+     }
+    },
+    {
+     "minUnits": 2,
+     "values": {
+      "PercentHeal": 0.07
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Greenfather",
@@ -1798,7 +2564,18 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_greenfather.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_greenfather.png",
+   "desc": "Gain @SeedsPerCast@ seed when your strongest Ivern casts, plus @CombatStartSeeds@ every combat. Ivern uses @SeedsToGrowHex@ seeds to grow a hex on your board that grants a bonus to its occupant.\n\nSeeds: 0 / @SeedsToGrowHex@\n\nCurrent Biome:",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {
+      "SeedsPerCast": 1.0,
+      "CombatStartSeeds": 3.0,
+      "SeedsToGrowHex": 5.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Hunter",
@@ -1809,7 +2586,42 @@
     4,
     5
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_hunter.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_hunter.png",
+   "desc": "Hunters gain Attack Damage. If a Hunter hasn't swapped targets for @HunterDuration@ seconds, they gain @DamageAmp*100@% Damage Amp.\n(@MinUnits@) @HunterAD*100@%\n(@MinUnits@) @HunterAD*100@%\n(@MinUnits@) @HunterAD*100@%\n(@MinUnits@) @HunterAD*100@%",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "DamageAmp": 0.1,
+      "HunterAD": 0.2,
+      "HunterDuration": 3.0
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "DamageAmp": 0.1,
+      "HunterAD": 0.3,
+      "HunterDuration": 3.0
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "DamageAmp": 0.1,
+      "HunterAD": 0.45,
+      "HunterDuration": 3.0
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "DamageAmp": 0.1,
+      "HunterAD": 0.6,
+      "HunterDuration": 3.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Inferno",
@@ -1820,7 +2632,41 @@
     5,
     7
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_inferno.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_inferno.png",
+   "desc": "Inferno damage Burns and Wounds enemies for @Duration@ seconds. Inferno Burns stack with other Burns.\n(@MinUnits@) @HPBurnPerSecond@% Burn, @WoundPercent@% Wound\n(@MinUnits@) After combat, @LuckySlotCount@ of your shop slots without an Inferno champion ignites, rolling a champion one tier higher\n(@MinUnits@) Ignite @LuckySlotCount@ shop slots, @HPBurnPerSecond@% Burn\n(@MinUnits@) Ignite @LuckySlotCount@ shop slots, @HPBurnPerSecond@% Burn",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "Duration": 3.0,
+      "WoundPercent": 33.0,
+      "HPBurnPerSecond": 1.0
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "Duration": 3.0,
+      "LuckySlotCount": 1.0
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "Duration": 3.0,
+      "HPBurnPerSecond": 3.0,
+      "LuckySlotCount": 2.0
+     }
+    },
+    {
+     "minUnits": 7,
+     "values": {
+      "Duration": 3.0,
+      "HPBurnPerSecond": 4.0,
+      "LuckySlotCount": 4.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Invoker",
@@ -1831,7 +2677,38 @@
     4,
     5
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_invoker.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_invoker.png",
+   "desc": "Your team gains Mana Regen, increased for Invokers.\n(@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@\n(@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@\n(@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@\n(@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "TeamManaRegen": 1.0,
+      "InvokerManaBonus": 3.0
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "TeamManaRegen": 1.0,
+      "InvokerManaBonus": 4.0
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "TeamManaRegen": 2.0,
+      "InvokerManaBonus": 6.0
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "TeamManaRegen": 2.0,
+      "InvokerManaBonus": 8.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_Juggernaut18",
@@ -1841,7 +2718,31 @@
     4,
     6
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_juggernaut.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_juggernaut.png",
+   "desc": "Your team gains Durability. Juggernauts gain more.\n(@MinUnits@) @TeamDurability*100@% or @JuggernautDurability*100@%\n(@MinUnits@) @TeamDurability*100@% or @JuggernautDurability*100@%\n(@MinUnits@) @TeamDurability*100@% or @JuggernautDurability*100@%",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "JuggernautDurability": 0.2,
+      "TeamDurability": 0.04
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "JuggernautDurability": 0.3,
+      "TeamDurability": 0.06
+     }
+    },
+    {
+     "minUnits": 6,
+     "values": {
+      "JuggernautDurability": 0.42,
+      "TeamDurability": 0.08
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Lunar",
@@ -1852,7 +2753,42 @@
     4,
     5
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_lunar.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_lunar.png",
+   "desc": "Lunar champions and adjacent allies gain Attack Speed and Ability Power. Lunar champions gain @LunarMultiplier*100@% more.\n(@MinUnits@) @AttackSpeed*100@% , @AbilityPower*100@%\n(@MinUnits@) @AttackSpeed*100@% , @AbilityPower*100@%\n(@MinUnits@) @AttackSpeed*100@% , @AbilityPower*100@%\n(@MinUnits@) @AttackSpeed*100@% , @AbilityPower*100@%",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "AbilityPower": 0.07,
+      "AttackSpeed": 0.07,
+      "LunarMultiplier": 1.0
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "AbilityPower": 0.12,
+      "AttackSpeed": 0.1,
+      "LunarMultiplier": 1.0
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "AbilityPower": 0.16,
+      "AttackSpeed": 0.14,
+      "LunarMultiplier": 1.0
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "AbilityPower": 0.2,
+      "AttackSpeed": 0.18,
+      "LunarMultiplier": 1.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Battlemage",
@@ -1860,7 +2796,16 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_monolith.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_monolith.png",
+   "desc": "Monoliths gain @Resists@ Armor and Magic Resist for each enemy targeting them.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {
+      "Resists": 10.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Maokai_UniqueTrait",
@@ -1868,7 +2813,17 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgrowth.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgrowth.png",
+   "desc": "Whenever an enemy within @UniqueTraitHexRange@ hexes dies, your strongest Old Growth champion gains @UniqueTraitHealthPerStack@ permanent max Health.\n\nCurrent: 0",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {
+      "UniqueTraitHealthPerStack": 30.0,
+      "UniqueTraitHexRange": 3.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_Primal18",
@@ -1877,7 +2832,18 @@
     2,
     4
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_primal.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_primal.png",
+   "desc": "Choose one of four Primal Blessings.\n(@MinUnits@)\n(@MinUnits@)",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {}
+    },
+    {
+     "minUnits": 4,
+     "values": {}
+    }
+   ]
   },
   {
    "id": "DA_18_Rapidfire",
@@ -1888,7 +2854,42 @@
     4,
     5
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rapidfire.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rapidfire.png",
+   "desc": "Your team gains @TeamAS*100@% Attack Speed. Rapidfire champions gain more on every attack, up to @MaxStacks@ stacks.\n(@MinUnits@) +@ASPerAttack*100@% per Attack\n(@MinUnits@) +@ASPerAttack*100@% per Attack\n(@MinUnits@) +@ASPerAttack*100@% per Attack\n(@MinUnits@) +@ASPerAttack*100@% per Attack",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "ASperAttack": 0.03,
+      "MaxStacks": 10.0,
+      "TeamAS": 0.1
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "ASperAttack": 0.05,
+      "MaxStacks": 10.0,
+      "TeamAS": 0.1
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "ASperAttack": 0.07,
+      "MaxStacks": 10.0,
+      "TeamAS": 0.1
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "ASperAttack": 0.1,
+      "MaxStacks": 10.0,
+      "TeamAS": 0.1
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Slayer",
@@ -1898,7 +2899,34 @@
     4,
     6
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_ravager.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_ravager.png",
+   "desc": "Ravagers gain @Omnivamp*100@% Omnivamp. Additionally, Ravagers deal bonus damage, doubled against units below @EnemyHealthThreshold*100@% Health.\n(@MinUnits@) @BonusDamagePercentBase*100@% Bonus Damage\n(@MinUnits@) @BonusDamagePercentBase*100@% Bonus Damage\n(@MinUnits@) @BonusDamagePercentBase*100@% Bonus Damage",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "Omnivamp": 0.1,
+      "BonusDamagePercentBase": 0.12,
+      "EnemyHealthThreshold": 0.5
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "Omnivamp": 0.1,
+      "BonusDamagePercentBase": 0.25,
+      "EnemyHealthThreshold": 0.5
+     }
+    },
+    {
+     "minUnits": 6,
+     "values": {
+      "Omnivamp": 0.1,
+      "BonusDamagePercentBase": 0.4,
+      "EnemyHealthThreshold": 0.5
+     }
+    }
+   ]
   },
   {
    "id": "DA_Riftbeast18",
@@ -1909,7 +2937,38 @@
     7,
     10
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_riftbeast.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_riftbeast.png",
+   "desc": "(@MinUnits@) Use the Alpha Mark to grant a Riftbeast their unique Buff\n(@MinUnits@) Every @OverrunCombats@ combats, your next shop is overrun with Riftbeasts.\n(@MinUnits@) On combat start and every 5 seconds Riftbeasts grow gaining\n@CapstoneAD*100@% @CapstoneAP*100@% @CapstoneAspd*100@%\n+@CapstoneArmor@ +@CapstoneMR@ +@CapstoneHealth@ +@CapstoneManaRegen@\n(@MinUnits@) +@TeamSize@ maximum team size",
+   "effects": [
+    {
+     "minUnits": 3,
+     "values": {}
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "OverrunCombats": 3.0
+     }
+    },
+    {
+     "minUnits": 7,
+     "values": {
+      "CapstoneAP": 0.06,
+      "CapstoneHealth": 50.0,
+      "CapstoneMR": 5.0,
+      "CapstoneAD": 0.06,
+      "CapstoneManaRegen": 1.0,
+      "CapstoneAspd": 0.06,
+      "CapstoneArmor": 5.0
+     }
+    },
+    {
+     "minUnits": 10,
+     "values": {
+      "TeamSize": 2.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Rival",
@@ -1918,7 +2977,30 @@
     1,
     2
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rival.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rival.png",
+   "desc": "(@MinUnits@) Only active while fielding 1 Rival.\n\nRivals collect takedowns, gaining 3 if they takedown another Rival.\n(@MinUnits@) Rivals collect takedowns, gaining 3 if they takedown another Rival.\n\nTakedowns evolve Kha'Zix, permanently granting him your choice of Executioner, Rapidfire, Ravager, or Spellweaver.\n\nRengar grants @RengarGold@/@RengarGold_2@/@RengarGold_3@ gold every @RengarStackReq@ takedowns. After @RengarADStackReq@ takedowns, your team gains @RengarThresholdAD*100@% Attack Damage plus @RengarADPerStack*100@% per additional takedown.\n\nKha'Zix Takedowns: 0 / 0\nRengar Takedowns: 0\nGold Earned: 0\n(@MinUnits@) Rivals can be fielded together, and their abilities grant each other bonuses.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {}
+    },
+    {
+     "minUnits": 1,
+     "values": {
+      "RengarGold": 2.0,
+      "RengarADStackReq": 30.0,
+      "RengarGold_3": 5.0,
+      "RengarGold_2": 3.0,
+      "RengarThresholdAD": 0.05,
+      "RengarStackReq": 8.0,
+      "RengarADPerStack": 0.002
+     }
+    },
+    {
+     "minUnits": 2,
+     "values": {}
+    }
+   ]
   },
   {
    "id": "DA_18_Solar",
@@ -1926,7 +3008,25 @@
    "breakpoints": [
     3
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_solar.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_solar.png",
+   "desc": "(@MinUnits@) Your champions gain a @ShieldRatio*100@% max Health shield and deal @BonusMagicDamage*100@% bonus magic damage. Gain additional bonuses for each unique 3-star champion:\n\n1 : Increase shield and magic damage by @PercentIncreasePer3Star*100@% for each 3-star.\n@NumThreeStarThreshold1@ : @Threshold1AttackSpeed*100@% and @Threshold1ArmorMagicResist@\n@NumThreeStarThreshold2@ : Convert @Threshold2TrueDamageConversion*100@% of the bonus magic damage to true damage.\n@NumThreeStarThreshold3@ : Every @Threshold3StarUpPeriod@ seconds of combat, a 3-star champion ascends to 4-star.",
+   "effects": [
+    {
+     "minUnits": 3,
+     "values": {
+      "BonusMagicDamage": 0.08,
+      "ShieldRatio": 0.05,
+      "NumThreeStarThreshold1": 3.0,
+      "NumThreeStarThreshold2": 5.0,
+      "NumThreeStarThreshold3": 8.0,
+      "Threshold2TrueDamageConversion": 0.4,
+      "Threshold1AttackSpeed": 0.15,
+      "Threshold1ArmorMagicResist": 12.0,
+      "PercentIncreasePer3Star": 0.01,
+      "Threshold3StarUpPeriod": 4.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Spellweaver",
@@ -1936,7 +3036,34 @@
     4,
     6
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_spellweaver.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_spellweaver.png",
+   "desc": "Your team gains @TeamwideAP*100@% Ability Power. Spellweavers gain more, plus extra Ability Power whenever a Spellweaver casts an Ability.\n(@MinUnits@) @SpellweaverAP*100@% , +@APPerCast*100@% per cast\n(@MinUnits@) @SpellweaverAP*100@% , +@APPerCast*100@% per cast\n(@MinUnits@) @SpellweaverAP*100@% , +@APPerCast*100@% per cast",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "APPerCast": 0.01,
+      "TeamwideAP": 0.1,
+      "SpellweaverAP": 0.1
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "APPerCast": 0.01,
+      "TeamwideAP": 0.1,
+      "SpellweaverAP": 0.3
+     }
+    },
+    {
+     "minUnits": 6,
+     "values": {
+      "APPerCast": 0.02,
+      "TeamwideAP": 0.1,
+      "SpellweaverAP": 0.55
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Sprykin",
@@ -1946,7 +3073,33 @@
     5,
     7
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_sprykin.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_sprykin.png",
+   "desc": "Gain the Big Furry Friend. Drop a Sprykin on the BFF to pick its Rider.\n(@MinUnits@) The Rider gains\n@HealthIncrease*100@% and @AttackSpeedIncrease*100@%\n(@MinUnits@) @HealthIncrease*100@% @AttackSpeedIncrease*100@% , and @TeamwideRatio*100@% of the BFF's Ability applies to your Sprykin champions.\n(@MinUnits@) @HealthIncrease*100@% @AttackSpeedIncrease*100@% , and @TeamwideRatio*100@% of the BFF's Ability applies to your Sprykin champions.",
+   "effects": [
+    {
+     "minUnits": 3,
+     "values": {
+      "AttackSpeedIncrease": 0.15,
+      "HealthIncrease": 0.15
+     }
+    },
+    {
+     "minUnits": 5,
+     "values": {
+      "AttackSpeedIncrease": 0.35,
+      "HealthIncrease": 0.4,
+      "TeamwideRatio": 0.5
+     }
+    },
+    {
+     "minUnits": 7,
+     "values": {
+      "AttackSpeedIncrease": 0.55,
+      "HealthIncrease": 0.55,
+      "TeamwideRatio": 1.0
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Summoner",
@@ -1955,7 +3108,28 @@
     2,
     3
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_summoner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_summoner.png",
+   "desc": "Summoners empower their summons in different ways.\n\nYorick: +@HealthMult*100@% Health\nAzir: +@AzirDamageMult*100@% Damage\nMama Beak: +@DamageMult*100@% Damage\nZyra: +@NumExtraAttacks@ Plant Attacks\n(@MinUnits@) Empower Summons\n(@MinUnits@) Improve each effect by 50%",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "DamageMult": 0.45,
+      "NumExtraAttacks": 4.0,
+      "HealthMult": 0.3,
+      "AzirDamageMult": 0.2
+     }
+    },
+    {
+     "minUnits": 3,
+     "values": {
+      "DamageMult": 0.45,
+      "NumExtraAttacks": 4.0,
+      "HealthMult": 0.3,
+      "AzirDamageMult": 0.2
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_ZyraUniqueTrait",
@@ -1963,7 +3137,18 @@
    "breakpoints": [
     1
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_zyraorigin.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_zyraorigin.png",
+   "desc": "Your team gains @BaseDurability*100@% Durability, increased to @IncreasedDurability*100@% if @PlantNumThreshold@ or more Zyra plants are alive.",
+   "effects": [
+    {
+     "minUnits": 1,
+     "values": {
+      "BaseDurability": 0.05,
+      "PlantNumThreshold": 6.0,
+      "IncreasedDurability": 0.1
+     }
+    }
+   ]
   },
   {
    "id": "DA_18_Vanguard",
@@ -1973,7 +3158,35 @@
     4,
     6
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_vanguard.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_vanguard.png",
+   "desc": "At Combat Start and after dropping below @HealthThreshold*100@% Health, Vanguards gain a max Health Shield for @ShieldDuration@ seconds.\n(@MinUnits@) @MaxHealthShield*100@% max Health\n(@MinUnits@) @MaxHealthShield*100@% max Health\n(@MinUnits@) @MaxHealthShield*100@% max Health. Gain @DurabilityIncrease*100@% Durability while Shielded.",
+   "effects": [
+    {
+     "minUnits": 2,
+     "values": {
+      "HealthThreshold": 0.5,
+      "MaxHealthShield": 0.18,
+      "ShieldDuration": 10.0
+     }
+    },
+    {
+     "minUnits": 4,
+     "values": {
+      "HealthThreshold": 0.5,
+      "MaxHealthShield": 0.3,
+      "ShieldDuration": 10.0
+     }
+    },
+    {
+     "minUnits": 6,
+     "values": {
+      "HealthThreshold": 0.5,
+      "MaxHealthShield": 0.4,
+      "ShieldDuration": 10.0,
+      "DurabilityIncrease": 0.05
+     }
+    }
+   ]
   }
  ],
  "items": [
@@ -1984,7 +3197,15 @@
    "stats": {
     "MagicResist": 20.0,
     "ManaRegen": 3.0
-   }
+   },
+   "effects": {
+    "BacklineADAP": 10.0,
+    "FrontlineResists": 30.0,
+    "MagicResist": 20.0,
+    "ManaPercIncrease": 0.15,
+    "ManaRegen": 3.0
+   },
+   "desc": "Gain an additional @ManaPercIncrease*100@% Mana from all sources. The holder gains an additional bonus based on their Role:\n\nTanks and Fighters: Gain @FrontlineResists@ Armor and Magic Resistance.\n\nOther Roles: Gain @BacklineADAP@% Attack Damage and Ability Power."
   },
   {
    "id": "TFT_Item_ArchangelsStaff",
@@ -1993,7 +3214,14 @@
    "stats": {
     "AP": 30.0,
     "ManaRegen": 1.0
-   }
+   },
+   "effects": {
+    "AP": 30.0,
+    "APPerInterval": 20.0,
+    "IntervalSeconds": 5.0,
+    "ManaRegen": 1.0
+   },
+   "desc": "Combat start: Gain @APPerInterval@% Ability Power every @IntervalSeconds@ seconds in combat."
   },
   {
    "id": "TFT_Item_Bloodthirster",
@@ -2004,7 +3232,18 @@
     "AP": 15.0,
     "MagicResist": 20.0,
     "StatOmnivamp": 0.2
-   }
+   },
+   "effects": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "HealthThreshold": 40.0,
+    "LifeSteal": 20.0,
+    "MagicResist": 20.0,
+    "ShieldDuration": 5.0,
+    "ShieldHealthPercent": 25.0,
+    "StatOmnivamp": 0.2
+   },
+   "desc": "Once per combat at @HealthThreshold@% Health, gain a @ShieldHealthPercent@% max Health Shield that lasts up to @ShieldDuration@ seconds."
   },
   {
    "id": "TFT_Item_BlueBuff",
@@ -2014,7 +3253,14 @@
     "AD": 0.15,
     "AP": 15.0,
     "ManaRegen": 5.0
-   }
+   },
+   "effects": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "ManaRegen": 5.0,
+    "ModifiedADAP": 0.1
+   },
+   "desc": "Gain @ModifiedADAP*100@% additional Attack Damage and Ability Power from all sources."
   },
   {
    "id": "TFT_Item_BrambleVest",
@@ -2022,7 +3268,18 @@
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bramblevest.png",
    "stats": {
     "Armor": 50.0
-   }
+   },
+   "effects": {
+    "1StarAoEDamage": 100.0,
+    "2StarAoEDamage": 100.0,
+    "3StarAoEDamage": 100.0,
+    "4StarAoEDamage": 100.0,
+    "Armor": 50.0,
+    "AutoDamageReduction": 0.05,
+    "ICD": 2.0,
+    "PercentMaxHP": 0.06
+   },
+   "desc": "Gain @PercentMaxHP*100@% max health.\n\nTake @AutoDamageReduction*100@% reduced damage from attacks. When struck by any attack, deal @1StarAoEDamage@ magic damage to all adjacent enemies.\n\nCooldown: @ICD@ seconds"
   },
   {
    "id": "TFT_Item_Crownguard",
@@ -2032,7 +3289,16 @@
     "AP": 20.0,
     "Armor": 20.0,
     "Health": 100.0
-   }
+   },
+   "effects": {
+    "AP": 20.0,
+    "Armor": 20.0,
+    "Health": 100.0,
+    "ShieldBonusAP": 25.0,
+    "ShieldDuration": 8.0,
+    "ShieldSize": 25.0
+   },
+   "desc": "Combat Start: Gain a @ShieldSize@% max Health Shield for @ShieldDuration@ seconds.\n\nWhen the Shield expires, gain @ShieldBonusAP@% Ability Power."
   },
   {
    "id": "TFT_Item_Deathblade",
@@ -2040,7 +3306,12 @@
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_deathblade.png",
    "stats": {
     "AD": 0.55
-   }
+   },
+   "effects": {
+    "AD": 0.55,
+    "BonusDamage": 0.1
+   },
+   "desc": "Perfect peace and calm for the holder - and all who face it.\n\n@TFTUnitProperty.:TFT_Augment_TragicalBlade_TRAKey@"
   },
   {
    "id": "TFT_Item_DragonsClaw",
@@ -2048,7 +3319,15 @@
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_dragonsclaw.png",
    "stats": {
     "MagicResist": 60.0
-   }
+   },
+   "effects": {
+    "HealthRegenInterval": 2.0,
+    "ICD": 0.5,
+    "MagicResist": 60.0,
+    "PercentHealthDamage": 2.5,
+    "PercentMaxHP": 0.06
+   },
+   "desc": "Gain @PercentMaxHP*100@% max health.\n\nEvery @HealthRegenInterval@ seconds, heal @PercentHealthDamage@% max Health."
   },
   {
    "id": "TFT_Item_GuardianAngel",
@@ -2059,7 +3338,18 @@
     "AP": 10.0,
     "AS": 15.0,
     "Armor": 20.0
-   }
+   },
+   "effects": {
+    "AD": 0.1,
+    "AP": 10.0,
+    "AS": 15.0,
+    "Armor": 20.0,
+    "DamageReduction": 100.0,
+    "HealthThreshold": 60.0,
+    "MissingHealthRestore": 0.2,
+    "StealthDuration": 1.0
+   },
+   "desc": "At @HealthThreshold@% Health, briefly become untargetable, shed negative effects, and heal @MissingHealthRestore*100@% missing health."
   },
   {
    "id": "TFT_Item_SpectralGauntlet",
@@ -2068,7 +3358,16 @@
    "stats": {
     "Health": 250.0,
     "MagicResist": 20.0
-   }
+   },
+   "effects": {
+    "ARReductionAmount": 30.0,
+    "BonusResistDuration": 15.0,
+    "BonusResists": 15.0,
+    "Health": 250.0,
+    "HexRange": 2.0,
+    "MagicResist": 20.0
+   },
+   "desc": "@ARReductionAmount@% Sunder enemies within @HexRange@ hexes. Gain @BonusResists@ Armor and Magic Resist for the first @BonusResistDuration@ seconds of combat.\n\nSunder: Reduce Armor"
   },
   {
    "id": "TFT_Item_GargoyleStoneplate",
@@ -2078,7 +3377,16 @@
     "Armor": 25.0,
     "Health": 100.0,
     "MagicResist": 25.0
-   }
+   },
+   "effects": {
+    "Armor": 25.0,
+    "ArmorPerEnemy": 10.0,
+    "Health": 100.0,
+    "MRPerEnemy": 10.0,
+    "MagicResist": 25.0,
+    "SizeIncrease": 0.075
+   },
+   "desc": "Gain @ArmorPerEnemy@ Armor and @MRPerEnemy@ Magic Resist for each enemy targeting the holder."
   },
   {
    "id": "TFT_Item_MadredsBloodrazor",
@@ -2089,7 +3397,14 @@
     "AP": 15.0,
     "AS": 15.0,
     "DamageAmp": 0.15
-   }
+   },
+   "effects": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "AS": 15.0,
+    "DamageAmp": 0.15
+   },
+   "desc": "Gain @DamageAmp*100@% additional Damage Amp against Tanks."
   },
   {
    "id": "TFT_Item_GuinsoosRageblade",
@@ -2098,7 +3413,13 @@
    "stats": {
     "AP": 10.0,
     "AS": 10.0
-   }
+   },
+   "effects": {
+    "AP": 10.0,
+    "AS": 10.0,
+    "AttackSpeedPerStack": 7.0
+   },
+   "desc": "Gain @AttackSpeedPerStack@% stacking Attack Speed every second."
   },
   {
    "id": "TFT_Item_UnstableConcoction",
@@ -2107,7 +3428,16 @@
    "stats": {
     "CritChance": 20.0,
     "ManaRegen": 1.0
-   }
+   },
+   "effects": {
+    "AD_NotStatBar": 0.15,
+    "AP_NotStatBar": 15.0,
+    "CritChance": 20.0,
+    "HealthThreshold": 0.5,
+    "ManaRegen": 1.0,
+    "StatOmnivamp_NotStatBar": 0.12
+   },
+   "desc": "Gain 2 effects:@AD_NotStatBar*100@% Attack Damage and @AP_NotStatBar@% Ability Power.@StatOmnivamp_NotStatBar*100@% Omnivamp.\n\nWhile above @HealthThreshold*100@% health, double the Attack Damage and Ability Power. While below @HealthThreshold*100@% Health, double the Omnivamp."
   },
   {
    "id": "TFT_Item_HextechGunblade",
@@ -2118,7 +3448,16 @@
     "AP": 20.0,
     "ManaRegen": 1.0,
     "StatOmnivamp": 0.15
-   }
+   },
+   "effects": {
+    "AD": 0.2,
+    "AP": 20.0,
+    "AllyHealing": 0.2,
+    "ManaRegen": 1.0,
+    "Omnivamp": 18.0,
+    "StatOmnivamp": 0.15
+   },
+   "desc": "Heal the lowest percent Health ally for @AllyHealing*100@% of damage dealt.\n\nAlly Healing: @TFTUnitProperty.item:TFT_Tracker_Value1@"
   },
   {
    "id": "TFT_Item_InfinityEdge",
@@ -2127,7 +3466,12 @@
    "stats": {
     "AD": 0.35,
     "CritChance": 35.0
-   }
+   },
+   "effects": {
+    "AD": 0.35,
+    "CritChance": 35.0
+   },
+   "desc": "Gain Precision."
   },
   {
    "id": "TFT_Item_IonicSpark",
@@ -2137,7 +3481,17 @@
     "AP": 15.0,
     "Health": 250.0,
     "MagicResist": 35.0
-   }
+   },
+   "effects": {
+    "AP": 15.0,
+    "Damage": 250.0,
+    "Health": 250.0,
+    "HexRange": 2.0,
+    "MRShred": 30.0,
+    "MagicResist": 35.0,
+    "ManaRatio": 150.0
+   },
+   "desc": "@MRShred@% Shred enemies within @HexRange@ hexes. When enemies cast an Ability, deal magic damage equal to @ManaRatio@% of the Mana spent\n\nShred: Reduce Magic Resist"
   },
   {
    "id": "TFT_Item_JeweledGauntlet",
@@ -2146,7 +3500,12 @@
    "stats": {
     "AP": 35.0,
     "CritChance": 35.0
-   }
+   },
+   "effects": {
+    "AP": 35.0,
+    "CritChance": 35.0
+   },
+   "desc": "Gain Precision."
   },
   {
    "id": "TFT_Item_RunaansHurricane",
@@ -2156,7 +3515,16 @@
     "AD": 0.1,
     "AS": 10.0,
     "MagicResist": 20.0
-   }
+   },
+   "effects": {
+    "AD": 0.1,
+    "ADOnAttack": 0.035,
+    "AS": 10.0,
+    "ASCapstone": 0.15,
+    "MagicResist": 20.0,
+    "MaxStacks": 15.0
+   },
+   "desc": "Attacks grant @ADOnAttack*100@% stacking Attack Damage, up to @MaxStacks@ attacks. After @MaxStacks@ attacks, gain @ASCapstone*100@% Attack Speed."
   },
   {
    "id": "TFT_Item_LastWhisper",
@@ -2166,7 +3534,15 @@
     "AD": 0.15,
     "AS": 20.0,
     "CritChance": 20.0
-   }
+   },
+   "effects": {
+    "AD": 0.15,
+    "AS": 20.0,
+    "ArmorBreakDuration": 3.0,
+    "ArmorReductionPercent": 30.0,
+    "CritChance": 20.0
+   },
+   "desc": "Damage from attacks and Abilities @ArmorReductionPercent@% Sunder the target for @ArmorBreakDuration@ seconds. This effect does not stack.\n\nSunder: Reduce Armor"
   },
   {
    "id": "TFT_Item_Morellonomicon",
@@ -2176,7 +3552,18 @@
     "AP": 20.0,
     "Health": 150.0,
     "ManaRegen": 1.0
-   }
+   },
+   "effects": {
+    "AP": 20.0,
+    "BurnDuration": 10.0,
+    "BurnPercent": 1.0,
+    "GrievousWoundsPercent": 33.0,
+    "Health": 150.0,
+    "ManaRegen": 1.0,
+    "MonsterCap": 100.0,
+    "TicksPerSecond": 1.0
+   },
+   "desc": "Attacks and Abilities deal @BurnPercent@% Burn and @GrievousWoundsPercent@% Wound to enemies for @BurnDuration@ seconds.\n\nBurn: Deals a percent of the target's max Health as true damage every second\nWound: Reduces healing received"
   },
   {
    "id": "TFT_Item_Leviathan",
@@ -2187,7 +3574,16 @@
     "AS": 10.0,
     "CritChance": 20.0,
     "Health": 150.0
-   }
+   },
+   "effects": {
+    "AP": 15.0,
+    "AS": 10.0,
+    "BaseManaOnHit": 2,
+    "CritChance": 20.0,
+    "Health": 150.0,
+    "ManaOnCrit": 4.0
+   },
+   "desc": "Attacks grant @BaseManaOnHit@ bonus Mana, increased to @ManaOnCrit@ if they critically strike."
   },
   {
    "id": "TFT_Item_FrozenHeart",
@@ -2198,7 +3594,18 @@
     "CombatStartMana": 20.0,
     "MagicResist": 25.0,
     "ManaRegen": 1.0
-   }
+   },
+   "effects": {
+    "Armor": 25.0,
+    "CombatStartMana": 20.0,
+    "HealthThreshold": 40.0,
+    "MagicResist": 25.0,
+    "ManaRegen": 1.0,
+    "ShieldDuration": 60.0,
+    "ShieldHealthPercent": 20.0,
+    "TriggerMana": 15.0
+   },
+   "desc": "Combat Start: Gain @CombatStartMana@ Mana.\n\nAt @HealthThreshold@% Health, gain @TriggerMana@ Mana and a Shield equal to @ShieldHealthPercent@% max Health."
   },
   {
    "id": "TFT_Item_Quicksilver",
@@ -2208,7 +3615,15 @@
     "AS": 15.0,
     "CritChance": 20.0,
     "MagicResist": 20.0
-   }
+   },
+   "effects": {
+    "AS": 15.0,
+    "CritChance": 20.0,
+    "MagicResist": 20.0,
+    "ProcAttackSpeed": 0.03,
+    "SpellShieldDuration": 18.0
+   },
+   "desc": "Combat Start: Gain immunity to crowd control for @SpellShieldDuration@ seconds.\n\nGain @ProcAttackSpeed*100@% stacking Attack Speed every second."
   },
   {
    "id": "TFT_Item_RabadonsDeathcap",
@@ -2216,7 +3631,12 @@
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rabadonsdeathcap.png",
    "stats": {
     "AP": 55.0
-   }
+   },
+   "effects": {
+    "AP": 55.0,
+    "BonusDamage": 0.15
+   },
+   "desc": "This humble hat can help you make, or unmake, the world itself.\n\n@TFTUnitProperty.:TFT_Augment_DeadlierCaps_TRAKey@"
   },
   {
    "id": "TFT_Item_RapidFireCannon",
@@ -2224,7 +3644,16 @@
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rapidfirecannon.png",
    "stats": {
     "AS": 45.0
-   }
+   },
+   "effects": {
+    "AS": 45.0,
+    "BonusDamage": 0.06,
+    "BurnPercent": 1.0,
+    "Duration": 5.0,
+    "HealingReductionPct": 33.0,
+    "HexRangeIncrease": 1.0
+   },
+   "desc": "Attacks and Abilities @BurnPercent@% Burn and @HealingReductionPct@% Wound enemies for @Duration@ seconds.\n\nBurn: Deals a percent of the target's max Health as true damage every second\nWound: Reduces healing received"
   },
   {
    "id": "TFT_Item_SpearOfShojin",
@@ -2234,7 +3663,14 @@
     "AD": 0.15,
     "AP": 15.0,
     "ManaRegen": 1.0
-   }
+   },
+   "effects": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "FlatManaRestore": 5.0,
+    "ManaRegen": 1.0
+   },
+   "desc": "Attacks grant @FlatManaRestore@ bonus Mana."
   },
   {
    "id": "TFT_Item_Redemption",
@@ -2243,7 +3679,15 @@
    "stats": {
     "Health": 300.0,
     "ManaRegen": 2.0
-   }
+   },
+   "effects": {
+    "HealTickRate": 1.0,
+    "Health": 300.0,
+    "ManaRegen": 2.0,
+    "MaxHeal": 250.0,
+    "MissingHealthHeal": 0.02
+   },
+   "desc": "Regenerate @MissingHealthHeal*100@% of missing Health each second."
   },
   {
    "id": "TFT_Item_NightHarvester",
@@ -2253,7 +3697,16 @@
     "Armor": 20.0,
     "CritChance": 20.0,
     "Health": 250.0
-   }
+   },
+   "effects": {
+    "Armor": 20.0,
+    "BaseDurability": 0.05,
+    "CritChance": 20.0,
+    "EmpoweredDurability": 0.15,
+    "Health": 250.0,
+    "ThresholdForEmpower": 0.5
+   },
+   "desc": "Gain @BaseDurability*100@% Durability. While above @ThresholdForEmpower*100@% Health, instead gain @EmpoweredDurability*100@% Durability.\n\n@TFTUnitProperty.:TFT_Augment_WarmogsBuckle_TRAKey@"
   },
   {
    "id": "TFT_Item_SteraksGage",
@@ -2262,7 +3715,15 @@
    "stats": {
     "AD": 0.45,
     "Health": 300.0
-   }
+   },
+   "effects": {
+    "AD": 0.45,
+    "Health": 300.0,
+    "HealthThreshold": 60.0,
+    "PercentHealthShield": 0.4,
+    "ShieldDuration": 4.0
+   },
+   "desc": "At @HealthThreshold@% Health, gain a Shield equal to @PercentHealthShield*100@% of the wearer's maximum Health that rapidly decays over @ShieldDuration@ seconds."
   },
   {
    "id": "TFT_Item_PowerGauntlet",
@@ -2272,7 +3733,16 @@
     "AS": 10.0,
     "CritChance": 20.0,
     "Health": 150.0
-   }
+   },
+   "effects": {
+    "AS": 10.0,
+    "BuffDamageAmp": 0.05,
+    "CritChance": 20.0,
+    "Duration": 5.0,
+    "Health": 150.0,
+    "MaxStacks": 4.0
+   },
+   "desc": "Critical Strikes grant @BuffDamageAmp*100@% Damage Amp for @Duration@ seconds, stacking up to @MaxStacks@ times."
   },
   {
    "id": "TFT_Item_RedBuff",
@@ -2281,25 +3751,53 @@
    "stats": {
     "Armor": 20.0,
     "Health": 150.0
-   }
+   },
+   "effects": {
+    "Armor": 20.0,
+    "BonusPercentHP": 0.08,
+    "BurnDuration": 10.0,
+    "BurnPercent": 1.0,
+    "GrievousWoundsPercent": 33.0,
+    "Health": 150.0,
+    "HexRange": 2.0,
+    "ICD": 2.0,
+    "MonsterCap": 100.0
+   },
+   "desc": "Gain @BonusPercentHP*100@% max Health.\n\nEvery @ICD@ seconds, deal @BurnPercent@% Burn and @GrievousWoundsPercent@% Wound to an enemy within @HexRange@ hexes for @BurnDuration@ seconds.\n\nBurn: Deals a percent of the target's max Health as true damage every second\nWound: Reduces healing received"
   },
   {
    "id": "TFT_Item_TacticiansRing",
    "name": "Tactician's Cape",
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansring.png",
-   "stats": {}
+   "stats": {},
+   "effects": {
+    "MaxArmySizeIncrease": 1.0,
+    "PercentGoldChance": 10.0,
+    "Timer": 10.0
+   },
+   "desc": "Your team gains +@MaxArmySizeIncrease@ max team size.\n\n@PercentGoldChance@% chance to drop 1 gold after @Timer@ seconds of combat.\n\n\"...and a bit of Luck.\""
   },
   {
    "id": "TFT_Item_ForceOfNature",
    "name": "Tactician's Crown",
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_forceofnature.png",
-   "stats": {}
+   "stats": {},
+   "effects": {
+    "MaxArmySizeIncrease": 1.0,
+    "PercentGoldChance": 10.0
+   },
+   "desc": "Your team gains +@MaxArmySizeIncrease@ max team size.\n\n@PercentGoldChance@% chance to drop 1 gold when you win combat.\n\n\"...the Heart of a hero...\""
   },
   {
    "id": "TFT_Item_TacticiansScepter",
    "name": "Tactician's Shield",
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansscepter.png",
-   "stats": {}
+   "stats": {},
+   "effects": {
+    "MaxArmySizeIncrease": 1.0,
+    "PercentGoldChance": 10.0
+   },
+   "desc": "Your team gains +@MaxArmySizeIncrease@ max team size.\n\n@PercentGoldChance@% chance to drop 1 gold when the holder dies.\n\n\"Imbued with a Philosopher's wisdom...\""
   },
   {
    "id": "TFT_Item_ThiefsGloves",
@@ -2308,7 +3806,12 @@
    "stats": {
     "CritChance": 20.0,
     "Health": 150.0
-   }
+   },
+   "effects": {
+    "CritChance": 20.0,
+    "Health": 150.0
+   },
+   "desc": "Each round: Equip 2 random items.\n\n[Consumes 3 item slots.]\n@TFTUnitProperty.:TFT_BindOnEquipTRA@"
   },
   {
    "id": "TFT_Item_TitansResolve",
@@ -2317,7 +3820,16 @@
    "stats": {
     "AS": 10.0,
     "Armor": 20.0
-   }
+   },
+   "effects": {
+    "AS": 10.0,
+    "Armor": 20.0,
+    "StackCap": 25.0,
+    "StackedAmp": 0.1,
+    "StackingAD": 0.02,
+    "StackingSP": 2.0
+   },
+   "desc": "Gain @StackingAD*100@% Attack Damage and @StackingSP@% Ability Power when attacking or taking damage, stacking up to @StackCap@ times.\n\nAt full stacks, gain @StackedAmp*100@% Damage Amp and gain immunity to crowd control."
   },
   {
    "id": "TFT_Item_StatikkShiv",
@@ -2327,7 +3839,15 @@
     "AP": 35.0,
     "AS": 15.0,
     "ManaRegen": 1.0
-   }
+   },
+   "effects": {
+    "AP": 35.0,
+    "AS": 15.0,
+    "MRShred": 30.0,
+    "MRShredDuration": 5.0,
+    "ManaRegen": 1.0
+   },
+   "desc": "Damage from attacks and Abilities @MRShred@% Shred the target for @MRShredDuration@ seconds. This effect does not stack.\n\nShred: Reduce Magic Resist"
   },
   {
    "id": "TFT_Item_WarmogsArmor",
@@ -2335,7 +3855,12 @@
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_warmogsarmor.png",
    "stats": {
     "Health": 500.0
-   }
+   },
+   "effects": {
+    "BonusPercentHP": 0.18,
+    "Health": 500.0
+   },
+   "desc": "Gain @BonusPercentHP*100@% max Health."
   }
  ],
  "augments": [

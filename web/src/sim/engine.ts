@@ -1,187 +1,62 @@
 /**
  * A real-time TFT fight on a hex grid, deterministic for a given seed.
  *
- * Units have their Community Dragon base stats, scaled by star level, items and the
+ * Units start from their Community Dragon base stats, scaled by star level and the
  * patch's hidden meta (the same champion, trait and item powers the pipeline's
- * simulated lobbies are played with). Each tick a unit picks the nearest enemy,
+ * simulated lobbies are played with). Then their spell (spells.ts), items (items.ts)
+ * and active traits (traits.ts) hook into the fight. Each tick a unit picks a target,
  * walks towards it until it's in range, attacks, gains mana and casts when full.
- * Abilities aren't in the game data for this set, so every spell is generic:
- * magic damage by cost and star level, splashing around the target (ranged) or
- * around the caster (melee), which is what makes positioning matter.
  *
- * Self-contained (no imports) so it can run headless: the page animates it, and
- * batch runs use the same code to estimate win rates.
+ * The page animates this; batch runs use the same code to estimate win rates.
  */
+import {
+  type Battle,
+  type ChampionData,
+  type GameData,
+  type Hit,
+  type PatchMeta,
+  type Placed,
+  type SampleBoard,
+  type TraitData,
+  type Unit,
+  COLS,
+  MANA_PER_ATTACK,
+  MAX_TIME,
+  ROWS,
+  STAR_AD,
+  STAR_HP,
+  TICK,
+  ad,
+  attackSpeed,
+  damage,
+  dist,
+  gainMana,
+  hexDistance,
+  neighbors,
+  newUnit,
+  occupied,
+  seeded,
+} from "./core.ts";
+import { ITEMS } from "./items.ts";
+import { type Ctx, spellFor } from "./spells.ts";
+import { TRAITS, traitValues } from "./traits.ts";
 
-export interface ChampionStats {
-  hp: number;
-  ad: number;
-  as: number;
-  armor: number;
-  mr: number;
-  range: number;
-  mana: number;
-  startMana: number;
-  crit: number;
-  critMult: number;
-}
+export type { Battle, ChampionData, GameData, Placed, SampleBoard, TraitData, Unit };
+export type { FightEvent, ItemData, PatchMeta } from "./core.ts";
+export { COLS, ROWS, TICK, hexDistance, neighbors, seeded };
+export { ITEMS } from "./items.ts";
+export { SPELLS, spellCoverage, spellFor } from "./spells.ts";
+export { TRAITS, traitValues } from "./traits.ts";
 
-export interface ChampionData {
-  id: string;
-  name: string;
-  cost: number;
-  traits: string[];
-  icon: string | null;
-  stats: ChampionStats;
-}
-
-export interface TraitData {
-  id: string;
-  name: string;
-  breakpoints: number[];
-  icon: string | null;
-}
-
-export interface ItemData {
-  id: string;
-  name: string;
-  icon: string | null;
-  stats: Record<string, number>;
-}
-
-/** A board from the simulated lobbies: [champion id, star, items] per unit. */
-export interface SampleBoard {
-  strategy: string;
-  level: number;
-  placement: number;
-  units: [string, number, string[]][];
-}
-
-export interface PatchMeta {
-  champion: Record<string, number>;
-  trait: Record<string, number[]>;
-  item: Record<string, number>;
-  boards: SampleBoard[];
-}
-
-export interface GameData {
-  set: number;
-  champions: ChampionData[];
-  traits: TraitData[];
-  items: ItemData[];
-  patches: Record<string, PatchMeta>;
-}
-
-export interface Placed {
-  id: string;
-  star: number;
-  items: string[];
-  row: number;
-  col: number;
-}
-
-export interface Unit {
-  uid: number;
-  team: 0 | 1;
-  champion: ChampionData;
-  star: number;
-  items: string[];
-  row: number;
-  col: number;
-  /** Where a moving unit is coming from; progress runs 0 -> 1 over MOVE_TIME. */
-  fromRow: number;
-  fromCol: number;
-  moveProgress: number;
-  hp: number;
-  maxHp: number;
-  ad: number;
-  ap: number;
-  attackSpeed: number;
-  armor: number;
-  mr: number;
-  range: number;
-  mana: number;
-  maxMana: number;
-  manaRegen: number;
-  crit: number;
-  critMult: number;
-  omnivamp: number;
-  amp: number;
-  spell: number;
-  cooldown: number;
-  stuck: number;
-  target: number | null;
-  alive: boolean;
-  damageDealt: number;
-}
-
-export interface FightEvent {
-  t: number;
-  kind: "attack" | "spell" | "death";
-  from: number;
-  to: number;
-  crit?: boolean;
-  amount?: number;
-}
-
-export interface Battle {
-  time: number;
-  units: Unit[];
-  events: FightEvent[];
-  done: boolean;
-  /** 0 = your team, 1 = the opponent, null = draw (time ran out) */
-  winner: 0 | 1 | null;
-  rng: () => number;
-}
-
-export const COLS = 7;
-export const ROWS = 8; // rows 0-3: the opponent's half (row 3 its front); rows 4-7: yours (row 4 your front)
-export const TICK = 0.05;
-export const MAX_TIME = 40;
-export const MOVE_TIME = 0.5;
-const STAR_HP = [0, 1, 1.8, 3.24];
-const STAR_AD = [0, 1, 1.5, 2.25];
-const SPELL_BASE = [0, 200, 260, 340, 460, 620];
-// How strongly the hidden meta moves stats: champion power relative to what its cost
-// predicts, per unit of active trait bonus, and per unit of item power.
+// How strongly the hidden meta moves numbers: champion power relative to what its cost
+// predicts, a trait breakpoint's power relative to its expected value, and item power.
 const POWER_SCALE = 0.5;
-const TRAIT_SCALE = 0.12;
+const TRAIT_SCALE = 0.6;
 const ITEM_SCALE = 0.2;
-const MANA_PER_ATTACK = 10;
+const DOT_PERIOD = 0.25;
 
 export const ownRows = (team: 0 | 1) => (team === 0 ? [4, 5, 6, 7] : [0, 1, 2, 3]);
-
-/** Seeded PRNG (mulberry32): the same seed replays the same fight. */
-export function seeded(seed: number): () => number {
-  let a = seed >>> 0;
-  return () => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-// Hexes are pointy-top in "odd-r" offset rows: odd rows sit half a hex to the right.
-function cube(row: number, col: number): [number, number, number] {
-  const x = col - (row - (row & 1)) / 2;
-  return [x, -x - row, row];
-}
-
-export function hexDistance(r1: number, c1: number, r2: number, c2: number): number {
-  const a = cube(r1, c1);
-  const b = cube(r2, c2);
-  return Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1]), Math.abs(a[2] - b[2]));
-}
-
-export function neighbors(row: number, col: number): [number, number][] {
-  const odd = row & 1;
-  const deltas = odd
-    ? [[0, -1], [0, 1], [-1, 0], [-1, 1], [1, 0], [1, 1]]
-    : [[0, -1], [0, 1], [-1, -1], [-1, 0], [1, -1], [1, 0]];
-  return deltas.map(([dr, dc]) => [row + dr, col + dc] as [number, number]).filter(([r, c]) => r >= 0 && r < ROWS && c >= 0 && c < COLS);
-}
+const clamp = (x: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, x));
 
 export interface ActiveTrait {
   trait: TraitData;
@@ -204,54 +79,93 @@ export function activeTraits(ids: string[], game: GameData): ActiveTrait[] {
     .sort((a, b) => b.tier - a.tier || b.count - a.count || a.trait.name.localeCompare(b.trait.name));
 }
 
-function makeUnit(uid: number, team: 0 | 1, p: Placed, game: GameData, meta: PatchMeta, traitBonus: Map<string, number>): Unit {
-  const c = game.champions.find((x) => x.id === p.id);
+function makeUnit(b: Battle, team: 0 | 1, p: Placed): Unit {
+  const c = b.game.champions.find((x) => x.id === p.id);
   if (!c) throw new Error(`unknown champion ${p.id}`);
-  const items = game.items.filter((i) => p.items.includes(i.id));
-  const sum = (k: string) => p.items.reduce((acc, id) => acc + (items.find((i) => i.id === id)?.stats[k] ?? 0), 0);
-  const power = Math.min(1.7, Math.max(0.6, 1 + POWER_SCALE * ((meta.champion[c.id] ?? 0.3 * c.cost) - 0.3 * c.cost)));
-  const traits = 1 + TRAIT_SCALE * c.traits.reduce((acc, t) => acc + (traitBonus.get(t) ?? 0), 0);
-  const itemPower = p.items.reduce((acc, id) => acc * (1 + ITEM_SCALE * (meta.item[id] ?? 0)), 1);
-  const s = c.stats;
-  const maxHp = (s.hp * STAR_HP[p.star] * power * traits + sum("Health")) * Math.max(0.5, itemPower);
-  return {
-    uid, team, champion: c, star: p.star, items: p.items, row: p.row, col: p.col, fromRow: p.row, fromCol: p.col, moveProgress: 1,
-    hp: maxHp, maxHp,
-    ad: s.ad * STAR_AD[p.star] * power * traits * (1 + sum("AD")) * Math.max(0.5, itemPower),
-    ap: 100 + sum("AP"),
-    attackSpeed: Math.min(5, s.as * (1 + sum("AS") / 100)),
-    armor: s.armor + sum("Armor"),
-    mr: s.mr + sum("MagicResist"),
-    range: Math.max(1, s.range),
-    mana: s.startMana + sum("CombatStartMana"),
-    maxMana: s.mana || 60,
-    manaRegen: sum("ManaRegen"),
-    crit: Math.min(1, s.crit + sum("CritChance") / 100),
-    critMult: s.critMult,
-    omnivamp: sum("StatOmnivamp"),
-    amp: 1 + sum("DamageAmp"),
-    spell: SPELL_BASE[c.cost] * STAR_AD[p.star] * power * traits * Math.max(0.5, itemPower),
-    cooldown: 0, stuck: 0, target: null, alive: true, damageDealt: 0,
+  const u = newUnit(b, team, c, p.star, p.row, p.col);
+  u.items = [...p.items];
+  u.power = clamp(1 + POWER_SCALE * ((b.meta.champion[c.id] ?? 0.3 * c.cost) - 0.3 * c.cost), 0.6, 1.7);
+  u.maxHp = u.hp = c.stats.hp * STAR_HP[p.star] * u.power;
+  u.baseAd = c.stats.ad * STAR_AD[p.star] * u.power;
+  const def = spellFor(c.name);
+  if (!def || def.passiveOnly || !def.cast) {
+    u.hasSpell = false;
+    u.maxMana = Infinity;
+    u.mana = 0;
+  } else if (!u.maxMana) u.maxMana = 60;
+  return u;
+}
+
+function installItem(b: Battle, u: Unit, itemId: string): void {
+  const item = b.game.items.find((i) => i.id === itemId);
+  if (!item) return;
+  const s = (k: string) => item.stats[k] ?? 0;
+  u.adMult += s("AD");
+  u.ap += s("AP");
+  u.asBonus += s("AS") / 100;
+  u.armor += s("Armor");
+  u.mr += s("MagicResist");
+  u.maxHp += s("Health");
+  u.hp += s("Health");
+  u.crit = Math.min(1, u.crit + s("CritChance") / 100);
+  u.manaRegen += s("ManaRegen");
+  u.omnivamp += s("StatOmnivamp");
+  u.amp += s("DamageAmp");
+  if (u.hasSpell) u.mana += s("CombatStartMana");
+  // the hidden meta: a stronger item makes its holder hit harder and last longer
+  const power = 1 + ITEM_SCALE * (b.meta.item[itemId] ?? 0);
+  u.amp *= power;
+  u.maxHp *= power;
+  u.hp *= power;
+  ITEMS[item.name]?.apply?.({ b, u, item, e: (k) => item.effects?.[k] ?? 0, install: (id) => installItem(b, u, id) });
+}
+
+function spellCtx(b: Battle, u: Unit, t: Unit): Ctx | null {
+  const def = spellFor(u.champion.name);
+  if (!def) return null;
+  const real = u.champion.spell?.vars ?? {};
+  const v = (name: string) => {
+    const r = real[name];
+    if (r && r.length > u.star && r[u.star] != null) return r[u.star];
+    return def.vars[name]?.[u.star] ?? def.vars[name]?.[def.vars[name].length - 1] ?? 0;
   };
+  return { b, u, t, v, p: (name) => v(name) * u.power };
 }
 
 /** Starts a fight: teams[0] is your board (rows 4-7), teams[1] the opponent's (rows 0-3). */
 export function createBattle(game: GameData, patch: string, teams: [Placed[], Placed[]], seed: number): Battle {
-  const meta = game.patches[patch];
-  const units: Unit[] = [];
+  const meta: PatchMeta = game.patches[patch];
+  const b: Battle = { time: 0, units: [], events: [], done: false, winner: null, rng: seeded(seed), timers: [], game, meta, nextUid: 0, dotClock: 0, lastHit: null };
+  const champions: Unit[][] = teams.map((board, team) => board.map((p) => makeUnit(b, team as 0 | 1, p)));
+  b.units = champions.flat();
+  for (const u of b.units) for (const id of u.items) installItem(b, u, id);
+  for (const u of b.units) {
+    const ctx = spellCtx(b, u, u);
+    if (ctx) spellFor(u.champion.name)?.setup?.(ctx);
+  }
   teams.forEach((board, team) => {
-    const bonus = new Map<string, number>();
-    for (const a of activeTraits(board.map((u) => u.id), game)) {
-      if (a.tier > 0) bonus.set(a.trait.id, meta.trait[a.trait.id]?.[a.tier - 1] ?? 0);
+    for (const a of activeTraits(board.map((p) => p.id), game)) {
+      const def = TRAITS[a.trait.name];
+      if (a.tier === 0 || !def?.apply) continue;
+      const values = traitValues(a.trait, a.tier);
+      const hidden = meta.trait[a.trait.id]?.[a.tier - 1] ?? 0.3 * a.tier;
+      const mult = clamp(1 + TRAIT_SCALE * (hidden - 0.3 * a.tier), 0.5, 1.6);
+      const team_ = champions[team];
+      def.apply({
+        b, trait: a.trait, tier: a.tier, team: team_,
+        members: team_.filter((u) => u.champion.traits.includes(a.trait.id)),
+        val: (k) => (values[k] ?? 0) * mult,
+        raw: (k) => values[k] ?? 0,
+      });
     }
-    for (const p of board) units.push(makeUnit(units.length, team as 0 | 1, p, game, meta, bonus));
   });
-  const rng = seeded(seed);
-  // A small random head start, so repeated fights between the same boards don't all play out the same.
-  for (const u of units) u.cooldown = (0.2 + 0.3 * rng()) / u.attackSpeed;
-  const battle: Battle = { time: 0, units, events: [], done: false, winner: null, rng };
-  settle(battle);
-  return battle;
+  for (const u of b.units) {
+    for (const f of u.hooks.start) f();
+    // a small random head start, so repeated fights between the same boards don't all play out the same
+    u.cooldown = (0.2 + 0.3 * b.rng()) / attackSpeed(b, u);
+  }
+  settle(b);
+  return b;
 }
 
 function settle(b: Battle): void {
@@ -265,30 +179,11 @@ function settle(b: Battle): void {
   }
 }
 
-function dist(a: Unit, b: Unit): number {
-  return hexDistance(a.row, a.col, b.row, b.col);
-}
-
-function damage(b: Battle, from: Unit, to: Unit, raw: number, magic: boolean): number {
-  const resist = magic ? to.mr : to.armor;
-  const dealt = (raw * from.amp * 100) / (100 + Math.max(0, resist));
-  to.hp -= dealt;
-  to.mana = Math.min(to.maxMana, to.mana + Math.min(42, 0.01 * raw + 0.03 * dealt));
-  from.damageDealt += dealt;
-  if (from.omnivamp > 0) from.hp = Math.min(from.maxHp, from.hp + dealt * from.omnivamp);
-  if (to.hp <= 0 && to.alive) {
-    to.alive = false;
-    to.hp = 0;
-    b.events.push({ t: b.time, kind: "death", from: from.uid, to: to.uid });
-  }
-  return dealt;
-}
-
 function nearestEnemy(b: Battle, u: Unit): Unit | null {
   let best: Unit | null = null;
   let bestKey = Infinity;
   for (const e of b.units) {
-    if (!e.alive || e.team === u.team) continue;
+    if (!e.alive || e.team === u.team || e.untargetableUntil > b.time) continue;
     const key = dist(u, e) + e.hp / (e.maxHp * 10) + b.rng() * 1e-3; // nearest, then the more wounded
     if (key < bestKey) {
       bestKey = key;
@@ -298,55 +193,99 @@ function nearestEnemy(b: Battle, u: Unit): Unit | null {
   return best;
 }
 
-function cast(b: Battle, u: Unit, target: Unit): void {
+function cast(b: Battle, u: Unit, t: Unit): void {
+  const def = spellFor(u.champion.name);
+  const ctx = spellCtx(b, u, t);
   u.mana = 0;
-  const amount = u.spell * (u.ap / 100);
-  // Ranged casters hit their target and splash around it; melee casters hit everything around them.
-  const center = u.range >= 2 ? target : u;
-  b.events.push({ t: b.time, kind: "spell", from: u.uid, to: center.uid });
-  for (const e of b.units) {
-    if (!e.alive || e.team === u.team) continue;
-    if (e === target) damage(b, u, e, amount, true);
-    else if (hexDistance(e.row, e.col, center.row, center.col) <= 1) damage(b, u, e, amount * (u.range >= 2 ? 0.5 : 0.8), true);
-  }
+  u.manaReave = 0;
+  u.casts++;
+  u.castingUntil = b.time + (def?.channel ?? 0.25);
+  b.events.push({ t: b.time, kind: "spell", from: u.uid, to: t.uid });
+  if (ctx) def?.cast?.(ctx);
+  for (const f of u.hooks.cast) f();
 }
 
-function occupied(b: Battle, row: number, col: number): boolean {
-  return b.units.some((x) => x.alive && x.row === row && x.col === col);
+function attack(b: Battle, u: Unit, t: Unit): void {
+  u.attacks++;
+  u.cooldown += 1 / attackSpeed(b, u);
+  let hit: Hit = { source: u, target: t, raw: ad(u), dealt: 0, kind: "physical", attack: true, spell: false, crit: false, proc: true };
+  if (!(u.attackOverride && u.attackOverride(b, u, t))) {
+    b.lastHit = null;
+    damage(b, u, t, ad(u), "physical", { attack: true });
+    if (b.lastHit) hit = b.lastHit;
+  }
+  gainMana(b, u, MANA_PER_ATTACK);
+  b.events.push({ t: b.time, kind: "attack", from: u.uid, to: t.uid, crit: hit.crit });
+  for (const f of u.hooks.attack) f(t, hit);
+}
+
+function tickDots(b: Battle): void {
+  for (const u of b.units) {
+    if (!u.alive) continue;
+    for (const [tag, burn] of u.burns) {
+      const span = Math.min(DOT_PERIOD, burn.until - (b.time - DOT_PERIOD));
+      if (span > 0) damage(b, burn.source, u, burn.pct * u.maxHp * span, "true", { proc: false });
+      if (burn.until <= b.time) u.burns.delete(tag);
+      if (!u.alive) break;
+    }
+    for (const d of u.dots) {
+      const span = Math.min(b.time, d.until) - d.last;
+      if (span > 0 && u.alive) damage(b, d.source, u, d.perSec * span, d.kind, { proc: false });
+      d.last = Math.min(b.time, d.until);
+    }
+    u.dots = u.dots.filter((d) => d.until > b.time);
+  }
 }
 
 /** Advances the fight by one tick. */
 export function step(b: Battle): void {
   if (b.done) return;
   b.time += TICK;
-  const order = b.units.filter((u) => u.alive).sort(() => b.rng() - 0.5);
+
+  if (b.timers.some((t) => t.at <= b.time)) {
+    const due = b.timers.filter((t) => t.at <= b.time).sort((x, y) => x.at - y.at);
+    b.timers = b.timers.filter((t) => t.at > b.time);
+    for (const t of due) t.fn();
+  }
+  b.dotClock += TICK;
+  if (b.dotClock >= DOT_PERIOD - 1e-9) {
+    b.dotClock = 0;
+    tickDots(b);
+  }
+
+  const order = b.units.filter((u) => u.alive);
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(b.rng() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
   for (const u of order) {
     if (!u.alive) continue;
+    for (const f of u.hooks.tick) f(TICK);
     if (u.moveProgress < 1) {
-      u.moveProgress = Math.min(1, u.moveProgress + TICK / MOVE_TIME);
+      u.moveProgress = Math.min(1, u.moveProgress + TICK / 0.5);
       continue;
     }
-    u.mana = Math.min(u.maxMana, u.mana + u.manaRegen * TICK);
-    let target = u.target == null ? null : b.units[u.target];
-    if (!target || !target.alive || dist(u, target) > u.range) {
-      target = nearestEnemy(b, u);
-      u.target = target ? target.uid : null;
-    }
+    if (u.stunUntil > b.time || u.sleepUntil > b.time || u.castingUntil > b.time) continue;
+    if (u.hasSpell) gainMana(b, u, u.manaRegen * TICK);
+
+    let target = u.target == null ? null : b.units[u.target] ?? null;
+    if (u.tauntUntil > b.time && u.taunter != null && b.units[u.taunter]?.alive) target = b.units[u.taunter];
+    else if (!target || !target.alive || target.untargetableUntil > b.time || target.team === u.team || dist(u, target) > u.range) target = nearestEnemy(b, u);
     if (!target) continue;
+    if (u.target !== target.uid) u.sameTargetSince = b.time;
+    u.target = target.uid;
+
     if (dist(u, target) <= u.range) {
       u.stuck = 0;
-      u.cooldown -= TICK;
-      if (u.mana >= u.maxMana) {
+      if (u.hasSpell && u.mana >= u.maxMana + u.manaReave) {
         cast(b, u, target);
-      } else if (u.cooldown <= 0) {
-        u.cooldown += 1 / u.attackSpeed;
-        const crit = b.rng() < u.crit;
-        const amount = damage(b, u, target, u.ad * (crit ? u.critMult : 1), false);
-        u.mana = Math.min(u.maxMana, u.mana + MANA_PER_ATTACK);
-        b.events.push({ t: b.time, kind: "attack", from: u.uid, to: target.uid, crit, amount });
+        continue;
       }
+      u.cooldown -= TICK;
+      if (u.cooldown <= 0) attack(b, u, target);
       continue;
     }
+    if (u.stacks.rooted) continue;
     // Walk one hex towards the target; sidestep if blocked for a while.
     const here = dist(u, target);
     const options = neighbors(u.row, u.col).filter(([r, c]) => !occupied(b, r, c));
@@ -380,7 +319,7 @@ export function runToEnd(b: Battle): Outcome {
   return {
     winner: b.winner,
     time: b.time,
-    survivors: [0, 1].map((t) => b.units.filter((u) => u.alive && u.team === t).length) as [number, number],
+    survivors: [0, 1].map((t) => b.units.filter((u) => u.alive && u.team === t && !u.summon).length) as [number, number],
   };
 }
 

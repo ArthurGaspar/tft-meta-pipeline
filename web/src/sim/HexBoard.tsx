@@ -1,4 +1,4 @@
-import { COLS, ROWS, type Battle, type GameData, type Placed, type Unit } from "./engine";
+import { COLS, ROWS, type Battle, type ChampionData, type GameData, type Placed, type Unit } from "./engine";
 
 const SIZE = 30; // hex radius
 const W = Math.sqrt(3) * SIZE;
@@ -29,6 +29,13 @@ interface Token {
   key: string;
   team: 0 | 1;
   id: string;
+  /** set during a fight, so summons (which aren't in the champion list) draw too */
+  champion?: ChampionData;
+  summon?: boolean;
+  /** shield as a share of max Health */
+  shield?: number;
+  /** stunned or asleep */
+  disabled?: boolean;
   star: number;
   items: string[];
   x: number;
@@ -58,7 +65,12 @@ export function HexBoard({ game, mine, opponent, battle, selected, placing, onHe
         .filter((u) => u.alive)
         .map((u) => {
           const [x, y] = position(u);
-          return { key: `u${u.uid}`, team: u.team, id: u.champion.id, star: u.star, items: u.items, x, y, hp: u.hp / u.maxHp, mana: u.mana / u.maxMana };
+          const shield = u.shields.reduce((s, x) => s + (x.until > battle.time ? x.amount : 0), 0) / u.maxHp;
+          const disabled = u.stunUntil > battle.time || u.sleepUntil > battle.time;
+          return {
+            key: `u${u.uid}`, team: u.team, id: u.champion.id, champion: u.champion, summon: u.summon, star: u.star, items: u.items, x, y,
+            hp: u.hp / u.maxHp, mana: u.hasSpell ? u.mana / u.maxMana : 0, shield, disabled,
+          };
         })
     : [
         ...mine.map((p, index) => ({ key: `m${index}`, team: 0 as const, ...p, index, x: center(p.row, p.col)[0], y: center(p.row, p.col)[1] })),
@@ -72,6 +84,9 @@ export function HexBoard({ game, mine, opponent, battle, selected, placing, onHe
       <defs>
         <clipPath id="unit-clip">
           <circle r={SIZE * 0.72} />
+        </clipPath>
+        <clipPath id="summon-clip">
+          <circle r={SIZE * 0.5} />
         </clipPath>
       </defs>
       {Array.from({ length: ROWS }, (_, row) =>
@@ -101,16 +116,26 @@ export function HexBoard({ game, mine, opponent, battle, selected, placing, onHe
             const [x2, y2] = position(to);
             return <line key={i} className={`shot team${from.team}${e.crit ? " crit" : ""}`} x1={x1} y1={y1} x2={x2} y2={y2} />;
           }
-          if (e.kind === "spell" && age < 0.45) {
-            const [x, y] = position(to);
-            return <circle key={i} className={`burst team${from.team}`} cx={x} cy={y} r={SIZE * (1.2 + age * 2)} style={{ opacity: 1 - age / 0.45 }} />;
+          if (e.kind === "spell" && age < 0.3) {
+            const [x, y] = position(from);
+            return <circle key={i} className={`burst team${from.team}`} cx={x} cy={y} r={SIZE * (0.8 + age * 2)} style={{ opacity: 1 - age / 0.3 }} />;
+          }
+          if (e.kind === "area" && age < 0.5 && e.x !== undefined && e.y !== undefined) {
+            // r is in hexes: one hex step is sqrt(3) hex radii
+            const r = SIZE * (0.9 + Math.sqrt(3) * (e.r ?? 1));
+            return <circle key={i} className={`zone team${from.team}`} cx={PAD + SIZE * e.x} cy={PAD + SIZE * e.y} r={r} style={{ opacity: 0.5 * (1 - age / 0.5) }} />;
+          }
+          if (e.kind === "beam" && age < 0.35 && e.x !== undefined && e.y !== undefined && e.x2 !== undefined && e.y2 !== undefined) {
+            return (
+              <line key={i} className={`beam team${from.team}`} x1={PAD + SIZE * e.x} y1={PAD + SIZE * e.y} x2={PAD + SIZE * e.x2} y2={PAD + SIZE * e.y2} style={{ opacity: 1 - age / 0.35 }} />
+            );
           }
           return null;
         })}
 
       {tokens.map((t) => {
-        const c = champs.get(t.id);
-        const r = SIZE * 0.72;
+        const c = t.champion ?? champs.get(t.id);
+        const r = SIZE * (t.summon ? 0.5 : 0.72);
         const pickable = t.index !== undefined && !battle;
         return (
           <g
@@ -120,13 +145,13 @@ export function HexBoard({ game, mine, opponent, battle, selected, placing, onHe
             onClick={pickable ? () => onUnit(t.index!) : undefined}
           >
             <title>{`${c?.name ?? t.id} ${"★".repeat(t.star)}${t.items.length ? ` · ${t.items.map((i) => items.get(i)?.name ?? i).join(", ")}` : ""}`}</title>
-            <circle className={`ring cost${c?.cost ?? 1}`} r={r + 2.5} />
+            <circle className={`ring cost${c?.cost ?? 1}${t.disabled ? " disabled" : ""}`} r={r + 2.5} />
             {c?.icon ? (
-              <image href={c.icon} x={-r} y={-r} width={r * 2} height={r * 2} clipPath="url(#unit-clip)" preserveAspectRatio="xMidYMid slice" />
+              <image href={c.icon} x={-r} y={-r} width={r * 2} height={r * 2} clipPath={`url(#${t.summon ? "summon" : "unit"}-clip)`} preserveAspectRatio="xMidYMid slice" />
             ) : (
               <text textAnchor="middle" dy="0.35em">{c?.name.slice(0, 2)}</text>
             )}
-            <text className="stars" y={-r - 4} textAnchor="middle">{"★".repeat(t.star)}</text>
+            {!t.summon && <text className="stars" y={-r - 4} textAnchor="middle">{"★".repeat(t.star)}</text>}
             {t.items.slice(0, 3).map((id, k) => {
               const icon = items.get(id)?.icon;
               const x = (k - (t.items.length - 1) / 2) * 11 - 5;
@@ -136,6 +161,9 @@ export function HexBoard({ game, mine, opponent, battle, selected, placing, onHe
               <g transform={`translate(${-r},${r + 5})`}>
                 <rect className="bar-bg" width={r * 2} height={4} rx={2} />
                 <rect className={`hp team${t.team}`} width={Math.max(0, r * 2 * t.hp)} height={4} rx={2} />
+                {(t.shield ?? 0) > 0.005 && (
+                  <rect className="shieldbar" x={Math.max(0, r * 2 * t.hp)} width={Math.min(r * 2, r * 2 * (t.shield ?? 0))} height={4} rx={2} />
+                )}
                 <rect className="bar-bg" y={5} width={r * 2} height={3} rx={1.5} />
                 <rect className="mana" y={5} width={Math.max(0, r * 2 * (t.mana ?? 0))} height={3} rx={1.5} />
               </g>

@@ -3,13 +3,19 @@ import { HBars } from "./charts";
 import { PLAYSTYLE_LABEL, load } from "./data";
 import { HexBoard } from "./sim/HexBoard";
 import {
+  ITEMS,
   TICK,
+  TRAITS,
   activeTraits,
   autoPlace,
   createBattle,
   runToEnd,
   sampleToUnits,
+  spellCoverage,
+  spellFor,
   step,
+  traitValues,
+  type ActiveTrait,
   type Battle,
   type GameData,
   type Placed,
@@ -21,6 +27,31 @@ const BATCH = 200;
 const STORAGE_KEY = "tft-sim-board-v1";
 const ORDINAL = ["", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
 const units = (n: number, noun = "unit") => `${n} ${noun}${n === 1 ? "" : "s"}`;
+
+/** Fills a tooltip's @Value@ / @Value*100@ placeholders from known values; the rest read "?". */
+function fill(desc: string | undefined, values: Record<string, number> = {}): string {
+  return (desc ?? "").replace(/@([A-Za-z0-9_.:]+?)(\*100)?@/g, (_, name: string, pct?: string) => {
+    const v = values[name];
+    if (v === undefined) return "?";
+    const x = pct ? v * 100 : v;
+    return String(Math.round(x * 100) / 100);
+  });
+}
+
+/** An item's tooltip with its values; flavour-only tooltips (Deathcap, Deathblade) get their hidden effect spelled out. */
+function itemText(desc: string | undefined, effects: Record<string, number> = {}): string {
+  const text = fill((desc ?? "").replace(/@TFTUnitProperty[^@]*@/g, ""), effects).trim();
+  const bonus = effects.BonusDamage ? ` Deals ${Math.round(effects.BonusDamage * 100)}% more damage.` : "";
+  return (text || "Stats only.") + (text.includes("more damage") ? "" : bonus);
+}
+
+function traitTooltip(t: ActiveTrait): string {
+  const tier = Math.max(1, t.tier);
+  const lines = [`${t.trait.name} (${t.trait.breakpoints.join(" / ")})`, fill(t.trait.desc, traitValues(t.trait, tier)).replace(/\(\?\)\s*/g, "")];
+  const missing = TRAITS[t.trait.name]?.notModeled;
+  if (missing) lines.push(`Not in a single fight: ${missing}.`);
+  return lines.join("\n\n");
+}
 
 interface BatchResult {
   label: string;
@@ -173,8 +204,15 @@ function SimulatorView({ game }: { game: GameData }) {
         <h1>Fight simulator</h1>
         <p>
           Build a board, place it, and watch it fight a real board from the simulated lobbies, in real time. Units use their Set{" "}
-          {game.set} base stats, scaled by stars, items and the hidden meta of the patch you pick: the same balance the tier lists are
-          trying to recover. Positioning matters here: units walk to the nearest enemy, ranged units hit from afar, and spells splash.
+          {game.set} base stats, and every ability, trait and item does what its in-game description says: traits and items with
+          Riot's own values, all scaled by the hidden meta of the patch you pick (the balance the tier lists are trying to recover).
+          Positioning matters: units walk to the nearest enemy, ranged units hit from afar, and spells hit areas, lines and cones.
+        </p>
+        <p className="small">
+          Riot hasn't published Set {game.set}'s ability numbers yet (only {game.champions.filter((c) => Object.keys(c.spell?.vars ?? {}).length).length} of{" "}
+          {game.champions.length} abilities have them), so the rest are estimated by cost and marked as such. They switch to Riot's
+          values automatically once the game data has them. Effects that happen between rounds (shops, quests, rewards) aren't part of
+          a single fight and are listed where they apply.
         </p>
       </section>
 
@@ -279,7 +317,7 @@ function SimulatorView({ game }: { game: GameData }) {
             {myTraits.length ? (
               <div className="trait-list">
                 {myTraits.map((t) => (
-                  <span key={t.trait.id} className={`trait-chip${t.tier ? " on" : ""}`} title={`Breakpoints: ${t.trait.breakpoints.join(", ")}`}>
+                  <span key={t.trait.id} className={`trait-chip${t.tier ? " on" : ""}`} title={traitTooltip(t)}>
                     <b>{t.count}</b> {t.trait.name}
                     <span className="small"> / {t.trait.breakpoints.find((x) => x > t.count) ?? t.trait.breakpoints[t.trait.breakpoints.length - 1]}</span>
                   </span>
@@ -293,6 +331,17 @@ function SimulatorView({ game }: { game: GameData }) {
                 Opponent: {theirTraits.map((t) => `${t.count} ${t.trait.name}`).join(", ")}
               </p>
             )}
+            {myTraits.some((t) => t.tier && TRAITS[t.trait.name]?.notModeled) && (
+              <p className="small" style={{ marginBottom: 0 }}>
+                Not part of a single fight:{" "}
+                {myTraits
+                  .filter((t) => t.tier && TRAITS[t.trait.name]?.notModeled)
+                  .map((t) => `${t.trait.name} (${TRAITS[t.trait.name]?.notModeled})`)
+                  .join("; ")}
+                .
+              </p>
+            )}
+            <p className="small" style={{ marginBottom: 0 }}>Hover a trait for what it does at your breakpoint.</p>
           </section>
 
           {editing && (
@@ -396,8 +445,48 @@ function UnitEditor({ game, unit, onChange, onRemove, onDone }: { game: GameData
           </select>
         ))}
       </div>
+      {unit.items.length > 0 && (
+        <ul className="effects">
+          {unit.items.map((id, k) => {
+            const item = game.items.find((i) => i.id === id);
+            if (!item) return null;
+            const missing = ITEMS[item.name]?.notModeled;
+            return (
+              <li key={k}>
+                <b>{item.name}:</b> {itemText(item.desc, item.effects)}
+                {missing && <span className="small"> Not in a single fight: {missing}.</span>}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      <SpellInfo game={game} name={c.name} />
       <p className="small" style={{ marginBottom: 0 }}>Click any empty hex on your half to move this unit.</p>
     </>
+  );
+}
+
+function SpellInfo({ game, name }: { game: GameData; name: string }) {
+  const c = game.champions.find((x) => x.name === name);
+  const def = spellFor(name);
+  if (!c?.spell?.desc || !def) return null;
+  const cover = spellCoverage(name, c.spell.vars);
+  return (
+    <div className="spell">
+      <div className="row" style={{ justifyContent: "space-between" }}>
+        <b>{c.spell.name ?? "Ability"}</b>
+        <span className={`badge${cover.real.length ? " real" : ""}`}>
+          {cover.estimated.length === 0 ? "Riot's numbers" : cover.real.length ? "partly estimated" : "numbers estimated"}
+        </span>
+      </div>
+      <p className="spell-text">{fill(c.spell.desc)}</p>
+      <p className="small" style={{ margin: 0 }}>
+        {cover.real.length
+          ? `Uses Riot's values for ${cover.real.join(", ")}${cover.estimated.length ? `; the rest are estimates until Riot publishes them.` : "."}`
+          : "Riot's game data has this ability's description but not its numbers yet, so the simulator estimates them by cost."}
+        {def.notModeled && ` Not in a single fight: ${def.notModeled}.`}
+      </p>
+    </div>
   );
 }
 

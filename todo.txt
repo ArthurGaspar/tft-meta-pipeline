@@ -1,2 +1,2 @@
-- Real-time simulation
+- Update patches (but keep old ones on storage)
 - Older sets

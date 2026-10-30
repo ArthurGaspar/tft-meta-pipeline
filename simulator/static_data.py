@@ -10,6 +10,7 @@ kept in the repository and this script refreshes it.
 import argparse
 import hashlib
 import json
+import re
 import urllib.request
 from pathlib import Path
 
@@ -36,6 +37,39 @@ def champion_stats(s: dict) -> dict:
         "range": int(s["range"]), "mana": s["mana"], "startMana": s["initialMana"],
         "crit": round(s["critChance"], 3), "critMult": round(s["critMultiplier"], 3),
     }
+
+
+def fnv1a(name: str) -> str:
+    """Riot hashes some variable names (FNV-1a over the lowercased name); Community Dragon prints the hash."""
+    h = 0x811C9DC5
+    for b in name.lower().encode():
+        h = ((h ^ b) * 0x01000193) & 0xFFFFFFFF
+    return "{%08x}" % h
+
+
+def named(values: dict, desc: str | None) -> dict:
+    """A {name: number} dict with hashed keys turned back into the names the description uses.
+    Keys that can't be decoded are dropped: nothing could read them anyway."""
+    known = {fnv1a(n): n for n in re.findall(r"@([A-Za-z0-9_]+)", desc or "")}
+    out = {}
+    for k, v in (values or {}).items():
+        name = known.get(k, k) if k.startswith("{") else k
+        if not name.startswith("{") and isinstance(v, (int, float)):
+            out[name] = round(v, 4)
+    return out
+
+
+def clean(desc: str | None) -> str:
+    """Tooltip text without markup or icon codes; @Variable@ placeholders are kept."""
+    text = re.sub(r"<br\s*/?>|\\n|\n", "\n", desc or "")
+    text = re.sub(r"<[^>]+>|%i:[A-Za-z0-9]+%|\{\{[^}]*\}\}|\{[A-Za-z.]+\}", "", text)
+    return "\n".join(re.sub(r"\s+", " ", line).strip() for line in text.split("\n")).strip()
+
+
+def spell(ability: dict) -> dict:
+    """The ability's tooltip and whatever per-star values Riot ships ([0, 1-star, 2-star, 3-star, ...])."""
+    variables = {v["name"]: [round(x, 4) for x in v["value"]] for v in ability.get("variables") or [] if v.get("value")}
+    return {"name": ability.get("name"), "desc": clean(ability.get("desc")), "vars": variables}
 
 
 def stable_sample(names: list[str], k: int) -> list[str]:
@@ -74,6 +108,7 @@ def extract(raw: dict, mutator: str) -> dict:
                 "traits": [trait_api[t] for t in c["traits"]],
                 "icon": icon_url(c.get("squareIcon")),
                 "stats": champion_stats(c["stats"]),
+                "spell": spell(c["ability"]),
             }
             for c in sorted(champions, key=lambda c: (c["cost"], c["name"]))
         ],
@@ -83,6 +118,11 @@ def extract(raw: dict, mutator: str) -> dict:
                 "name": t["name"],
                 "breakpoints": sorted({e["minUnits"] for e in t["effects"] if e.get("minUnits")}),
                 "icon": icon_url(t.get("icon")),
+                "desc": clean(t.get("desc")),
+                "effects": [
+                    {"minUnits": e["minUnits"], "values": named(e.get("variables"), t.get("desc"))}
+                    for e in t["effects"] if e.get("minUnits")
+                ],
             }
             for t in sorted(traits, key=lambda t: t["name"])
         ],
@@ -90,6 +130,8 @@ def extract(raw: dict, mutator: str) -> dict:
             {
                 "id": i["apiName"], "name": i["name"], "icon": icon_url(i.get("icon")),
                 "stats": {k: round(v, 3) for k, v in (i.get("effects") or {}).items() if k in ITEM_STATS and v},
+                "effects": named(i.get("effects"), i.get("desc")),
+                "desc": clean(i.get("desc")),
             }
             for i in sorted(completed, key=lambda i: i["name"])
         ],

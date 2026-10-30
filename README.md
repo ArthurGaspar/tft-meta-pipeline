@@ -53,18 +53,31 @@ time, on a board you build: pick champions, stars and items, place them on your 
 random board from the simulated lobbies. You can watch the fight, or run 200 of them for a win rate, against one
 opponent or against 200 different lobby boards.
 
-- **The same meta.** The simulator writes `game.json`: base stats from Community Dragon (health, attack damage, attack
-  speed, armor, magic resist, range, mana) and item stat bonuses, the hidden power of every champion, trait breakpoint
-  and item per patch, and 240 full boards per patch from the simulated lobbies. Fights in the browser follow the balance
-  the tier lists try to recover. Boards that placed better in their lobby win about three quarters of fights against
-  boards that placed worse.
-- **Real positioning.** Units walk to the nearest enemy, attack within range, gain mana from attacking and taking damage,
-  and cast. Abilities aren't in this set's game data, so every spell is generic: magic damage by cost and stars,
-  splashing around the target for ranged casters and around the caster for melee ones. Placement decides who gets hit
-  first and how much a spell catches. The same boards with the front and back lines swapped win roughly 40% fewer fights.
-- **Deterministic.** The engine (`web/src/sim/engine.ts`, no dependencies) is seeded, runs at under 1 ms per fight, and
-  powers both the animation and the batch runs. `npm run check:sim` verifies all of this against the generated data,
-  and CI runs it.
+- **TFT's combat rules** (`web/src/sim/core.ts`): Damage Amp, Armor and Magic Resist (with Sunder and Shred), Durability,
+  shields, healing (with Wound), crits (Precision lets abilities crit), mana from attacks and damage taken, Mana Reave,
+  stuns, sleep, taunts, Burn and bleeds, summons, and overtime: after 30 seconds damage ramps up 25% per second so long
+  fights end.
+- **Every ability, trait and item, from its in-game description.** All 74 abilities (`spells.ts`), with their shapes:
+  lines, cones, areas, leaps, tethers, Krug splitting into Kruglettes, Zyra's plants, Lux's ten forms. All 35 traits
+  (`traits.ts`) and 39 items (`items.ts`) use Riot's real values. Riot hashes many of the variable names, so
+  `static_data.py` decodes them by FNV-1a-hashing the names each description uses (59 of 61 decoded). What happens
+  between rounds (shops, Coven's essence, quests, Wisps, Elderwood's plants) can't show in one fight. Those effects say so
+  in the page.
+- **Estimated numbers, until Riot publishes them.** Set 18's game data has every ability's description but numbers for
+  only 2 of 74, on live and on the test server alike, and in Riot's own map data as well. So each ability declares its
+  values in Riot's format (`[0, 1-star, 2-star, 3-star]`), with estimates sized by cost from earlier sets. A value the
+  game data has, under the same name, replaces the estimate automatically: Kobuko's and Alune's already do. The page
+  marks each ability as estimated or real.
+- **The same meta.** The simulator writes `game.json`: the set's data above, the hidden power of every champion, trait
+  breakpoint and item per patch (which scales their numbers in the browser too), and 240 full boards per patch from the
+  simulated lobbies. Boards that placed better in their lobby win about 70% of fights against boards that placed worse.
+- **Positioning matters.** Placement decides who gets hit first, what a cone or line catches, and which allies Lunar
+  buffs. The same boards with the front and back lines swapped win about 30% fewer fights.
+- **Deterministic.** The engine is seeded, has no dependencies, runs at about 1.5 ms per fight, and powers both the
+  animation and the batch runs. `npm run check:sim` (also in CI) checks the rules one by one (mitigation, Durability,
+  shields, burns, stuns, overtime, a trait and an item with Riot's values) and then whole fights against the generated
+  data. Every ability must cast without errors, fights must end and replay from a seed, and they must agree with the
+  simulated lobbies.
 
 ## minicloud: the AWS pieces, imitated
 

@@ -25,6 +25,19 @@ def icon_url(path: str | None) -> str | None:
     return ASSETS + path.lower()[: -len(".tex")] + ".png"
 
 
+# Item stats the browser simulator models, in Community Dragon's units: AD, StatOmnivamp and
+# DamageAmp are fractions; AP, AS and CritChance percentage points; the rest flat.
+ITEM_STATS = ("AD", "AP", "AS", "Armor", "MagicResist", "Health", "CritChance", "ManaRegen", "StatOmnivamp", "DamageAmp", "CombatStartMana")
+
+
+def champion_stats(s: dict) -> dict:
+    return {
+        "hp": s["hp"], "ad": s["damage"], "as": round(s["attackSpeed"], 3), "armor": s["armor"], "mr": s["magicResist"],
+        "range": int(s["range"]), "mana": s["mana"], "startMana": s["initialMana"],
+        "crit": round(s["critChance"], 3), "critMult": round(s["critMultiplier"], 3),
+    }
+
+
 def stable_sample(names: list[str], k: int) -> list[str]:
     """The same k names on every refresh, independent of list order."""
     return sorted(names, key=lambda n: hashlib.sha1(n.encode()).hexdigest())[:k]
@@ -60,6 +73,7 @@ def extract(raw: dict, mutator: str) -> dict:
                 "cost": c["cost"],
                 "traits": [trait_api[t] for t in c["traits"]],
                 "icon": icon_url(c.get("squareIcon")),
+                "stats": champion_stats(c["stats"]),
             }
             for c in sorted(champions, key=lambda c: (c["cost"], c["name"]))
         ],
@@ -73,7 +87,10 @@ def extract(raw: dict, mutator: str) -> dict:
             for t in sorted(traits, key=lambda t: t["name"])
         ],
         "items": [
-            {"id": i["apiName"], "name": i["name"], "icon": icon_url(i.get("icon"))}
+            {
+                "id": i["apiName"], "name": i["name"], "icon": icon_url(i.get("icon")),
+                "stats": {k: round(v, 3) for k, v in (i.get("effects") or {}).items() if k in ITEM_STATS and v},
+            }
             for i in sorted(completed, key=lambda i: i["name"])
         ],
         "augments": [
@@ -95,7 +112,7 @@ def main() -> None:
         raw = json.loads(Path(args.source).read_text(encoding="utf-8"))
     data = extract(raw, args.mutator)
     out = ROOT / "data" / f"set{data['set']}.json"
-    out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
     print(
         f"wrote {out.relative_to(ROOT)}: {len(data['champions'])} champions, {len(data['traits'])} traits, "
         f"{len(data['items'])} items, {len(data['augments'])} augments"

@@ -11,7 +11,19 @@
     "DA_18_Adaptor",
     "DA_18_Slayer"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_akali/skins/base/images/tft18_akali_splash_tile_2.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_akali/skins/base/images/tft18_akali_splash_tile_2.png",
+   "stats": {
+    "hp": 650.0,
+    "ad": 40.0,
+    "as": 0.75,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 1,
+    "mana": 25.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Camille",
@@ -21,7 +33,19 @@
     "DA_18_Coven",
     "DA_18_Slayer"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_camille/skins/base/images/tft18_camille_splash_tile_2.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_camille/skins/base/images/tft18_camille_splash_tile_2.png",
+   "stats": {
+    "hp": 700.0,
+    "ad": 40.0,
+    "as": 0.75,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 1,
+    "mana": 25.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Cinderling18",
@@ -31,7 +55,19 @@
     "DA_Riftbeast18",
     "DA_18_Hunter"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cinderling/skins/base/images/t_18_cinderling_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cinderling/skins/base/images/t_18_cinderling_teamplannersplash.png",
+   "stats": {
+    "hp": 500.0,
+    "ad": 40.0,
+    "as": 0.7,
+    "armor": 25.0,
+    "mr": 25.0,
+    "range": 4,
+    "mana": 50.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Karma18",
@@ -41,7 +77,19 @@
     "DA_18_Blossom",
     "DA_18_Spellweaver"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_karma/skins/base/images/tft18_karma_splash_tile_70.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_karma/skins/base/images/tft18_karma_splash_tile_70.png",
+   "stats": {
+    "hp": 500.0,
+    "ad": 25.0,
+    "as": 0.7,
+    "armor": 25.0,
+    "mr": 25.0,
+    "range": 4,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Kobuko",
@@ -51,7 +99,19 @@
     "DA_18_Sprykin",
     "DA_18_Brawler"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kobuko/skins/base/images/tft18_kobuko_splash_tile_2.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kobuko/skins/base/images/tft18_kobuko_splash_tile_2.png",
+   "stats": {
+    "hp": 700.0,
+    "ad": 55.0,
+    "as": 0.65,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 1,
+    "mana": 90.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Leona",
@@ -61,7 +121,19 @@
     "DA_18_Solar",
     "DA_18_Defender"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leona/skins/base/images/tft18_leona_splash_tile_10.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leona/skins/base/images/tft18_leona_splash_tile_10.png",
+   "stats": {
+    "hp": 750.0,
+    "ad": 50.0,
+    "as": 0.65,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 1,
+    "mana": 90.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Ornn",
@@ -71,7 +143,19 @@
     "DA_18_Elderwood",
     "DA_18_Defender"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ornn/skins/base/images/tft18_ornn_splash_tile_2.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ornn/skins/base/images/tft18_ornn_splash_tile_2.png",
+   "stats": {
+    "hp": 700.0,
+    "ad": 40.0,
+    "as": 0.6,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 1,
+    "mana": 100,
+    "startMana": 40.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Sentry",
@@ -81,7 +165,19 @@
     "DA_Riftbeast18",
     "DA_18_Invoker"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentry/skins/base/images/t_18_sentry_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentry/skins/base/images/t_18_sentry_teamplannersplash.png",
+   "stats": {
+    "hp": 500.0,
+    "ad": 35.0,
+    "as": 0.8,
+    "armor": 25.0,
+    "mr": 25.0,
+    "range": 4,
+    "mana": 70.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Rakan",
@@ -92,7 +188,19 @@
     "DA_Juggernaut18",
     "DA_18_Vanguard"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rakan/skins/base/images/tft18_rakan_splash_tile_9.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rakan/skins/base/images/tft18_rakan_splash_tile_9.png",
+   "stats": {
+    "hp": 700.0,
+    "ad": 45.0,
+    "as": 0.6,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 1,
+    "mana": 105.0,
+    "startMana": 35.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_RekSai",
@@ -102,7 +210,19 @@
     "DA_18_Blackthorn",
     "DA_18_Brawler"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_reksai/skins/base/images/tft18_reksai_splash_tile_17.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_reksai/skins/base/images/tft18_reksai_splash_tile_17.png",
+   "stats": {
+    "hp": 700.0,
+    "ad": 50.0,
+    "as": 0.55,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 1,
+    "mana": 100,
+    "startMana": 40.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Varus",
@@ -112,7 +232,19 @@
     "DA_18_Inferno",
     "DA_18_Rapidfire"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_varus/skins/base/images/tft18_varus_splash_tile_9.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_varus/skins/base/images/tft18_varus_splash_tile_9.png",
+   "stats": {
+    "hp": 500.0,
+    "ad": 40.0,
+    "as": 0.75,
+    "armor": 25.0,
+    "mr": 25.0,
+    "range": 4,
+    "mana": 110.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Veigar",
@@ -123,7 +255,19 @@
     "DA_18_Sprykin",
     "DA_18_Spellweaver"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_veigar/skins/base/images/tft18_veigar_splash_tile_13.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_veigar/skins/base/images/tft18_veigar_splash_tile_13.png",
+   "stats": {
+    "hp": 500.0,
+    "ad": 25.0,
+    "as": 0.7,
+    "armor": 25.0,
+    "mr": 25.0,
+    "range": 4,
+    "mana": 30.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Xayah",
@@ -134,7 +278,19 @@
     "DA_18_Fae",
     "DA_18_Rapidfire"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_xayah/skins/base/images/tft18_xayah_splash_tile_8.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_xayah/skins/base/images/tft18_xayah_splash_tile_8.png",
+   "stats": {
+    "hp": 450.0,
+    "ad": 45.0,
+    "as": 0.7,
+    "armor": 25.0,
+    "mr": 25.0,
+    "range": 4,
+    "mana": 50.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Yorick",
@@ -145,7 +301,19 @@
     "DA_Juggernaut18",
     "DA_18_Summoner"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yorick/skins/base/images/tft18_yorick_splash_tile_30.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yorick/skins/base/images/tft18_yorick_splash_tile_30.png",
+   "stats": {
+    "hp": 650.0,
+    "ad": 50.0,
+    "as": 0.6,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 1,
+    "mana": 110.0,
+    "startMana": 50.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Alistar",
@@ -155,7 +323,19 @@
     "DA_18_Elderwood",
     "DA_18_Brawler"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alistar/skins/base/images/tft18_alistar_splash_tile_40.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alistar/skins/base/images/tft18_alistar_splash_tile_40.png",
+   "stats": {
+    "hp": 950.0,
+    "ad": 50.0,
+    "as": 0.6,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 1,
+    "mana": 90.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Caitlyn",
@@ -165,7 +345,19 @@
     "DA_18_Coven",
     "DA_18_Hunter"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_caitlyn/skins/base/images/tft18_caitlyn_splash_tile_30.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_caitlyn/skins/base/images/tft18_caitlyn_splash_tile_30.png",
+   "stats": {
+    "hp": 550.0,
+    "ad": 50.0,
+    "as": 0.7,
+    "armor": 30.0,
+    "mr": 30.0,
+    "range": 4,
+    "mana": 3.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Elise",
@@ -175,7 +367,19 @@
     "DA_18_Coven",
     "DA_18_Vanguard"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elise/skins/base/images/tft18_elise_splash_tile_24.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elise/skins/base/images/tft18_elise_splash_tile_24.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 20.0,
+    "as": 0.65,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 1,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Gromp18_AP",
@@ -185,7 +389,19 @@
     "DA_Riftbeast18",
     "DA_18_Adaptor"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gromp/skins/base/images/t_18_gromp_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gromp/skins/base/images/t_18_gromp_teamplannersplash.png",
+   "stats": {
+    "hp": 550.0,
+    "ad": 30.0,
+    "as": 0.7,
+    "armor": 30.0,
+    "mr": 30.0,
+    "range": 4,
+    "mana": 45.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Kayle",
@@ -195,7 +411,19 @@
     "DA_18_Solar",
     "DA_18_Rapidfire"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kayle/skins/base/images/tft18_kayle_splash_tile_42.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kayle/skins/base/images/tft18_kayle_splash_tile_42.png",
+   "stats": {
+    "hp": 550.0,
+    "ad": null,
+    "as": 0.75,
+    "armor": 30.0,
+    "mr": 30.0,
+    "range": 4,
+    "mana": 0.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_LeBlanc",
@@ -205,7 +433,19 @@
     "DA_18_Elderwood",
     "DA_18_Spellweaver"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leblanc/skins/base/images/tft18_leblanc_splash_tile_5.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_leblanc/skins/base/images/tft18_leblanc_splash_tile_5.png",
+   "stats": {
+    "hp": 550.0,
+    "ad": 30.0,
+    "as": 0.7,
+    "armor": 30.0,
+    "mr": 30.0,
+    "range": 4,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Murkwolf18",
@@ -215,7 +455,19 @@
     "DA_Riftbeast18",
     "DA_18_Slayer"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_murkwolf/skins/base/images/t_18_murkwolf_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_murkwolf/skins/base/images/t_18_murkwolf_teamplannersplash.png",
+   "stats": {
+    "hp": 700.0,
+    "ad": 50.0,
+    "as": 0.75,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 1,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Scuttlecrab18",
@@ -225,7 +477,19 @@
     "DA_Riftbeast18",
     "DA_Juggernaut18"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_scuttlecrab/skins/base/images/t_18_scuttlecrab_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_scuttlecrab/skins/base/images/t_18_scuttlecrab_teamplannersplash.png",
+   "stats": {
+    "hp": 950.0,
+    "ad": 50.0,
+    "as": 0.65,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 1,
+    "mana": 100,
+    "startMana": 40.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Sejuani",
@@ -235,7 +499,19 @@
     "DA_18_Solar",
     "DA_Juggernaut18"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sejuani/skins/base/images/tft18_sejuani_splash_tile_26.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sejuani/skins/base/images/tft18_sejuani_splash_tile_26.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 50.0,
+    "as": 0.6,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 1,
+    "mana": 100,
+    "startMana": 40.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Shen",
@@ -245,7 +521,19 @@
     "DA_18_Inferno",
     "DA_18_Defender"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_shen/skins/base/images/tft18_shen_splash_tile_16.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_shen/skins/base/images/tft18_shen_splash_tile_16.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 50.0,
+    "as": 0.65,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 1,
+    "mana": 90.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Teemo",
@@ -255,7 +543,19 @@
     "DA_18_Sprykin",
     "DA_18_Invoker"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_teemo/skins/base/images/tft18_teemo_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_teemo/skins/base/images/tft18_teemo_splash_tile_0.png",
+   "stats": {
+    "hp": 550.0,
+    "ad": 35.0,
+    "as": 0.75,
+    "armor": 30.0,
+    "mr": 30.0,
+    "range": 4,
+    "mana": 50.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Warwick",
@@ -265,7 +565,19 @@
     "DA_18_Blackthorn",
     "DA_18_Slayer"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_warwick/skins/base/images/tft18_warwick_splash_tile_35.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_warwick/skins/base/images/tft18_warwick_splash_tile_35.png",
+   "stats": {
+    "hp": 750.0,
+    "ad": 45.0,
+    "as": 0.75,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 1,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Yunara",
@@ -275,7 +587,19 @@
     "DA_18_Blossom",
     "DA_18_Executioner"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yunara/skins/base/images/tft18_yunara_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_yunara/skins/base/images/tft18_yunara_splash_tile_0.png",
+   "stats": {
+    "hp": 550.0,
+    "ad": 42.0,
+    "as": 0.75,
+    "armor": 30.0,
+    "mr": 30.0,
+    "range": 4,
+    "mana": 35.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Azir",
@@ -286,7 +610,19 @@
     "DA_18_Executioner",
     "DA_18_Summoner"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_azir/skins/base/images/tft18_azir_splash_tile_5.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_azir/skins/base/images/tft18_azir_splash_tile_5.png",
+   "stats": {
+    "hp": 650.0,
+    "ad": 30.0,
+    "as": 0.75,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 4,
+    "mana": 35.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Cassiopeia",
@@ -296,7 +632,19 @@
     "DA_18_Coven",
     "DA_18_Spellweaver"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cassiopeia/skins/base/images/tft18_cassiopeia_splash_tile_18.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_cassiopeia/skins/base/images/tft18_cassiopeia_splash_tile_18.png",
+   "stats": {
+    "hp": 650.0,
+    "ad": 30.0,
+    "as": 0.75,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 4,
+    "mana": 30.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Diana",
@@ -307,7 +655,19 @@
     "DA_18_Slayer",
     "DA_18_Vanguard"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_diana/skins/base/images/tft18_diana_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_diana/skins/base/images/tft18_diana_splash_tile_0.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 30.0,
+    "as": 0.8,
+    "armor": 50.0,
+    "mr": 50.0,
+    "range": 1,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Fiddlesticks18",
@@ -318,7 +678,19 @@
     "DA_18_Defender",
     "DA_18_Spellweaver"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_fiddlesticks/skins/base/images/tft18_fiddlesticks_splash_tile_46.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_fiddlesticks/skins/base/images/tft18_fiddlesticks_splash_tile_46.png",
+   "stats": {
+    "hp": 1000.0,
+    "ad": 50.0,
+    "as": 0.65,
+    "armor": 55.0,
+    "mr": 55.0,
+    "range": 1,
+    "mana": 90.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Hecarim",
@@ -328,7 +700,19 @@
     "DA_18_Elderwood",
     "DA_18_Vanguard"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_hecarim/skins/base/images/tft18_hecarim_splash_tile_5.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_hecarim/skins/base/images/tft18_hecarim_splash_tile_5.png",
+   "stats": {
+    "hp": 1100.0,
+    "ad": 50.0,
+    "as": 0.65,
+    "armor": 50.0,
+    "mr": 50.0,
+    "range": 1,
+    "mana": 110.0,
+    "startMana": 50.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_KhaZix",
@@ -337,7 +721,19 @@
    "traits": [
     "DA_18_Rival"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_khazix/skins/base/images/tft18_khazix_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_khazix/skins/base/images/tft18_khazix_splash_tile_0.png",
+   "stats": {
+    "hp": 950.0,
+    "ad": 40.0,
+    "as": 0.85,
+    "armor": 55.0,
+    "mr": 55.0,
+    "range": 1,
+    "mana": 25.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_KogMaw18_AD",
@@ -348,7 +744,19 @@
     "DA_18_Adaptor",
     "DA_18_Invoker"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kogmaw/skins/base/images/tft18_kogmaw_splash_tile_3.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kogmaw/skins/base/images/tft18_kogmaw_splash_tile_3.png",
+   "stats": {
+    "hp": 650.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 4,
+    "mana": 55.0,
+    "startMana": 15.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Krug18",
@@ -358,7 +766,19 @@
     "DA_Riftbeast18",
     "DA_18_Brawler"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_krug/skins/base/images/t_18_krug_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_krug/skins/base/images/t_18_krug_teamplannersplash.png",
+   "stats": {
+    "hp": 1100.0,
+    "ad": 55.0,
+    "as": 0.6,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 1,
+    "mana": 135.0,
+    "startMana": 80.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_CrimsonRaptor18",
@@ -369,7 +789,19 @@
     "DA_18_Summoner",
     "DA_18_Rapidfire"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_raptor/skins/base/images/t_18_crimsonraptor_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_raptor/skins/base/images/t_18_crimsonraptor_teamplannersplash.png",
+   "stats": {
+    "hp": 650.0,
+    "ad": 60.0,
+    "as": 0.75,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 4,
+    "mana": 60.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_MasterYi_AD",
@@ -379,7 +811,19 @@
     "DA_18_Blossom",
     "DA_18_Adaptor"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_masteryi/skins/base/images/tft18_masteryi_splash_tile_52.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_masteryi/skins/base/images/tft18_masteryi_splash_tile_52.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 63.0,
+    "as": 0.8,
+    "armor": 55.0,
+    "mr": 55.0,
+    "range": 1,
+    "mana": 3.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Rammus",
@@ -389,7 +833,19 @@
     "DA_18_Sprykin",
     "DA_18_Defender"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rammus/skins/base/images/tft18_rammus_splash_tile_26.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rammus/skins/base/images/tft18_rammus_splash_tile_26.png",
+   "stats": {
+    "hp": 1100.0,
+    "ad": 50.0,
+    "as": 0.6,
+    "armor": 50.0,
+    "mr": 50.0,
+    "range": 1,
+    "mana": 80.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Rengar",
@@ -398,7 +854,19 @@
    "traits": [
     "DA_18_Rival"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rengar/skins/base/images/tft18_rengar_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_rengar/skins/base/images/tft18_rengar_splash_tile_0.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 60.0,
+    "as": 0.75,
+    "armor": 55.0,
+    "mr": 55.0,
+    "range": 1,
+    "mana": 50.0,
+    "startMana": 10.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Tristana",
@@ -409,7 +877,19 @@
     "DA_18_Sprykin",
     "DA_18_Hunter"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_tristana/skins/base/images/tft18_tristana_splash_tile_61.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_tristana/skins/base/images/tft18_tristana_splash_tile_61.png",
+   "stats": {
+    "hp": 650.0,
+    "ad": 55.0,
+    "as": 0.75,
+    "armor": 35.0,
+    "mr": 35.0,
+    "range": 4,
+    "mana": 50.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Vi18",
@@ -419,7 +899,19 @@
     "DA_Primal18",
     "DA_Juggernaut18"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_vi/skins/base/images/tft18_vi_splash_tile_39.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_vi/skins/base/images/tft18_vi_splash_tile_39.png",
+   "stats": {
+    "hp": 1100.0,
+    "ad": 45.0,
+    "as": 0.75,
+    "armor": 50.0,
+    "mr": 50.0,
+    "range": 1,
+    "mana": 60.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Ahri",
@@ -429,7 +921,19 @@
     "DA_18_Blossom",
     "DA_18_Spellweaver"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ahri/skins/base/images/tft18_ahri_splash_tile_27.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ahri/skins/base/images/tft18_ahri_splash_tile_27.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 4,
+    "mana": 100,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Amumu18",
@@ -439,7 +943,19 @@
     "DA_18_Inferno",
     "DA_Juggernaut18"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_amumu/skins/base/images/tft18_amumu_splash_tile_17.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_amumu/skins/base/images/tft18_amumu_splash_tile_17.png",
+   "stats": {
+    "hp": 1300.0,
+    "ad": 70.0,
+    "as": 0.7,
+    "armor": 60.0,
+    "mr": 60.0,
+    "range": 1,
+    "mana": 125.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Aphelios",
@@ -449,7 +965,19 @@
     "DA_18_Lunar",
     "DA_18_Rapidfire"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_aphelios/skins/base/images/tft18_aphelios_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_aphelios/skins/base/images/tft18_aphelios_splash_tile_0.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 60.0,
+    "as": 0.8,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 4,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Brambleback18",
@@ -459,7 +987,19 @@
     "DA_Riftbeast18",
     "DA_18_Slayer"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_brambleback/skins/base/images/t_18_brambleback_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_brambleback/skins/base/images/t_18_brambleback_teamplannersplash.png",
+   "stats": {
+    "hp": 1100.0,
+    "ad": 120.0,
+    "as": 0.55,
+    "armor": 65.0,
+    "mr": 65.0,
+    "range": 1,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Ezreal",
@@ -469,7 +1009,19 @@
     "DA_18_Elderwood",
     "DA_18_Executioner"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ezreal/skins/base/images/tft18_ezreal_splash_tile_1.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ezreal/skins/base/images/tft18_ezreal_splash_tile_1.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 45.0,
+    "as": 0.75,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 4,
+    "mana": 30.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lillia",
@@ -479,7 +1031,19 @@
     "DA_18_Fae",
     "DA_18_Defender"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lillia/skins/base/images/tft18_lillia_splash_tile_28.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lillia/skins/base/images/tft18_lillia_splash_tile_28.png",
+   "stats": {
+    "hp": 1300.0,
+    "ad": 40.0,
+    "as": 0.65,
+    "armor": 60.0,
+    "mr": 60.0,
+    "range": 1,
+    "mana": 140.0,
+    "startMana": 40.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Malphite",
@@ -489,7 +1053,19 @@
     "DA_18_Blackthorn",
     "DA_18_Battlemage"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_malphite/skins/base/images/tft18_malphite_splash_tile_27.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_malphite/skins/base/images/tft18_malphite_splash_tile_27.png",
+   "stats": {
+    "hp": 1300.0,
+    "ad": 70.0,
+    "as": 0.55,
+    "armor": 70.0,
+    "mr": 70.0,
+    "range": 1,
+    "mana": 80.0,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Morgana",
@@ -499,7 +1075,19 @@
     "DA_18_Coven",
     "DA_18_Invoker"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_morgana/skins/base/images/tft18_morgana_splash_tile_26.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_morgana/skins/base/images/tft18_morgana_splash_tile_26.png",
+   "stats": {
+    "hp": 1100.0,
+    "ad": 45.0,
+    "as": 0.75,
+    "armor": 60.0,
+    "mr": 60.0,
+    "range": 2,
+    "mana": 65.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Nidalee18_AP",
@@ -509,7 +1097,19 @@
     "DA_Primal18",
     "DA_18_Adaptor"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_nidalee/skins/base/images/tft18_nidalee_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_nidalee/skins/base/images/tft18_nidalee_splash_tile_0.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 35.0,
+    "as": 0.8,
+    "armor": 30.0,
+    "mr": 30.0,
+    "range": 1,
+    "mana": 45.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Sentinel18",
@@ -520,7 +1120,19 @@
     "DA_18_Vanguard",
     "DA_18_Invoker"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentinel/skins/base/images/t_18_sentinel_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sentinel/skins/base/images/t_18_sentinel_teamplannersplash.png",
+   "stats": {
+    "hp": 1300.0,
+    "ad": 75.0,
+    "as": 0.6,
+    "armor": 60.0,
+    "mr": 60.0,
+    "range": 1,
+    "mana": 150.0,
+    "startMana": 60.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Sett",
@@ -530,7 +1142,19 @@
     "DA_18_Blossom",
     "DA_18_Brawler"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sett/skins/base/images/tft18_sett_splash_tile_38.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sett/skins/base/images/tft18_sett_splash_tile_38.png",
+   "stats": {
+    "hp": 1200.0,
+    "ad": 80.0,
+    "as": 0.65,
+    "armor": 60.0,
+    "mr": 60.0,
+    "range": 1,
+    "mana": 135.0,
+    "startMana": 60.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Sivir",
@@ -540,7 +1164,19 @@
     "DA_Primal18",
     "DA_18_Hunter"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sivir/skins/base/images/tft18_sivir_splash_tile_61.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_sivir/skins/base/images/tft18_sivir_splash_tile_61.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 50.0,
+    "as": 0.8,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 4,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Soraka",
@@ -550,7 +1186,19 @@
     "DA_FloraFatalis18",
     "DA_18_Executioner"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_soraka/skins/base/images/tft18_soraka_splash_tile_53.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_soraka/skins/base/images/tft18_soraka_splash_tile_53.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 30.0,
+    "as": 0.75,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 4,
+    "mana": 30.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Zyra",
@@ -560,7 +1208,19 @@
     "DA_18_ZyraUniqueTrait",
     "DA_18_Summoner"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_zyra/skins/base/images/tft18_zyra_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_zyra/skins/base/images/tft18_zyra_splash_tile_0.png",
+   "stats": {
+    "hp": 850.0,
+    "ad": 40.0,
+    "as": 0.75,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 4,
+    "mana": 45.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Alune",
@@ -571,7 +1231,19 @@
     "DA_18_Lunar",
     "DA_18_Spellweaver"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alune/skins/base/images/tft18_alune_splash_tile_15.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_alune/skins/base/images/tft18_alune_splash_tile_15.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.85,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 4,
+    "mana": 35.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Ashe",
@@ -581,7 +1253,19 @@
     "DA_18_Blossom",
     "DA_18_Hunter"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ashe/skins/base/images/tft18_ashe_splash_tile_76.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ashe/skins/base/images/tft18_ashe_splash_tile_76.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 75.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 80.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Draven18",
@@ -590,7 +1274,19 @@
    "traits": [
     "DA_DravenUniqueTrait18"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_draven/skins/base/images/tft18_draven_splash_tile_5.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_draven/skins/base/images/tft18_draven_splash_tile_5.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 48.0,
+    "as": 0.85,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 110.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_ElderDragon",
@@ -600,7 +1296,19 @@
     "DA_18_ApexPredator",
     "DA_Riftbeast18"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elderdragon/skins/base/images/t_18_elderdragon_teamplannersplash.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_elderdragon/skins/base/images/t_18_elderdragon_teamplannersplash.png",
+   "stats": {
+    "hp": 1800.0,
+    "ad": 125.0,
+    "as": 0.5,
+    "armor": 75.0,
+    "mr": 75.0,
+    "range": 2,
+    "mana": 60.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_GnarSmall",
@@ -611,7 +1319,19 @@
     "DA_18_Sprykin",
     "DA_18_Brawler"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gnar/skins/base/images/tft18_gnar_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_gnar/skins/base/images/tft18_gnar_splash_tile_0.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 100.0,
+    "as": 0.9,
+    "armor": 55.0,
+    "mr": 55.0,
+    "range": 2,
+    "mana": 70.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Ivern",
@@ -620,7 +1340,19 @@
    "traits": [
     "DA_18_Greenfather"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ivern/skins/base/images/tft18_ivern_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_ivern/skins/base/images/tft18_ivern_splash_tile_0.png",
+   "stats": {
+    "hp": 1000.0,
+    "ad": 60.0,
+    "as": 0.8,
+    "armor": 55.0,
+    "mr": 55.0,
+    "range": 3,
+    "mana": 80.0,
+    "startMana": 50.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Kennen",
@@ -630,7 +1362,19 @@
     "DA_18_Inferno",
     "DA_18_Executioner"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kennen/skins/base/images/tft18_kennen_splash_tile_8.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_kennen/skins/base/images/tft18_kennen_splash_tile_8.png",
+   "stats": {
+    "hp": 1200.0,
+    "ad": 50.0,
+    "as": 0.85,
+    "armor": 60.0,
+    "mr": 60.0,
+    "range": 2,
+    "mana": 40.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Lux18_Base",
@@ -639,7 +1383,19 @@
    "traits": [
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/skins/base/images/tft18_lux_splash_tile_7.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/skins/base/images/tft18_lux_splash_tile_7.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 40.0,
+    "mr": 40.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Lux18_Blackthorn",
@@ -649,7 +1405,19 @@
     "DA_18_Blackthorn",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_blackthorn_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_blackthorn_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Lux18_Blossom",
@@ -659,7 +1427,19 @@
     "DA_18_Blossom",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_blossom_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_blossom_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lux_Coven",
@@ -669,7 +1449,19 @@
     "DA_18_Coven",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_coven_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_coven_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lux_Elderwood",
@@ -679,7 +1471,19 @@
     "DA_18_Elderwood",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_elderwood_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_elderwood_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lux_Fae",
@@ -689,7 +1493,19 @@
     "DA_18_Fae",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_fae_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_fae_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lux_Inferno",
@@ -699,7 +1515,19 @@
     "DA_18_Inferno",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_inferno_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_inferno_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lux_Moonbeam",
@@ -709,7 +1537,19 @@
     "DA_18_Lunar",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_moonbeam_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_moonbeam_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lux_Primal",
@@ -719,7 +1559,19 @@
     "DA_Primal18",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_primal_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_primal_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Lux_Sunbeam",
@@ -729,7 +1581,19 @@
     "DA_18_Solar",
     "DA_18_LuxUniqueTrait"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_sunbeam_teamplanner.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_lux/hud/splashes/t_18_lux_sunbeam_teamplanner.png",
+   "stats": {
+    "hp": 900.0,
+    "ad": 40.0,
+    "as": 0.8,
+    "armor": 45.0,
+    "mr": 45.0,
+    "range": 6,
+    "mana": 70.0,
+    "startMana": 20.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_18_Maokai",
@@ -739,7 +1603,19 @@
     "DA_18_Maokai_UniqueTrait",
     "DA_Juggernaut18"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_maokai/skins/base/images/tft18_maokai_splash_tile_0.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_maokai/skins/base/images/tft18_maokai_splash_tile_0.png",
+   "stats": {
+    "hp": 1150.0,
+    "ad": 80.0,
+    "as": 0.65,
+    "armor": 60.0,
+    "mr": 60.0,
+    "range": 1,
+    "mana": 100,
+    "startMana": 30.0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   },
   {
    "id": "DA_Taric18",
@@ -749,7 +1625,19 @@
     "DA_Emerald18",
     "DA_18_Vanguard"
    ],
-   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_taric/skins/base/images/tft18_taric_splash_tile_1.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/characters/tft18_taric/skins/base/images/tft18_taric_splash_tile_1.png",
+   "stats": {
+    "hp": 1300.0,
+    "ad": 55.0,
+    "as": 0.75,
+    "armor": 65.0,
+    "mr": 70.0,
+    "range": 1,
+    "mana": 70.0,
+    "startMana": 0,
+    "crit": 0.25,
+    "critMult": 1.4
+   }
   }
  ],
  "traits": [
@@ -1092,197 +1980,362 @@
   {
    "id": "TFT_Item_AdaptiveHelm",
    "name": "Adaptive Helm",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_adaptivehelm.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_adaptivehelm.png",
+   "stats": {
+    "MagicResist": 20.0,
+    "ManaRegen": 3.0
+   }
   },
   {
    "id": "TFT_Item_ArchangelsStaff",
    "name": "Archangel's Staff",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_archangelsstaff.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_archangelsstaff.png",
+   "stats": {
+    "AP": 30.0,
+    "ManaRegen": 1.0
+   }
   },
   {
    "id": "TFT_Item_Bloodthirster",
    "name": "Bloodthirster",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bloodthirster.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bloodthirster.png",
+   "stats": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "MagicResist": 20.0,
+    "StatOmnivamp": 0.2
+   }
   },
   {
    "id": "TFT_Item_BlueBuff",
    "name": "Blue Buff",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bluebuff.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bluebuff.png",
+   "stats": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "ManaRegen": 5.0
+   }
   },
   {
    "id": "TFT_Item_BrambleVest",
    "name": "Bramble Vest",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bramblevest.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_bramblevest.png",
+   "stats": {
+    "Armor": 50.0
+   }
   },
   {
    "id": "TFT_Item_Crownguard",
    "name": "Crownguard",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_crownguard.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_crownguard.png",
+   "stats": {
+    "AP": 20.0,
+    "Armor": 20.0,
+    "Health": 100.0
+   }
   },
   {
    "id": "TFT_Item_Deathblade",
    "name": "Deathblade",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_deathblade.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_deathblade.png",
+   "stats": {
+    "AD": 0.55
+   }
   },
   {
    "id": "TFT_Item_DragonsClaw",
    "name": "Dragon's Claw",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_dragonsclaw.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_dragonsclaw.png",
+   "stats": {
+    "MagicResist": 60.0
+   }
   },
   {
    "id": "TFT_Item_GuardianAngel",
    "name": "Edge of Night",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_guardianangel.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_guardianangel.png",
+   "stats": {
+    "AD": 0.1,
+    "AP": 10.0,
+    "AS": 15.0,
+    "Armor": 20.0
+   }
   },
   {
    "id": "TFT_Item_SpectralGauntlet",
    "name": "Evenshroud",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spectralgauntlet.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spectralgauntlet.png",
+   "stats": {
+    "Health": 250.0,
+    "MagicResist": 20.0
+   }
   },
   {
    "id": "TFT_Item_GargoyleStoneplate",
    "name": "Gargoyle Stoneplate",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_gargoylestoneplate.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_gargoylestoneplate.png",
+   "stats": {
+    "Armor": 25.0,
+    "Health": 100.0,
+    "MagicResist": 25.0
+   }
   },
   {
    "id": "TFT_Item_MadredsBloodrazor",
    "name": "Giant Slayer",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_madredsbloodrazor.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_madredsbloodrazor.png",
+   "stats": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "AS": 15.0,
+    "DamageAmp": 0.15
+   }
   },
   {
    "id": "TFT_Item_GuinsoosRageblade",
    "name": "Guinsoo's Rageblade",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_guinsoosrageblade.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_guinsoosrageblade.png",
+   "stats": {
+    "AP": 10.0,
+    "AS": 10.0
+   }
   },
   {
    "id": "TFT_Item_UnstableConcoction",
    "name": "Hand Of Justice",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_unstableconcoction.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_unstableconcoction.png",
+   "stats": {
+    "CritChance": 20.0,
+    "ManaRegen": 1.0
+   }
   },
   {
    "id": "TFT_Item_HextechGunblade",
    "name": "Hextech Gunblade",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_hextechgunblade.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_hextechgunblade.png",
+   "stats": {
+    "AD": 0.2,
+    "AP": 20.0,
+    "ManaRegen": 1.0,
+    "StatOmnivamp": 0.15
+   }
   },
   {
    "id": "TFT_Item_InfinityEdge",
    "name": "Infinity Edge",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_infinityedge.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_infinityedge.png",
+   "stats": {
+    "AD": 0.35,
+    "CritChance": 35.0
+   }
   },
   {
    "id": "TFT_Item_IonicSpark",
    "name": "Ionic Spark",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_ionicspark.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_ionicspark.png",
+   "stats": {
+    "AP": 15.0,
+    "Health": 250.0,
+    "MagicResist": 35.0
+   }
   },
   {
    "id": "TFT_Item_JeweledGauntlet",
    "name": "Jeweled Gauntlet",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_jeweledgauntlet.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_jeweledgauntlet.png",
+   "stats": {
+    "AP": 35.0,
+    "CritChance": 35.0
+   }
   },
   {
    "id": "TFT_Item_RunaansHurricane",
    "name": "Kraken's Fury",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_krakenslayer.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_krakenslayer.png",
+   "stats": {
+    "AD": 0.1,
+    "AS": 10.0,
+    "MagicResist": 20.0
+   }
   },
   {
    "id": "TFT_Item_LastWhisper",
    "name": "Last Whisper",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_lastwhisper.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_lastwhisper.png",
+   "stats": {
+    "AD": 0.15,
+    "AS": 20.0,
+    "CritChance": 20.0
+   }
   },
   {
    "id": "TFT_Item_Morellonomicon",
    "name": "Morellonomicon",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_morellonomicon.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_morellonomicon.png",
+   "stats": {
+    "AP": 20.0,
+    "Health": 150.0,
+    "ManaRegen": 1.0
+   }
   },
   {
    "id": "TFT_Item_Leviathan",
    "name": "Nashor's Tooth",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_leviathan.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_leviathan.png",
+   "stats": {
+    "AP": 15.0,
+    "AS": 10.0,
+    "CritChance": 20.0,
+    "Health": 150.0
+   }
   },
   {
    "id": "TFT_Item_FrozenHeart",
    "name": "Protector's Vow",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_frozenheart.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_frozenheart.png",
+   "stats": {
+    "Armor": 25.0,
+    "CombatStartMana": 20.0,
+    "MagicResist": 25.0,
+    "ManaRegen": 1.0
+   }
   },
   {
    "id": "TFT_Item_Quicksilver",
    "name": "Quicksilver",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_quicksilver.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_quicksilver.png",
+   "stats": {
+    "AS": 15.0,
+    "CritChance": 20.0,
+    "MagicResist": 20.0
+   }
   },
   {
    "id": "TFT_Item_RabadonsDeathcap",
    "name": "Rabadon's Deathcap",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rabadonsdeathcap.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rabadonsdeathcap.png",
+   "stats": {
+    "AP": 55.0
+   }
   },
   {
    "id": "TFT_Item_RapidFireCannon",
    "name": "Red Buff",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rapidfirecannon.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_rapidfirecannon.png",
+   "stats": {
+    "AS": 45.0
+   }
   },
   {
    "id": "TFT_Item_SpearOfShojin",
    "name": "Spear of Shojin",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spearofshojin.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spearofshojin.png",
+   "stats": {
+    "AD": 0.15,
+    "AP": 15.0,
+    "ManaRegen": 1.0
+   }
   },
   {
    "id": "TFT_Item_Redemption",
    "name": "Spirit Visage",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spiritvisagerr.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_spiritvisagerr.png",
+   "stats": {
+    "Health": 300.0,
+    "ManaRegen": 2.0
+   }
   },
   {
    "id": "TFT_Item_NightHarvester",
    "name": "Steadfast Heart",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_nightharvester.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_nightharvester.png",
+   "stats": {
+    "Armor": 20.0,
+    "CritChance": 20.0,
+    "Health": 250.0
+   }
   },
   {
    "id": "TFT_Item_SteraksGage",
    "name": "Sterak's Gage",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_steraksgage.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_steraksgage.png",
+   "stats": {
+    "AD": 0.45,
+    "Health": 300.0
+   }
   },
   {
    "id": "TFT_Item_PowerGauntlet",
    "name": "Striker's Flail",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_powergauntlet.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_powergauntlet.png",
+   "stats": {
+    "AS": 10.0,
+    "CritChance": 20.0,
+    "Health": 150.0
+   }
   },
   {
    "id": "TFT_Item_RedBuff",
    "name": "Sunfire Cape",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_redbuff.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_redbuff.png",
+   "stats": {
+    "Armor": 20.0,
+    "Health": 150.0
+   }
   },
   {
    "id": "TFT_Item_TacticiansRing",
    "name": "Tactician's Cape",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansring.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansring.png",
+   "stats": {}
   },
   {
    "id": "TFT_Item_ForceOfNature",
    "name": "Tactician's Crown",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_forceofnature.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_forceofnature.png",
+   "stats": {}
   },
   {
    "id": "TFT_Item_TacticiansScepter",
    "name": "Tactician's Shield",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansscepter.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_tacticiansscepter.png",
+   "stats": {}
   },
   {
    "id": "TFT_Item_ThiefsGloves",
    "name": "Thief's Gloves",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_thiefsgloves.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_thiefsgloves.png",
+   "stats": {
+    "CritChance": 20.0,
+    "Health": 150.0
+   }
   },
   {
    "id": "TFT_Item_TitansResolve",
    "name": "Titan's Resolve",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_titansresolve.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_titansresolve.png",
+   "stats": {
+    "AS": 10.0,
+    "Armor": 20.0
+   }
   },
   {
    "id": "TFT_Item_StatikkShiv",
    "name": "Void Staff",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_voidstaff.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_voidstaff.png",
+   "stats": {
+    "AP": 35.0,
+    "AS": 15.0,
+    "ManaRegen": 1.0
+   }
   },
   {
    "id": "TFT_Item_WarmogsArmor",
    "name": "Warmog's Armor",
-   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_warmogsarmor.png"
+   "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_warmogsarmor.png",
+   "stats": {
+    "Health": 500.0
+   }
   }
  ],
  "augments": [

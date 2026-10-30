@@ -117,6 +117,8 @@ export function TierLists() {
                 <th className="num">Win</th>
                 <th className="num">Play rate</th>
                 <th className="num">Games</th>
+                {kind === "comp" && <th className="num" title="Share of games where another board in the lobby held the same carry">Contested</th>}
+                {kind === "comp" && <th className="num" title="Average placement when the carry was contested">Avg if contested</th>}
               </tr>
             </thead>
             <tbody>
@@ -129,6 +131,8 @@ export function TierLists() {
                   <td className="num">{fmt.pct(r.winRate, 1)}</td>
                   <td className="num">{fmt.pct(r.playRate, 1)}</td>
                   <td className="num">{fmt.int(r.games)}</td>
+                  {kind === "comp" && <td className="num">{r.contestRate == null ? "-" : fmt.pct(r.contestRate)}</td>}
+                  {kind === "comp" && <td className="num">{r.avgContested == null ? "-" : fmt.place(r.avgContested)}</td>}
                 </tr>
               ))}
             </tbody>

@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS participants (
   damage     SMALLINT    NOT NULL,
   comp_key   VARCHAR(160) NOT NULL,
   carry_id   VARCHAR(64)  NOT NULL,
+  playstyle  VARCHAR(8)   NOT NULL,          -- 'reroll', 'fast8' or 'fast9', read from the board
+  carry_contest TINYINT   NOT NULL,          -- other boards in the lobby holding the carry
   PRIMARY KEY (match_id, puuid),
   INDEX ix_participants_comp (comp_key),
   CONSTRAINT fk_participants_match FOREIGN KEY (match_id) REFERENCES matches (match_id) ON DELETE CASCADE
@@ -33,6 +35,7 @@ CREATE TABLE IF NOT EXISTS participant_units (
   champion_id  VARCHAR(64) NOT NULL,
   star         TINYINT     NOT NULL,
   cost         TINYINT     NOT NULL,
+  contested    TINYINT     NOT NULL,         -- other boards in the lobby holding this champion
   PRIMARY KEY (match_id, puuid, slot),
   INDEX ix_units_champion (champion_id),
   CONSTRAINT fk_units_participant FOREIGN KEY (match_id, puuid) REFERENCES participants (match_id, puuid) ON DELETE CASCADE

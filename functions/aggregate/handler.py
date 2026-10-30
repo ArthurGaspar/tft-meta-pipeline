@@ -1,4 +1,4 @@
-"""Aggregate: MySQL -> stats, tier lists and patch changes, published as JSON.
+"""Aggregate: MySQL -> stats, tier lists, patch changes and lobby dynamics, published as JSON.
 
 Runs on a schedule. For every champion, item, augment, trait breakpoint and comp
 it computes games, play rate, average placement, top-4 rate and win rate per
@@ -11,7 +11,12 @@ patch, then:
   at least MIN_GAMES games;
 - patch changes: the shift in average placement between consecutive patches,
   flagged when it is unlikely to be noise (|z| >= Z_SIGNIFICANT; strict, because
-  around a hundred entities are compared at once).
+  around a hundred entities are compared at once);
+- contest: how often a comp's carry (or a champion) was also on another board in
+  the lobby, and how it placed then, since contested units are harder to upgrade;
+- lobby dynamics: placement by playstyle, final level and carry contest. Playstyles
+  get no tier: they are read from the final board, and only players who survive
+  reach level 9, so "Fast 9" would rank first on survivorship alone.
 """
 
 import json
@@ -19,7 +24,7 @@ import math
 import os
 from datetime import datetime, timezone
 
-from functions.common import static_data
+from functions.common import PLAYSTYLES, static_data
 from minicloud import sdk
 
 PRIOR_GAMES = 50
@@ -37,6 +42,49 @@ ENTITY_SQL = {
     "trait": "SELECT match_id, puuid, CONCAT(trait_id, ':', tier) AS entity_id FROM participant_traits WHERE tier > 0",
     "comp": "SELECT match_id, puuid, comp_key AS entity_id FROM participants",
 }
+
+# Per comp and per champion: how often it was contested, and its average placement either way.
+CONTEST_SQL = {
+    "comp": """
+SELECT m.patch, p.comp_key, AVG(p.carry_contest > 0), AVG(CASE WHEN p.carry_contest = 0 THEN p.placement END),
+       AVG(CASE WHEN p.carry_contest > 0 THEN p.placement END)
+FROM participants p JOIN matches m ON m.match_id = p.match_id
+GROUP BY m.patch, p.comp_key
+""",
+    "champion": """
+SELECT m.patch, u.champion_id, AVG(u.contested > 0), AVG(CASE WHEN u.contested = 0 THEN p.placement END),
+       AVG(CASE WHEN u.contested > 0 THEN p.placement END)
+FROM participant_units u
+JOIN participants p ON p.match_id = u.match_id AND p.puuid = u.puuid
+JOIN matches m ON m.match_id = u.match_id
+GROUP BY m.patch, u.champion_id
+""",
+}
+
+# Lobby dynamics, per patch. Contest counts other boards holding the same champion, capped at 3 ("3+").
+PLAYSTYLE_SQL = """
+SELECT m.patch, p.playstyle, COUNT(*), AVG(p.placement), AVG(p.placement <= 4), AVG(p.placement = 1),
+       AVG(p.level), AVG(p.gold_left), AVG(p.last_round)
+FROM participants p JOIN matches m ON m.match_id = p.match_id
+GROUP BY m.patch, p.playstyle
+"""
+LEVEL_SQL = """
+SELECT m.patch, p.level, COUNT(*), AVG(p.placement), AVG(p.placement <= 4)
+FROM participants p JOIN matches m ON m.match_id = p.match_id
+GROUP BY m.patch, p.level
+"""
+CARRY_CONTEST_SQL = """
+SELECT m.patch, LEAST(p.carry_contest, 3) AS c, COUNT(*), AVG(p.placement), AVG(p.placement <= 4), AVG(u.star), AVG(u.star = 3)
+FROM participants p
+JOIN participant_units u ON u.match_id = p.match_id AND u.puuid = p.puuid AND u.champion_id = p.carry_id
+JOIN matches m ON m.match_id = p.match_id
+GROUP BY m.patch, c
+"""
+UNIT_CONTEST_SQL = """
+SELECT m.patch, LEAST(u.contested, 3) AS c, COUNT(*), AVG(u.star >= 2), AVG(u.star = 3)
+FROM participant_units u JOIN matches m ON m.match_id = u.match_id
+GROUP BY m.patch, c
+"""
 
 STATS_SQL = """
 SELECT m.patch, e.entity_id, COUNT(*) AS games, AVG(p.placement) AS avg_place,
@@ -130,6 +178,15 @@ def handler(event, context):
                         }
                     )
             assign_tiers(stats)
+            by_entity = {(s["kind"], s["id"], s["patch"]): s for s in stats}
+            for kind, sql in CONTEST_SQL.items():
+                cur.execute(sql)
+                for patch, eid, rate, uncontested, contested in cur.fetchall():
+                    s = by_entity.get((kind, eid, patch))
+                    if s:
+                        s["contestRate"] = round(float(rate), 4)
+                        s["avgUncontested"] = None if uncontested is None else round(float(uncontested), 3)
+                        s["avgContested"] = None if contested is None else round(float(contested), 3)
             cur.execute("DELETE FROM entity_stats")
             cur.executemany(
                 "INSERT INTO entity_stats (kind, entity_id, patch, games, play_rate, avg_placement, top4_rate, win_rate, score, tier)"
@@ -141,6 +198,34 @@ def handler(event, context):
             )
             cur.execute(BUILD_SQL)
             builds_raw = cur.fetchall()
+            lobby: dict[str, dict[str, list]] = {}
+
+            def section(patch: str, name: str) -> list:
+                return lobby.setdefault(patch, {"playstyles": [], "levels": [], "carryContest": [], "unitContest": []})[name]
+
+            cur.execute(PLAYSTYLE_SQL)
+            for patch, style, games, avg, top4, win, level, gold, last_round in cur.fetchall():
+                section(patch, "playstyles").append(
+                    {"id": style, "name": PLAYSTYLES.get(style, style), "games": games, "share": round(games / boards[patch], 4),
+                     "avgPlacement": round(float(avg), 3), "top4Rate": round(float(top4), 4), "winRate": round(float(win), 4),
+                     "avgLevel": round(float(level), 2), "avgGoldLeft": round(float(gold), 1), "avgLastRound": round(float(last_round), 1)}
+                )
+            cur.execute(LEVEL_SQL)
+            for patch, level, games, avg, top4 in cur.fetchall():
+                section(patch, "levels").append({"level": level, "games": games, "avgPlacement": round(float(avg), 3), "top4Rate": round(float(top4), 4)})
+            cur.execute(CARRY_CONTEST_SQL)
+            for patch, c, games, avg, top4, star, three in cur.fetchall():
+                section(patch, "carryContest").append(
+                    {"contestedBy": c, "games": games, "avgPlacement": round(float(avg), 3), "top4Rate": round(float(top4), 4),
+                     "avgStar": round(float(star), 2), "threeStarRate": round(float(three), 4)}
+                )
+            cur.execute(UNIT_CONTEST_SQL)
+            for patch, c, units, two, three in cur.fetchall():
+                section(patch, "unitContest").append({"contestedBy": c, "units": units, "twoStarRate": round(float(two), 4), "threeStarRate": round(float(three), 4)})
+            for sections in lobby.values():
+                sections["playstyles"].sort(key=lambda r: r["avgPlacement"])
+                for name, key in (("levels", "level"), ("carryContest", "contestedBy"), ("unitContest", "contestedBy")):
+                    sections[name].sort(key=lambda r: r[key])
         conn.commit()
     finally:
         conn.close()
@@ -204,7 +289,7 @@ def handler(event, context):
     }
     s3 = sdk.client("s3")
     bucket = os.environ["PUBLIC_BUCKET"]
-    for name, body in [("meta.json", meta), ("tierlists.json", tierlists), ("patch-changes.json", changes), ("builds.json", builds)]:
+    for name, body in [("meta.json", meta), ("tierlists.json", tierlists), ("patch-changes.json", changes), ("builds.json", builds), ("lobby.json", lobby)]:
         s3.put_object(Bucket=bucket, Key=f"site/{name}", Body=json.dumps(body, ensure_ascii=False, separators=(",", ":")), ContentType="application/json")
     print(json.dumps({"entities": len(stats), "patches": patches, "changes": sum(c["significant"] for c in changes)}))
     return {"entities": len(stats), "significantChanges": sum(c["significant"] for c in changes)}

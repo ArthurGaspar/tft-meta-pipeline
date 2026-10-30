@@ -23,6 +23,17 @@
   --tier-ink-C: #fff7e6;
   --tier-ink-D: #fff7e6;
   --mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Fight simulator: teams, mana, and TFT's own cost colors. */
+  --team-0: #3987e5;
+  --team-1: #f0605d;
+  --mana: #9b8cff;
+  --cost-1: #8a93a3;
+  --cost-2: #3fb950;
+  --cost-3: #3987e5;
+  --cost-4: #b36cf0;
+  --cost-5: #e8b53c;
+  --hex-own: #1b2533;
+  --hex-theirs: #2a1d22;
 }
 
 @media (prefers-color-scheme: light) {
@@ -49,6 +60,16 @@
     --tier-ink-B: #1f1709;
     --tier-ink-C: #1f1709;
     --tier-ink-D: #1f1709;
+    --team-0: #2a78d6;
+    --team-1: #c23b38;
+    --mana: #6a52d9;
+    --cost-1: #6b7280;
+    --cost-2: #1f7a2e;
+    --cost-3: #2a78d6;
+    --cost-4: #8a3fd1;
+    --cost-5: #b7860b;
+    --hex-own: #e3ecf8;
+    --hex-theirs: #f6e4e2;
   }
 }
 
@@ -75,6 +96,16 @@
   --tier-ink-B: #1f1709;
   --tier-ink-C: #1f1709;
   --tier-ink-D: #1f1709;
+  --team-0: #2a78d6;
+  --team-1: #c23b38;
+  --mana: #6a52d9;
+  --cost-1: #6b7280;
+  --cost-2: #1f7a2e;
+  --cost-3: #2a78d6;
+  --cost-4: #8a3fd1;
+  --cost-5: #b7860b;
+  --hex-own: #e3ecf8;
+  --hex-theirs: #f6e4e2;
 }
 
 * { box-sizing: border-box; }
@@ -156,3 +187,51 @@ td { padding: 7px 8px; border-bottom: 1px solid color-mix(in srgb, var(--line) 6
   .tier-row { grid-template-columns: 40px 1fr; }
   .entity .nm { max-width: 120px; }
 }
+
+/* Fight simulator */
+.sim-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 960px) { .sim-layout { grid-template-columns: minmax(0, 1fr); } }
+.sim-side { display: grid; gap: 20px; }
+.sim-board .hexboard { display: block; max-width: 560px; margin: 0 auto; touch-action: manipulation; user-select: none; }
+.hexboard .hex { stroke: var(--line); stroke-width: 1.5; }
+.hexboard .hex.own { fill: var(--hex-own); cursor: pointer; }
+.hexboard .hex.theirs { fill: var(--hex-theirs); }
+.hexboard .hex.open { stroke: var(--gold); stroke-width: 2; }
+.hexboard .hex.own:hover { fill: color-mix(in srgb, var(--hex-own) 70%, var(--gold)); }
+.hexboard .token .ring { fill: var(--panel); stroke-width: 3; }
+.hexboard .token.team0 .ring { stroke: var(--team-0); }
+.hexboard .token.team1 .ring { stroke: var(--team-1); }
+.hexboard .token.pickable { cursor: pointer; }
+.hexboard .token.selected .ring { stroke: var(--gold); stroke-width: 4; }
+.hexboard .ring.cost1 { fill: var(--cost-1); } .hexboard .ring.cost2 { fill: var(--cost-2); } .hexboard .ring.cost3 { fill: var(--cost-3); }
+.hexboard .ring.cost4 { fill: var(--cost-4); } .hexboard .ring.cost5 { fill: var(--cost-5); }
+.hexboard .stars { font-size: 10px; fill: var(--gold); paint-order: stroke; stroke: var(--panel); stroke-width: 3px; }
+.hexboard text { fill: var(--ink); font-size: 11px; }
+.hexboard .item-dot { fill: var(--ink-3); }
+.hexboard .bar-bg { fill: rgb(0 0 0 / 0.45); }
+.hexboard .hp.team0 { fill: var(--team-0); } .hexboard .hp.team1 { fill: var(--team-1); }
+.hexboard .mana { fill: var(--mana); }
+.hexboard .shot { stroke-width: 1.5; stroke-linecap: round; opacity: 0.85; }
+.hexboard .shot.team0 { stroke: var(--team-0); } .hexboard .shot.team1 { stroke: var(--team-1); }
+.hexboard .shot.crit { stroke: var(--gold); stroke-width: 3; }
+.hexboard .burst { fill: none; stroke-width: 3; }
+.hexboard .burst.team0 { stroke: var(--team-0); } .hexboard .burst.team1 { stroke: var(--team-1); }
+.team-label.team0 { color: var(--team-0); } .team-label.team1 { color: var(--team-1); }
+.btn { border: 1px solid var(--line); background: var(--panel-2); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.btn:hover:not(:disabled) { border-color: var(--gold); }
+.btn:disabled, .seg button:disabled, .entity:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--gold); border-color: var(--gold); color: var(--bg); font-weight: 700; padding: 6px 22px; }
+.btn.danger { color: var(--bad); }
+.result { font-weight: 700; margin: 10px 0 0; }
+.trait-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.trait-chip { padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel-2); font-size: 13px; color: var(--ink-3); }
+.trait-chip.on { color: var(--ink); border-color: var(--gold); }
+.roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; max-height: 330px; overflow-y: auto; }
+.roster .entity { text-align: left; border-left: 3px solid transparent; }
+.roster .entity.cost1 { border-left-color: var(--cost-1); } .roster .entity.cost2 { border-left-color: var(--cost-2); }
+.roster .entity.cost3 { border-left-color: var(--cost-3); } .roster .entity.cost4 { border-left-color: var(--cost-4); }
+.roster .entity.cost5 { border-left-color: var(--cost-5); }
+.roster .entity .nm { max-width: 100px; }
+.search { border: 1px solid var(--line); background: var(--panel-2); border-radius: 6px; padding: 5px 10px; color: var(--ink); min-width: 0; width: 160px; }
+.item-slots { display: grid; gap: 6px; margin-top: 10px; }
+.item-slots select { border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); border-radius: 6px; padding: 5px 8px; }

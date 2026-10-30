@@ -11,7 +11,11 @@
    publishes the tier lists to the public bucket.
 4. Copies the published files to web/public/data and adds two reports the
    website shows: the pipeline run itself, and a truth check that compares the
-   tier lists with the simulator's hidden values (which the ETL never sees).
+   tier lists and the playstyles read from each board with the simulator's
+   hidden values (which the ETL never sees), and measures what positioning,
+   which match data doesn't record, was worth. It also copies the simulator's
+   game data (unit stats, the hidden meta, sample boards) for the website's
+   real-time fight simulator.
 """
 
 import argparse
@@ -22,6 +26,7 @@ from pathlib import Path
 
 import pymysql
 
+from functions.common import PLAYSTYLES
 from minicloud.cloud import Cloud
 from minicloud.template import load
 from simulator.simulate import simulate
@@ -56,8 +61,11 @@ def spearman(xs: list[float], ys: list[float]) -> float | None:
     return round(1 - 6 * sum((a - b) ** 2 for a, b in zip(rx, ry)) / (n * (n * n - 1)), 3)
 
 
-def truth_check(tierlists: dict, changes: list, truth: dict) -> dict:
-    """How well the published tier lists recover the simulator's hidden meta."""
+def truth_check(tierlists: dict, changes: list, truth: dict, boards: list[tuple] = ()) -> dict:
+    """How well the published tier lists recover the simulator's hidden meta.
+
+    `boards` are the loaded (match_id, puuid, playstyle, placement) rows, graded against
+    each board's hidden economy plan and positioning skill."""
     out: dict = {"patches": {}, "changes": {}}
     for patch, lists in tierlists.items():
         hidden = truth["patches"].get(patch)
@@ -86,6 +94,38 @@ def truth_check(tierlists: dict, changes: list, truth: dict) -> dict:
             "rightDirection": right_direction,
             "missed": sorted(f"{k}:{i}" for k, i in actual - flagged),
         }
+
+    hidden = truth.get("boards", {})
+    graded = [(*hidden[m][p], style, place) for m, p, style, place in boards if p in hidden.get(m, {})]
+    if graded:
+        confusion: dict[str, dict[str, int]] = {}
+        by_plan: dict[str, list[int]] = {}
+        for plan, _, style, place in graded:
+            confusion.setdefault(plan, {}).setdefault(style, 0)
+            confusion[plan][style] += 1
+            by_plan.setdefault(plan, []).append(place)
+        out["playstyle"] = {
+            "boards": len(graded),
+            "accuracy": round(sum(plan == style for plan, _, style, _ in graded) / len(graded), 4),
+            "confusion": confusion,
+            "hidden": sorted(
+                ({"id": k, "name": PLAYSTYLES.get(k, k), "games": len(v), "avgPlacement": round(sum(v) / len(v), 3)} for k, v in by_plan.items()),
+                key=lambda r: r["avgPlacement"],
+            ),
+        }
+        ranked = sorted(graded, key=lambda g: g[1])
+        thirds = [ranked[i * len(ranked) // 3 : (i + 1) * len(ranked) // 3] for i in range(3)]
+        mech = truth.get("mechanics", {})
+        out["positioning"] = {
+            "thirds": [
+                {"label": label, "avgPlacement": round(sum(g[3] for g in t) / len(t), 3), "top4Rate": round(sum(g[3] <= 4 for g in t) / len(t), 4)}
+                for label, t in zip(("Weakest third", "Middle third", "Strongest third"), thirds) if t
+            ],
+            "counterFights": mech.get("counterFights", 0),
+            "counterWinRate": round(mech["counterWins"] / mech["counterFights"], 4) if mech.get("counterFights") else None,
+            "adaptations": mech.get("adaptations", 0),
+        }
+        out["starsLostToPool"] = mech.get("starsLostToPool", 0)
     return out
 
 
@@ -150,8 +190,17 @@ def main() -> None:
     (out / "pipeline.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
 
     truth = json.loads((work / "truth.json").read_text(encoding="utf-8"))
-    check = truth_check(json.loads((out / "tierlists.json").read_text(encoding="utf-8")), json.loads((out / "patch-changes.json").read_text(encoding="utf-8")), truth)
+    conn = db()
+    with conn.cursor() as cur:
+        cur.execute("SELECT match_id, puuid, playstyle, placement FROM participants")
+        boards = cur.fetchall()
+    conn.close()
+    check = truth_check(
+        json.loads((out / "tierlists.json").read_text(encoding="utf-8")), json.loads((out / "patch-changes.json").read_text(encoding="utf-8")), truth, boards
+    )
     (out / "truth-check.json").write_text(json.dumps(check, indent=1), encoding="utf-8")
+    # The browser simulator's game data comes from the simulator, not the pipeline: it carries the hidden meta.
+    shutil.copyfile(work / "game.json", out / "game.json")
 
     fns = report["functions"]
     print(
@@ -161,6 +210,11 @@ def main() -> None:
     )
     for patch, kinds in check["patches"].items():
         print(f"  {patch}: " + ", ".join(f"{k} spearman {v['spearman']}" for k, v in kinds.items()))
+    if "playstyle" in check:
+        print(
+            f"  playstyle read correctly on {check['playstyle']['accuracy']:.0%} of boards; positioning thirds place "
+            + " / ".join(f"{t['avgPlacement']:.2f}" for t in check["positioning"]["thirds"])
+        )
 
 
 if __name__ == "__main__":

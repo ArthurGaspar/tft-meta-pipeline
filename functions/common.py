@@ -48,3 +48,34 @@ def comp_of(participant: dict) -> tuple[str, str]:
     carry = max(units, key=lambda u: (len(u["itemNames"]), u["rarity"], u["tier"], u["character_id"]))
     trait = active[0]["name"] if active else "none"
     return f"{trait}|{carry['character_id']}", carry["character_id"]
+
+
+PLAYSTYLES = {"reroll": "Reroll", "fast8": "Fast 8", "fast9": "Fast 9"}
+
+
+def playstyle_of(participant: dict) -> str:
+    """How the board was played, read from the board the way players read it: a 3-star
+    1-3 cost below level 9 is a reroll comp, level 9 or more is fast 9, the rest fast 8.
+
+    The match API doesn't record the plan, so a player knocked out before reaching it
+    reads as what they had built by then.
+    """
+    if participant["level"] >= 9:
+        return "fast9"
+    if any(u["tier"] == 3 and u["rarity"] <= 2 for u in participant["units"]):
+        return "reroll"
+    return "fast8"
+
+
+def champion_base(champion_id: str, champions: dict) -> str:
+    """The pool a champion is drawn from: Set 18 Lux's ten forms share one ("Lux (Fae)" -> "Lux")."""
+    return champions[champion_id]["name"].split(" (")[0]
+
+
+def holders_in_lobby(participants: list[dict], champions: dict) -> dict[str, int]:
+    """How many boards in the lobby hold each champion: they all draw copies from one shared pool."""
+    out: dict[str, int] = {}
+    for p in participants:
+        for base in {champion_base(u["character_id"], champions) for u in p["units"]}:
+            out[base] = out.get(base, 0) + 1
+    return out

@@ -67,6 +67,7 @@ jobs:
         working-directory: web
         run: |
           npm ci
+          npm run check:sim
           npm run build
 
       - uses: actions/upload-pages-artifact@v3

@@ -10,18 +10,61 @@ and needs no cloud account.
 
 1. A **simulator** plays ~3,000 eight-player lobbies with the real Set 18 champions, traits, items and augments (static
    data from [Community Dragon](https://communitydragon.org)). Every piece has a hidden power, players lean towards what
-   they believe is strong, and halfway through a balance patch secretly buffs and nerfs a few things. Matches are written
-   as NDJSON in the shape of Riot's TFT match API, with ~2% deliberately broken records and one corrupt file.
+   they believe is strong, and halfway through a balance patch secretly buffs and nerfs a few things. Lobbies have the
+   structure of real ones (see [Lobby dynamics](#lobby-dynamics)): economy plans, one shared champion pool, and
+   positioning, played out round by round until one player is left. Matches are written as NDJSON in the shape of Riot's
+   TFT match API, with ~2% deliberately broken records and one corrupt file.
 2. The files are uploaded to the **raw bucket**. Each upload fires an S3-style event.
 3. **Validate** checks every record (8 players, placements 1 to 8, known champions and items, a readable version...). Good
    records go to the staged bucket; bad ones go to quarantine with their reasons. A file that isn't text raises, is retried
    twice, and lands in the **dead-letter queue**.
 4. Each staged file fires **Load**, which upserts the matches into normalized **MySQL** tables and labels every board with
-   its comp ("Juggernaut Maokai": strongest trait plus the unit holding the most items). Loading is idempotent.
+   its comp ("Juggernaut Maokai": strongest trait plus the unit holding the most items) and its playstyle (reroll, fast 8
+   or fast 9, read from the board), and every unit with how many other boards in the lobby held the same champion.
+   Loading is idempotent.
 5. An hourly **schedule** runs **Aggregate**: average placement, top-4 and win rates per patch, small samples shrunk towards
-   average, tiers, patch winners and losers, best items per champion. It publishes JSON to the public bucket, which the
-   website reads.
-6. A **truth check**, outside the pipeline, grades the tier lists against the simulator's hidden values.
+   average, tiers, patch winners and losers, best items per champion, how contested each comp is and what that costs, and
+   placement by playstyle and final level. It publishes JSON to the public bucket, which the website reads.
+6. A **truth check**, outside the pipeline, grades the tier lists and the playstyles against the simulator's hidden
+   values, and measures what positioning (which match data doesn't record) was worth.
+
+## Lobby dynamics
+
+A board's placement depends on more than its parts. The simulator models three things real lobbies have:
+
+| Concept | In the simulator | What the ETL sees |
+|---|---|---|
+| **Economy** | Each player follows a plan. *Reroll* slow-rolls at level 6-8 for 3-star 1-3 costs: strong early, low ceiling. *Fast 8* is the standard. *Fast 9* skips rolling for level 9-10 and 5-costs: weak until stage 5, highest ceiling. The plan sets the final level, star odds and board strength at each stage. A player knocked out early is recorded with the board they had then, at a lower level. | `level`, star levels, `gold_left`. Load reads the playstyle back from the board and gets it right on about two boards in three. |
+| **Contested units** | All eight players draw from one pool (30 copies of each 1-cost down to 9 of each 5-cost; a 2-star takes 3, a 3-star 9). Players scout and lean away from champions and traits others are building. Each rival holding a champion lowers your odds of 2- and 3-starring it, and the pool can run out. | Who else in the lobby held each champion. Units held by one other board reach 2 stars 42% of the time instead of 60%, and a contested carry places about 0.2 worse. |
+| **Positioning** | Every player has a hidden positioning skill and a formation (corner, clump or spread), each of which beats another. A player who loses a fight may re-position to counter the board that beat them. | Nothing: Riot's match data has no positions. It shows up only as noise, and the truth check measures it. |
+
+Fights are a logistic of the strength gap (board, stage tempo, positioning, counter) over a luck term. The loser takes
+stage damage plus one per surviving enemy unit, and placements are the order players hit zero health.
+
+One lesson shows up in the data on its own: read from final boards, **Fast 9 looks dominant** (average placement ~2.7),
+but the plan itself places ~4.5, about the same as the others. Only players who survive reach level 9, so the final
+level is partly a result, not a choice. Any stat site that groups games by final level has the same survivorship bias.
+That's why playstyles get no tier. The site's Lobby dynamics page shows the numbers next to that warning.
+
+## Fight simulator (in the browser)
+
+The pipeline plays thousands of lobbies in bulk. The website's **Simulator** page plays one fight at a time, in real
+time, on a board you build: pick champions, stars and items, place them on your half of a 7×8 hex grid, and fight a
+random board from the simulated lobbies. You can watch the fight, or run 200 of them for a win rate, against one
+opponent or against 200 different lobby boards.
+
+- **The same meta.** The simulator writes `game.json`: base stats from Community Dragon (health, attack damage, attack
+  speed, armor, magic resist, range, mana) and item stat bonuses, the hidden power of every champion, trait breakpoint
+  and item per patch, and 240 full boards per patch from the simulated lobbies. Fights in the browser follow the balance
+  the tier lists try to recover. Boards that placed better in their lobby win about three quarters of fights against
+  boards that placed worse.
+- **Real positioning.** Units walk to the nearest enemy, attack within range, gain mana from attacking and taking damage,
+  and cast. Abilities aren't in this set's game data, so every spell is generic: magic damage by cost and stars,
+  splashing around the target for ranged casters and around the caster for melee ones. Placement decides who gets hit
+  first and how much a spell catches. The same boards with the front and back lines swapped win roughly 40% fewer fights.
+- **Deterministic.** The engine (`web/src/sim/engine.ts`, no dependencies) is seeded, runs at under 1 ms per fight, and
+  powers both the animation and the batch runs. `npm run check:sim` verifies all of this against the generated data,
+  and CI runs it.
 
 ## minicloud: the AWS pieces, imitated
 
@@ -43,26 +86,30 @@ Inspect a deployed stack like you would the console: `python -m minicloud status
 
 ## Results
 
-From one run of 2,941 valid matches (23,528 boards) in 76 seconds:
+From one run of 2,940 valid matches (23,520 boards) in 82 seconds:
 
 | Measure | Result |
 |---|---|
 | Function invocations | Validate 17 (3 failed: the corrupt file, 1 try + 2 retries), Load 14, Aggregate 1 |
-| Data quality | 77 records quarantined across 7 reasons; 1 event dead-lettered |
+| Data quality | 87 records quarantined across 7 reasons; 1 event dead-lettered |
 | What the run would cost on AWS | about $0.0009 in Lambda and S3 requests; the database (~$11.68/month for a db.t4g.micro) is the only real cost |
 
 **How well the tier lists recover the hidden meta** (Spearman rank correlation with hidden power; 1.0 is a perfect order):
 
 | Category | Patch 18.1 | Patch 18.2 |
 |---|---|---|
-| Champions | 0.77 | 0.81 |
+| Champions | 0.79 | 0.77 |
 | Items | 0.93 | 0.96 |
-| Augments | 0.94 | 0.92 |
+| Augments | 0.97 | 0.97 |
 
-Champions are the hardest to rank: strong units carry weak teammates, and 5-costs appear on late (better) boards.
+Champions are the hardest to rank: strong units carry weak teammates, 5-costs appear on late (better) boards, and
+contest and economy decide how many stars a unit gets.
 
-**The balance patch:** it secretly changed 19 champions, items and traits. The pipeline flagged 6 significant shifts;
-5 were real changes, all in the right direction. The other 14 changes were too small to tell from noise with ~1,500
+**Playstyles** are read correctly from 67% of boards. **Positioning**, invisible to the ETL, is worth about half a place:
+the third of players with the best hidden skill average 4.26, the worst third 4.75.
+
+**The balance patch:** it secretly changed 19 champions, items and traits. The pipeline flagged 11 significant shifts;
+8 were real changes, all in the right direction. The other 11 changes were too small to tell from noise with ~1,500
 matches per patch. The significance bar (|z| ≥ 3) is strict on purpose, since about a hundred things are compared at once.
 
 ## Run it locally
@@ -75,10 +122,10 @@ python -m venv .venv
 pip install -r requirements.txt
 
 python localdb.py start           # private database in .db/ on port 3307; no admin rights needed
-python run.py                     # the whole pipeline; ~75 s
-python -m pytest                  # 21 tests, including an end-to-end run against the database
+python run.py                     # the whole pipeline; ~80 s
+python -m pytest                  # 30 tests, including an end-to-end run against the database
 
-cd web && npm install && npm run dev
+cd web && npm install && npm run dev   # npm run check:sim tests the fight simulator against the generated data
 ```
 
 `localdb.py` looks for `mariadbd` on PATH; set `MARIADB_BIN` to its folder otherwise. To use a MySQL server you already
@@ -87,8 +134,9 @@ from Community Dragon: `python -m simulator.static_data`.
 
 ## Limitations
 
-- The matches are simulated. That's what makes the truth check possible, but real lobbies have more structure (economy,
-  positioning, contested units).
+- The matches are simulated. That's what makes the truth check possible. Economy, contested units and positioning are
+  modeled, but simply: the board is decided before the game is played out (stage tempo stands in for how it grows), and
+  positioning is an abstract skill plus three formations rather than hexes.
 - Set 18 Lux has ten forms. A board holds one, and the tier lists rank each form separately.
 - minicloud runs functions one at a time in one process. Real Lambda runs them concurrently in isolated environments.
 - The icons are hot-linked from Community Dragon's `latest` folder and may change when the set rotates.

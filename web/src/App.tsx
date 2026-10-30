@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Lobby } from "./Lobby";
 import { PatchChanges } from "./PatchChanges";
+import { Simulator } from "./Simulator";
 import { Pipeline } from "./Pipeline";
 import { TierLists } from "./TierLists";
 import { Truth } from "./Truth";
@@ -9,6 +11,8 @@ type Theme = "system" | "light" | "dark";
 const PAGES = [
   { hash: "#/", label: "Tier lists" },
   { hash: "#/patch", label: "Patch changes" },
+  { hash: "#/lobby", label: "Lobby dynamics" },
+  { hash: "#/simulator", label: "Simulator" },
   { hash: "#/pipeline", label: "Pipeline" },
   { hash: "#/truth", label: "Truth check" },
 ];
@@ -65,6 +69,8 @@ export function App() {
       <main>
         {page === "#/" && <TierLists />}
         {page === "#/patch" && <PatchChanges />}
+        {page === "#/lobby" && <Lobby />}
+        {page === "#/simulator" && <Simulator />}
         {page === "#/pipeline" && <Pipeline />}
         {page === "#/truth" && <Truth />}
       </main>

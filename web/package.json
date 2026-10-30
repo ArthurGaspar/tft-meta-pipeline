@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:sim": "node --experimental-strip-types --no-warnings scripts/check-sim.ts"
   },
   "dependencies": {
     "react": "^19.3.1",

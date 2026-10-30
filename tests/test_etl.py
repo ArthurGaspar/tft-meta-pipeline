@@ -6,10 +6,10 @@ import pymysql
 import pytest
 
 from functions.aggregate.handler import assign_tiers, shrink, tier_of
-from functions.common import comp_of, patch_of
+from functions.common import comp_of, holders_in_lobby, patch_of, playstyle_of
 from functions.validate.handler import problems
 from run import spearman, truth_check
-from simulator.simulate import build_world, dirty, play_match
+from simulator.simulate import board_at_level, build_world, dirty, enforce_pool, play_match, play_out, roll_stars, simulate
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = json.loads((ROOT / "data" / "set18.json").read_text(encoding="utf-8"))
@@ -63,6 +63,92 @@ def test_comp_is_top_trait_plus_most_itemized_unit():
     assert comp_of(p) == ("B|y", "y")
 
 
+def _unit(cid: str, star: int = 1, items=()) -> dict:
+    return {**INDEXED["champions"][cid], "star": star, "items": list(items)}
+
+
+def test_lobby_is_played_out_to_eight_distinct_placements(match):
+    ps = match["info"]["participants"]
+    by_place = sorted(ps, key=lambda p: p["placement"])
+    # Players knocked out earlier played fewer rounds; the last two leave in the same round.
+    rounds = [p["last_round"] for p in by_place]
+    assert rounds == sorted(rounds, reverse=True) and rounds[0] == rounds[1]
+    assert all(p["total_damage_to_players"] >= 0 for p in ps)
+
+
+def test_play_out_favors_the_stronger_board():
+    rng = random.Random(4)
+    wins = 0
+    for _ in range(200):
+        boards = [{"strategy": "fast8", "level": 8, "strength": 3.0 if i == 0 else 0.0} for i in range(8)]
+        wins += play_out(boards, rng)[0]["placement"] <= 4
+    assert wins > 150
+
+
+def test_contested_units_reach_fewer_stars():
+    rng = random.Random(5)
+    cid = next(c["id"] for c in DATA["champions"] if c["cost"] == 1)
+
+    def avg_star(holders: int) -> float:
+        total = 0
+        for _ in range(2000):
+            board = {"strategy": "reroll", "level": 7, "units": [_unit(cid)]}
+            board["carry"] = board["units"][0]
+            roll_stars(board, {INDEXED["champions"][cid]["name"].split(" (")[0]: holders}, rng)
+            total += board["units"][0]["star"]
+        return total / 2000
+
+    assert avg_star(1) > avg_star(2) > avg_star(4)
+
+
+def test_shared_pool_caps_copies():
+    four = next(c["id"] for c in DATA["champions"] if c["cost"] == 4)  # 10 copies in the pool
+    boards = [{"units": [_unit(four, 3)]}, {"units": [_unit(four, 2)]}]  # 9 + 3 copies wanted
+    assert enforce_pool(boards, random.Random(6)) >= 1
+    assert sum({1: 1, 2: 3, 3: 9}[b["units"][0]["star"]] for b in boards) <= 10
+
+
+def test_knocked_out_board_keeps_carry_and_items():
+    world = build_world(DATA, random.Random(7))
+    ids = [c["id"] for c in DATA["champions"][:8]]
+    units = [_unit(c) for c in ids]
+    units[5]["items"] = ["x"]
+    board = {"level": 8, "units": units, "carry": units[7]}
+    board_at_level(world, board, 6)
+    kept = [u["id"] for u in board["units"]]
+    assert board["level"] == 6 and len(kept) == 6 and ids[7] in kept and ids[5] in kept and ids[6] not in kept
+
+
+def test_playstyle_is_read_from_the_board():
+    def board(level, *units):
+        return {"level": level, "units": [{"tier": star, "rarity": cost - 1} for cost, star in units]}
+
+    assert playstyle_of(board(7, (2, 3), (4, 1))) == "reroll"
+    assert playstyle_of(board(8, (4, 3))) == "fast8"  # a 3-star 4-cost isn't a reroll comp
+    assert playstyle_of(board(9, (1, 3))) == "fast9"
+    assert playstyle_of(board(8, (3, 2))) == "fast8"
+
+
+def test_lux_forms_share_one_pool():
+    lux = [c["id"] for c in DATA["champions"] if c["name"].startswith("Lux")]
+    ps = [{"units": [{"character_id": lux[0]}]}, {"units": [{"character_id": lux[1]}]}]
+    assert holders_in_lobby(ps, INDEXED["champions"])["Lux"] == 2
+
+
+def test_game_data_for_the_browser_simulator(tmp_path):
+    simulate(DATA, tmp_path, matches=40, batch_size=20, seed=8)
+    game = json.loads((tmp_path / "game.json").read_text(encoding="utf-8"))
+    truth = json.loads((tmp_path / "truth.json").read_text(encoding="utf-8"))
+    assert all({"hp", "ad", "as", "range", "mana"} <= set(c["stats"]) for c in game["champions"])
+    assert set(game["patches"]) == set(truth["patches"])
+    for patch, meta in game["patches"].items():
+        # The browser fights with the same hidden meta the lobbies were played with.
+        assert meta["champion"] == {k: round(v, 3) for k, v in truth["patches"][patch]["champion"].items()}
+        board = meta["boards"][0]
+        assert len(meta["boards"]) == 160 and len(board["units"]) == board["level"]  # 20 lobbies of 8, full boards
+        assert all(cid in INDEXED["champions"] and 1 <= star <= 3 for cid, star, _ in board["units"])
+
+
 def test_shrinkage_pulls_small_samples_to_average():
     assert shrink(1.0, 5) > shrink(1.0, 500)
     assert shrink(4.5, 3) == pytest.approx(4.5)
@@ -91,6 +177,22 @@ def test_truth_check_scores_detection():
     truth = {"patches": {"18.1": {"champion": {}, "item": {}, "augment": {}}}, "changes": {"18.2": {"champion": {"a": 0.5, "b": -0.4}}}}
     out = truth_check(tierlists, changes, truth)["changes"]["18.2"]
     assert out == {"trueChanges": 2, "flagged": 2, "flaggedAndReal": 1, "rightDirection": 1, "missed": ["champion:b"]}
+
+
+def test_truth_check_grades_playstyles_and_positioning():
+    tierlists = {"18.1": {k: [] for k in ("champion", "item", "augment")}}
+    truth = {
+        "patches": {"18.1": {"champion": {}, "item": {}, "augment": {}}},
+        "changes": {},
+        "boards": {"M": {"a": ["reroll", -0.3], "b": ["fast9", 0.0], "c": ["fast8", 0.3]}},
+        "mechanics": {"counterFights": 10, "counterWins": 6, "adaptations": 3},
+    }
+    boards = [("M", "a", "reroll", 8), ("M", "b", "fast8", 4), ("M", "c", "fast8", 1), ("M", "unknown", "fast8", 2)]
+    out = truth_check(tierlists, [], truth, boards)
+    assert out["playstyle"]["boards"] == 3 and out["playstyle"]["accuracy"] == 0.6667
+    assert out["playstyle"]["confusion"]["fast9"] == {"fast8": 1}
+    assert [t["avgPlacement"] for t in out["positioning"]["thirds"]] == [8, 4, 1]
+    assert out["positioning"]["counterWinRate"] == 0.6
 
 
 def _db_available() -> bool:
@@ -150,3 +252,6 @@ def test_pipeline_end_to_end(tmp_path, monkeypatch):
     assert len(cloud.dead_letters) == 1  # the corrupt file
     published = json.loads(cloud.store.get_object("tft-public", "site/tierlists.json"))
     assert set(published) == {"18.1", "18.2"} and published["18.1"]["champion"]
+    assert all("contestRate" in r for r in published["18.1"]["comp"])
+    lobby = json.loads(cloud.store.get_object("tft-public", "site/lobby.json"))
+    assert sum(r["games"] for r in lobby["18.1"]["playstyles"]) == sum(r["games"] for r in lobby["18.1"]["carryContest"])

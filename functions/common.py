@@ -20,6 +20,7 @@ def static_data() -> dict:
         "traits": {t["id"]: t for t in raw["traits"]},
         "items": {i["id"]: i for i in raw["items"]},
         "augments": {a["id"]: a for a in raw["augments"]},
+        "patches": raw.get("patches", {}),  # client version -> patch, e.g. "16.21" -> "18.5"
     }
 
 
@@ -29,8 +30,23 @@ def object_from_event(event: dict) -> tuple[str, str]:
 
 
 def patch_of(game_version: str) -> str | None:
+    """"Version 16.21.512.4471 (...)" -> "16.21": the game client version a match was played on."""
     m = VERSION.match(game_version or "")
     return m.group(1) if m else None
+
+
+def patch_name(game_version: str, data: dict) -> str | None:
+    """The patch players know a match by: client 16.21 is Set 18's patch 18.5.
+
+    Riot's match data only has the client version; the static data maps it to the
+    set's patch. None when the version is unreadable or unknown (static data to refresh)."""
+    client = patch_of(game_version)
+    return data.get("patches", {}).get(client) if client else None
+
+
+def patch_key(patch: str) -> tuple[int, ...]:
+    """Orders patches numerically: 16.9 comes before 16.10."""
+    return tuple(int(x) for x in patch.split("."))
 
 
 def comp_of(participant: dict) -> tuple[str, str]:

@@ -9,6 +9,7 @@ import {
   activeTraits,
   autoPlace,
   createBattle,
+  gameForPatch,
   runToEnd,
   sampleToUnits,
   spellCoverage,
@@ -186,8 +187,10 @@ function SimulatorView({ game }: { game: GameData }) {
     }, 20);
   };
 
-  const myTraits = activeTraits(mine.map((p) => p.id), game);
-  const theirTraits = activeTraits(opponent.map((p) => p.id), game).filter((t) => t.tier > 0);
+  // the set as Riot shipped it in this patch: its stats, ability values and trait values
+  const shipped = gameForPatch(game, patch);
+  const myTraits = activeTraits(mine.map((p) => p.id), shipped);
+  const theirTraits = activeTraits(opponent.map((p) => p.id), shipped).filter((t) => t.tier > 0);
   const damage = b
     ? b.units
         .filter((u) => u.team === 0)
@@ -289,7 +292,7 @@ function SimulatorView({ game }: { game: GameData }) {
           {editing && (
             <section className="panel">
               {sel ? (
-                <UnitEditor game={game} unit={sel} onChange={update} onRemove={remove} onDone={() => setSelected(null)} />
+                <UnitEditor game={shipped} unit={sel} onChange={update} onRemove={remove} onDone={() => setSelected(null)} />
               ) : (
                 <>
                   <h2>Your board</h2>

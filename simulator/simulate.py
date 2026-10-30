@@ -19,10 +19,12 @@ A match is played out round by round: players are paired each PvP round, the
 stronger board (plus positioning and luck) usually wins, the loser loses health,
 and placements come from the order players are knocked out.
 
-Halfway through, a balance patch secretly buffs and nerfs a few champions,
-traits and items. The ETL never sees any of this: it only gets the match files,
-written in the shape of Riot's TFT match API, with a small share of deliberately
-dirty records. `truth.json` keeps the hidden values to grade the tier lists.
+The lobbies are played across the set's real patches (18.1, 18.2, ...), with the
+data Riot shipped in each, and every change Riot made from one patch to the next
+(simulator/patches.py) moves the hidden meta. The ETL never sees any of this: it
+only gets the match files, written in the shape of Riot's TFT match API, with a
+small share of deliberately dirty records. `truth.json` keeps the hidden values and
+Riot's changes to grade the tier lists and the patch changes the pipeline finds.
 """
 
 import json
@@ -30,6 +32,8 @@ import math
 import random
 from dataclasses import dataclass, field
 from pathlib import Path
+
+from simulator.patches import changes_between, power_shifts
 
 STAR_POWER = {1: 1.0, 2: 1.8, 3: 3.2}
 # A 3-star is worth more than its stats whatever it costs; that is what makes reroll comps work.
@@ -110,40 +114,57 @@ class Meta:
 
 @dataclass
 class World:
-    data: dict
+    data: dict  # the latest patch: who exists and what they cost
     patches: dict[str, Meta]
+    # per patch: how Riot's changes moved the hidden meta ({kind: {id: shift}})
     changes: dict[str, dict[str, dict[str, float]]] = field(default_factory=dict)
+    # per patch: the set as Riot shipped it, and Riot's changes from the previous patch, stat by stat
+    snapshots: dict[str, dict] = field(default_factory=dict)
+    notes: dict[str, list[dict]] = field(default_factory=dict)
 
 
-def build_world(data: dict, rng: random.Random, patches=("18.1", "18.2")) -> World:
+def build_world(snapshots: dict[str, dict], rng: random.Random) -> World:
+    """The hidden meta of each real patch, oldest first.
+
+    The first patch's powers are drawn at random (Riot publishes stats, not how strong
+    things are); every later patch starts from the one before and applies Riot's changes."""
+    patches = list(snapshots)
+    first = snapshots[patches[0]]
     base = Meta(
-        champion={c["id"]: 0.3 * c["cost"] + rng.gauss(0, 0.35) for c in data["champions"]},
+        champion={c["id"]: 0.3 * c["cost"] + rng.gauss(0, 0.35) for c in first["champions"]},
         trait={
             t["id"]: [round((i + 1) * 0.3 + rng.gauss(0, 0.2), 3) for i in range(len(t["breakpoints"]))]
-            for t in data["traits"]
+            for t in first["traits"]
         },
-        item={i["id"]: rng.gauss(0, 0.3) for i in data["items"]},
-        augment={a["id"]: rng.gauss(0, 0.35) for a in data["augments"]},
+        item={i["id"]: rng.gauss(0, 0.3) for i in first["items"]},
+        augment={a["id"]: rng.gauss(0, 0.35) for a in snapshots[patches[-1]]["augments"]},
     )
-    world = World(data=data, patches={patches[0]: base})
+    world = World(data=snapshots[patches[-1]], patches={patches[0]: base}, snapshots=snapshots)
     prev = base
-    for patch in patches[1:]:
+    for before, patch in zip(patches, patches[1:]):
         nxt = Meta(dict(prev.champion), {k: list(v) for k, v in prev.trait.items()}, dict(prev.item), dict(prev.augment))
+        shifts = power_shifts(snapshots[before], snapshots[patch])
         change: dict[str, dict[str, float]] = {"champion": {}, "item": {}, "trait": {}}
-        for cid in rng.sample(sorted(nxt.champion), 12):
-            delta = rng.choice([-1, 1]) * rng.uniform(0.35, 0.7)
-            nxt.champion[cid] += delta
-            change["champion"][cid] = round(delta, 3)
-        for iid in rng.sample(sorted(nxt.item), 4):
-            delta = rng.choice([-1, 1]) * rng.uniform(0.25, 0.5)
-            nxt.item[iid] += delta
-            change["item"][iid] = round(delta, 3)
-        for tid in rng.sample(sorted(t for t, b in nxt.trait.items() if len(b) > 1), 3):
-            delta = rng.choice([-1, 1]) * rng.uniform(0.25, 0.5)
-            nxt.trait[tid] = [round(b + delta * (i + 1) / len(nxt.trait[tid]), 3) for i, b in enumerate(nxt.trait[tid])]
-            change["trait"][tid] = round(delta, 3)
+        for cid, delta in shifts["champion"].items():
+            if cid in nxt.champion:
+                nxt.champion[cid] += delta
+                change["champion"][cid] = delta
+        for iid, delta in shifts["item"].items():
+            if iid in nxt.item:
+                nxt.item[iid] += delta
+                change["item"][iid] = delta
+        bps = {t["id"]: t["breakpoints"] for t in snapshots[patch]["traits"]}
+        for tid, per in shifts["trait"].items():
+            if tid not in nxt.trait:
+                continue
+            for units, delta in per.items():
+                if units in bps.get(tid, []):
+                    i = bps[tid].index(units)
+                    nxt.trait[tid][i] = round(nxt.trait[tid][i] + delta, 3)
+            change["trait"][tid] = round(sum(per.values()) / len(per), 3)
         world.patches[patch] = nxt
         world.changes[patch] = change
+        world.notes[patch] = changes_between(snapshots[before], snapshots[patch])
         prev = nxt
     return world
 
@@ -436,7 +457,8 @@ def play_match(world: World, patch: str, match_no: int, rng: random.Random, star
         "info": {
             "game_datetime": (start_ts + match_no * 37) * 1000,
             "game_length": round(1900 + rng.gauss(0, 120), 2),
-            "game_version": f"Version {patch}.{rng.randint(500, 520)} (simulated)",
+            # Riot's match API carries the game client version (patch 18.5 is client 16.21), not the patch name
+            "game_version": f"Version {world.snapshots.get(patch, {}).get('client', patch)}.{rng.randint(500, 520)} (simulated)",
             "queue_id": 1100,
             "tft_set_number": world.data["set"],
             "participants": participants,
@@ -462,10 +484,14 @@ def dirty(match: dict, rng: random.Random) -> dict:
     return m
 
 
-def simulate(data: dict, out_dir: Path, matches: int = 3000, batch_size: int = 250, seed: int = 18, dirty_share: float = 0.02):
-    """Writes raw/patch=<p>/batch-NNNN.ndjson files, plus truth.json for grading."""
+def simulate(
+    snapshots: dict[str, dict], out_dir: Path, matches: int = 5000, batch_size: int = 250, seed: int = 18, dirty_share: float = 0.02
+):
+    """Plays `matches` lobbies split evenly over the real patches in `snapshots` (oldest first).
+
+    Writes raw/patch=<p>/batch-NNNN.ndjson files, plus truth.json for grading and game.json for the website."""
     rng = random.Random(seed)
-    world = build_world(data, rng)
+    world = build_world(snapshots, rng)
     patches = list(world.patches)
     start_ts = 1_790_000_000
     files: list[Path] = []
@@ -512,6 +538,8 @@ def simulate(data: dict, out_dir: Path, matches: int = 3000, batch_size: int = 2
             p: {"champion": m.champion, "trait": m.trait, "item": m.item, "augment": m.augment} for p, m in world.patches.items()
         },
         "changes": world.changes,
+        # Riot's changes from the previous patch, as patch notes read: {kind, id, name, stat, before, after}
+        "riotChanges": world.notes,
         # Per board, what the match file doesn't say: [economy plan, positioning skill], by match and puuid.
         "boards": log["boards"],
         "mechanics": {
@@ -527,10 +555,21 @@ def simulate(data: dict, out_dir: Path, matches: int = 3000, batch_size: int = 2
 
 
 def game_data(world: World, log: dict) -> dict:
-    """Everything the website's real-time simulator needs: the set's units and items with their
-    base stats, the hidden meta of each patch (so a fight there follows the same balance as these
-    lobbies), and real boards from the simulated lobbies to fight against."""
+    """Everything the website's real-time simulator needs: the set's units and items as of the latest
+    patch, and per patch what Riot shipped then (stats, ability values, trait and item values), the
+    changes from the patch before, the hidden meta (so a fight there follows the same balance as
+    these lobbies), and real boards from the simulated lobbies to fight against."""
     r = lambda x: round(x, 3)  # noqa: E731
+
+    def shipped(p: str) -> dict:
+        snap = world.snapshots.get(p, world.data)
+        return {
+            "stats": {c["id"]: c["stats"] for c in snap["champions"]},
+            "spells": {c["id"]: c["spell"]["vars"] for c in snap["champions"] if c.get("spell", {}).get("vars")},
+            "traitEffects": {t["id"]: t.get("effects", []) for t in snap["traits"]},
+            "itemEffects": {i["id"]: {"stats": i["stats"], "effects": i.get("effects", {})} for i in snap["items"]},
+        }
+
     return {
         "set": world.data["set"],
         "champions": world.data["champions"],
@@ -542,6 +581,8 @@ def game_data(world: World, log: dict) -> dict:
                 "trait": m.trait,
                 "item": {k: r(v) for k, v in m.item.items()},
                 "boards": log.get("sampleBoards", {}).get(p, []),
+                "riotChanges": world.notes.get(p, []),
+                **shipped(p),
             }
             for p, m in world.patches.items()
         },

@@ -11,7 +11,7 @@ boards in the lobby were competing for the same champion's copies.
 import json
 from datetime import datetime, timezone
 
-from functions.common import champion_base, comp_of, holders_in_lobby, object_from_event, patch_of, playstyle_of, static_data
+from functions.common import champion_base, comp_of, holders_in_lobby, object_from_event, patch_name, playstyle_of, static_data
 from minicloud import sdk
 
 
@@ -20,7 +20,7 @@ def rows_for(match: dict, key: str, data: dict) -> dict[str, list[tuple]]:
     mid = match["metadata"]["match_id"]
     out: dict[str, list[tuple]] = {k: [] for k in ("matches", "participants", "units", "items", "traits", "augments")}
     out["matches"].append(
-        (mid, patch_of(info["game_version"]), datetime.fromtimestamp(info["game_datetime"] / 1000, timezone.utc).replace(tzinfo=None), info["game_length"], key)
+        (mid, patch_name(info["game_version"], data), datetime.fromtimestamp(info["game_datetime"] / 1000, timezone.utc).replace(tzinfo=None), info["game_length"], key)
     )
     holders = holders_in_lobby(info["participants"], data["champions"])
     for p in info["participants"]:

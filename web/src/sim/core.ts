@@ -68,6 +68,11 @@ export interface PatchMeta {
   trait: Record<string, number[]>;
   item: Record<string, number>;
   boards: SampleBoard[];
+  /** what Riot shipped in this patch, where it differs from the set's latest data */
+  stats?: Record<string, ChampionStats>;
+  spells?: Record<string, Record<string, number[]>>;
+  traitEffects?: Record<string, { minUnits: number; values: Record<string, number> }[]>;
+  itemEffects?: Record<string, { stats: Record<string, number>; effects: Record<string, number> }>;
 }
 
 export interface GameData {

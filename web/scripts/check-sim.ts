@@ -17,6 +17,7 @@ import {
   TRAITS,
   autoPlace,
   createBattle,
+  gameForPatch,
   runToEnd,
   sampleToUnits,
   spellFor,
@@ -134,6 +135,16 @@ const duel = (mine: Partial<Placed> & { id: string }, theirs: Partial<Placed> & 
   check(!crashed.length, `all ${game.champions.length} abilities run in a fight${crashed.length ? `; crashed: ${crashed.join("; ")}` : ""}`);
   silent = silent.filter((n) => n);
   check(!silent.length, `every champion with an active ability casts it${silent.length ? `; never cast: ${silent}` : ""}`);
+}
+
+{
+  // Each patch fights with what Riot shipped then: Kha'Zix went from 30 to 40 Attack Damage in 18.2.
+  if (game.patches["18.1"] && game.patches["18.2"]) {
+    const kz = (p: string) => gameForPatch(game, p).champions.find((c) => c.name === "Kha'Zix")!.stats.ad;
+    check(kz("18.1") === 30 && kz("18.2") === 40, `patches fight with their own stats (Kha'Zix AD ${kz("18.1")} in 18.1, ${kz("18.2")} in 18.2)`);
+    const b = createBattle(game, "18.1", [[{ id: champ("Kha'Zix"), star: 1, items: [], row: 4, col: 3 }], [{ id: champ("Camille"), star: 1, items: [], row: 3, col: 3 }]], 1);
+    check(near(b.units[0].baseAd / b.units[0].power, 30, 0.01), "an 18.1 fight uses 18.1's Kha'Zix");
+  }
 }
 
 // ------------------------------------------------------------------ whole fights

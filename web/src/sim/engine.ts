@@ -132,8 +132,33 @@ function spellCtx(b: Battle, u: Unit, t: Unit): Ctx | null {
   return { b, u, t, v, p: (name) => v(name) * u.power };
 }
 
-/** Starts a fight: teams[0] is your board (rows 4-7), teams[1] the opponent's (rows 0-3). */
-export function createBattle(game: GameData, patch: string, teams: [Placed[], Placed[]], seed: number): Battle {
+const byPatch = new WeakMap<GameData, Map<string, GameData>>();
+
+/** The set as Riot shipped it in `patch`: that patch's stats, ability values, trait and item values. */
+export function gameForPatch(game: GameData, patch: string): GameData {
+  const meta = game.patches[patch];
+  if (!meta?.stats) return game;
+  let cache = byPatch.get(game);
+  if (!cache) byPatch.set(game, (cache = new Map()));
+  const hit = cache.get(patch);
+  if (hit) return hit;
+  const view: GameData = {
+    ...game,
+    champions: game.champions.map((c) => ({
+      ...c,
+      stats: meta.stats?.[c.id] ?? c.stats,
+      spell: c.spell ? { ...c.spell, vars: meta.spells?.[c.id] ?? {} } : c.spell,
+    })),
+    traits: game.traits.map((t) => ({ ...t, effects: meta.traitEffects?.[t.id] ?? t.effects })),
+    items: game.items.map((i) => ({ ...i, ...(meta.itemEffects?.[i.id] ?? {}) })),
+  };
+  cache.set(patch, view);
+  return view;
+}
+
+/** Starts a fight in `patch`: teams[0] is your board (rows 4-7), teams[1] the opponent's (rows 0-3). */
+export function createBattle(allPatches: GameData, patch: string, teams: [Placed[], Placed[]], seed: number): Battle {
+  const game = gameForPatch(allPatches, patch);
   const meta: PatchMeta = game.patches[patch];
   const b: Battle = { time: 0, units: [], events: [], done: false, winner: null, rng: seeded(seed), timers: [], game, meta, nextUid: 0, dotClock: 0, lastHit: null };
   const champions: Unit[][] = teams.map((board, team) => board.map((p) => makeUnit(b, team as 0 | 1, p)));

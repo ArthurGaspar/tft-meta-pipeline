@@ -4224,5 +4224,14 @@
    "name": "You Have My Bow",
    "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/you-have-my-bow-ii.png"
   }
- ]
+ ],
+ "patch": "18.5",
+ "client": "16.21",
+ "patches": {
+  "16.17": "18.1",
+  "16.18": "18.2",
+  "16.19": "18.3",
+  "16.20": "18.4",
+  "16.21": "18.5"
+ }
 }

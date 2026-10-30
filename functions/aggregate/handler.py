@@ -24,7 +24,7 @@ import math
 import os
 from datetime import datetime, timezone
 
-from functions.common import PLAYSTYLES, static_data
+from functions.common import PLAYSTYLES, patch_key, static_data
 from minicloud import sdk
 
 PRIOR_GAMES = 50
@@ -230,7 +230,7 @@ def handler(event, context):
     finally:
         conn.close()
 
-    patches = sorted(boards)
+    patches = sorted(boards, key=patch_key)
     tierlists: dict[str, dict[str, list]] = {p: {k: [] for k in ENTITY_SQL} for p in patches}
     for s in stats:
         entry = {k: v for k, v in s.items() if k not in ("kind", "patch", "variance")}

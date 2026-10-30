@@ -111,7 +111,7 @@ export type Lobby = Record<
 
 export interface TruthCheck {
   patches: Record<string, Record<"champion" | "item" | "augment", { entities: number; spearman: number | null; points: TruthPoint[] }>>;
-  changes: Record<string, { trueChanges: number; flagged: number; flaggedAndReal: number; rightDirection: number; missed: string[] }>;
+  changes: Record<string, { riotChanges?: number; trueChanges: number; flagged: number; flaggedAndReal: number; rightDirection: number; missed: string[] }>;
   playstyle?: {
     boards: number;
     accuracy: number;

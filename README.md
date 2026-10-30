@@ -8,9 +8,10 @@ and needs no cloud account.
 
 ## What happens in a run
 
-1. A **simulator** plays ~3,000 eight-player lobbies with the real Set 18 champions, traits, items and augments (static
-   data from [Community Dragon](https://communitydragon.org)). Every piece has a hidden power, players lean towards what
-   they believe is strong, and halfway through a balance patch secretly buffs and nerfs a few things. Lobbies have the
+1. A **simulator** plays ~5,000 eight-player lobbies with the real Set 18 champions, traits, items and augments (static
+   data from [Community Dragon](https://communitydragon.org)), spread over the set's **real patches** (see
+   [Real patches](#real-patches)). Every piece has a hidden power, players lean towards what they believe is strong,
+   and each of Riot's patches moves the hidden meta the way Riot's own changes did. Lobbies have the
    structure of real ones (see [Lobby dynamics](#lobby-dynamics)): economy plans, one shared champion pool, and
    positioning, played out round by round until one player is left. Matches are written as NDJSON in the shape of Riot's
    TFT match API, with ~2% deliberately broken records and one corrupt file.
@@ -45,6 +46,32 @@ One lesson shows up in the data on its own: read from final boards, **Fast 9 loo
 but the plan itself places ~4.5, about the same as the others. Only players who survive reach level 9, so the final
 level is partly a result, not a choice. Any stat site that groups games by final level has the same survivorship bias.
 That's why playstyles get no tier. The site's Lobby dynamics page shows the numbers next to that warning.
+
+## Real patches
+
+Riot names TFT patches by set: Set 18's are 18.1, 18.2, …, and 18.5 is live now. The game data and Riot's match API,
+though, carry the game client version (`"game_version": "Version 16.21.…"`), and patch 18.5 is client 16.21. So the
+pipeline does what real stat sites do: it reads the client version from each match and names the patch from a table in
+the static data (16.17 → 18.1, …, 16.21 → 18.5). A match from a client version the table doesn't know is quarantined as
+`unknown_patch` until the static data is refreshed.
+
+- **One snapshot per patch.** Community Dragon keeps Riot's data for every client version. `python -m simulator.static_data`
+  walks back from the newest client version and stops at the one before launch (16.16 ships only two placeholder
+  champions). The first version with the full roster is patch 18.1, the next 18.2, and so on, stored as
+  `data/set18/18.1.json` and so on, each recording its client version. Stored patches are never rewritten (`--refresh`
+  forces it), so old patches stay as Riot shipped them. `data/set18.json` is a copy of the latest one plus the table.
+  Run it again after a patch to add the new one.
+- **Riot's real changes.** `simulator/patches.py` compares consecutive snapshots stat by stat, the way patch notes read:
+  Kha'Zix's Attack Damage 30 → 40 in 18.2, Invoker's mana bonus cut by one in 18.3, Diana's mana 30 → 40 in 18.4, Fae's
+  heals up in 18.5. Riot's changes run to 54, 7, 31 and 27 stats in those four patches. Ability changes in the patch
+  notes (18.5's Azir and Kha'Zix nerfs, for example) don't show yet: Set 18's ability numbers aren't in the game data.
+- **They move the hidden meta.** Each change becomes a shift in hidden power, in proportion to how much of the stat changed:
+  a buff makes the champion, trait or item stronger in the lobbies from that patch on. How much a given stat change is worth
+  is the simulator's modeling choice; Riot publishes stats, not strength. The first patch's hidden powers are random, as
+  before.
+- **The website compares them.** The Patch changes page lists, for each pair of consecutive patches, what the pipeline
+  detected next to every change Riot made, and whether the pipeline saw each one. The fight simulator fights with each
+  patch's own stats.
 
 ## Fight simulator (in the browser)
 
@@ -99,31 +126,36 @@ Inspect a deployed stack like you would the console: `python -m minicloud status
 
 ## Results
 
-From one run of 2,940 valid matches (23,520 boards) in 82 seconds:
+From one run of 4,901 valid matches (39,208 boards) over patches 18.1 to 18.5, in 157 seconds:
 
 | Measure | Result |
 |---|---|
-| Function invocations | Validate 17 (3 failed: the corrupt file, 1 try + 2 retries), Load 14, Aggregate 1 |
-| Data quality | 87 records quarantined across 7 reasons; 1 event dead-lettered |
+| Function invocations | Validate 28 (3 failed: the corrupt file, 1 try + 2 retries), Load 25, Aggregate 1 |
+| Data quality | 153 records quarantined across 7 reasons; 1 event dead-lettered |
 | What the run would cost on AWS | about $0.0009 in Lambda and S3 requests; the database (~$11.68/month for a db.t4g.micro) is the only real cost |
 
 **How well the tier lists recover the hidden meta** (Spearman rank correlation with hidden power; 1.0 is a perfect order):
 
-| Category | Patch 18.1 | Patch 18.2 |
-|---|---|---|
-| Champions | 0.79 | 0.77 |
-| Items | 0.93 | 0.96 |
-| Augments | 0.97 | 0.97 |
+| Category | 18.1 | 18.2 | 18.3 | 18.4 | 18.5 |
+|---|---|---|---|---|---|
+| Champions | 0.76 | 0.71 | 0.74 | 0.68 | 0.60 |
+| Items | 0.94 | 0.95 | 0.95 | 0.99 | 0.94 |
+| Augments | 0.95 | 0.96 | 0.96 | 0.97 | 0.95 |
 
 Champions are the hardest to rank: strong units carry weak teammates, 5-costs appear on late (better) boards, and
-contest and economy decide how many stars a unit gets.
+contest and economy decide how many stars a unit gets. With five patches each gets ~1,000 matches, so the champion
+lists are noisier than with fewer, larger patches.
 
 **Playstyles** are read correctly from 67% of boards. **Positioning**, invisible to the ETL, is worth about half a place:
-the third of players with the best hidden skill average 4.26, the worst third 4.75.
+the third of players with the best hidden skill average 4.24, the worst third 4.75.
 
-**The balance patch:** it secretly changed 19 champions, items and traits. The pipeline flagged 11 significant shifts;
-8 were real changes, all in the right direction. The other 11 changes were too small to tell from noise with ~1,500
-matches per patch. The significance bar (|z| ≥ 3) is strict on purpose, since about a hundred things are compared at once.
+**Riot's patches:** across 18.2 to 18.5, Riot's changes touched 61 champions, traits and items (counting each patch
+separately). The pipeline flagged 11 significant shifts: 6 were real changes, 5 of them in the right direction. Fae's
+heal buff and Invoker's back-and-forth are caught. Alune reads as nerfed in 18.5 even though her own Attack Speed went
+up, because Attuned, which she always carries, was nerfed harder. Most of Riot's changes are a few percent of one stat,
+too small to tell from noise in ~1,000 matches; Kha'Zix's big 18.2 buff moved him a whole 0.4 places and still stopped
+just short of the bar (z = −2.9). The significance bar (|z| ≥ 3) is strict on purpose, since about a hundred things are
+compared at once.
 
 ## Run it locally
 
@@ -135,15 +167,15 @@ python -m venv .venv
 pip install -r requirements.txt
 
 python localdb.py start           # private database in .db/ on port 3307; no admin rights needed
-python run.py                     # the whole pipeline; ~80 s
-python -m pytest                  # 30 tests, including an end-to-end run against the database
+python run.py                     # the whole pipeline; ~2.5 min
+python -m pytest                  # 33 tests, including an end-to-end run against the database
 
 cd web && npm install && npm run dev   # npm run check:sim tests the fight simulator against the generated data
 ```
 
 `localdb.py` looks for `mariadbd` on PATH; set `MARIADB_BIN` to its folder otherwise. To use a MySQL server you already
 run instead, skip `localdb.py` and set `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` and `DB_NAME`. To refresh the static game data
-from Community Dragon: `python -m simulator.static_data`.
+from Community Dragon (adding any new patch, keeping the stored ones): `python -m simulator.static_data`.
 
 ## Limitations
 

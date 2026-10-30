@@ -10,7 +10,7 @@ that needs a human, not a filter.
 import json
 import os
 
-from functions.common import object_from_event, patch_of, static_data
+from functions.common import object_from_event, patch_name, patch_of, static_data
 from minicloud import sdk
 
 
@@ -28,6 +28,8 @@ def problems(match: dict, data: dict) -> list[str]:
         out.append("wrong_set")
     if patch_of(info.get("game_version", "")) is None:
         out.append("unknown_version")
+    elif patch_name(info["game_version"], data) is None:
+        out.append("unknown_patch")  # a client version the static data doesn't know: refresh it
     if len(participants) != 8:
         out.append("wrong_lobby_size")
     placements = [p.get("placement") for p in participants]

@@ -1,10 +1,19 @@
-"""Extracts the game data the simulator needs from Community Dragon.
+"""Extracts the game data the simulator needs from Community Dragon, one snapshot per patch.
 
-    python -m simulator.static_data            # writes data/set18.json
+    python -m simulator.static_data                 # stores new Set 18 patches, refreshes data/set18.json
+    python -m simulator.static_data --cache DIR     # reads DIR/<client version>.json instead of downloading
 
-Community Dragon publishes Riot's static TFT data (no API key). The full file is
-~24 MB and includes other sets and modes, so a compact snapshot of one set is
-kept in the repository and this script refreshes it.
+Riot names TFT patches by set: Set 18's are 18.1, 18.2, ... The game data, though, is
+versioned by the game client: Community Dragon keeps one folder per client version
+(16.17, 16.18, ...), and Riot's match API reports that version too ("Version 16.21.…").
+A set's first patch is the first client version with its full roster, and each later
+version is the next patch: client 16.17 is patch 18.1, 16.21 is 18.5.
+
+Each version's file is ~24 MB and covers every set and mode, so a compact snapshot of
+the set is kept per patch in data/set18/<patch>.json, recording its client version.
+Stored patches are never overwritten (pass --refresh to redo them), so old patches stay
+as they were when Riot shipped them. data/set18.json is a copy of the latest one, plus
+the table from client version to patch the pipeline uses to name a match's patch.
 """
 
 import argparse
@@ -14,8 +23,8 @@ import re
 import urllib.request
 from pathlib import Path
 
-SOURCE = "https://raw.communitydragon.org/latest/cdragon/tft/en_us.json"
-ASSETS = "https://raw.communitydragon.org/latest/game/"
+CDRAGON = "https://raw.communitydragon.org/"
+ASSETS = CDRAGON + "latest/game/"
 ROOT = Path(__file__).resolve().parent.parent
 AUGMENT_POOL = 72
 
@@ -142,24 +151,87 @@ def extract(raw: dict, mutator: str) -> dict:
     }
 
 
+def patch_key(patch: str) -> tuple[int, ...]:
+    """Orders patch numbers numerically: 16.9 < 16.10."""
+    return tuple(int(x) for x in patch.split("."))
+
+
+def client_versions() -> list[str]:
+    """Every game client version Community Dragon keeps, newest first."""
+    with urllib.request.urlopen(CDRAGON, timeout=60) as resp:
+        html = resp.read().decode("utf-8")
+    return sorted(set(re.findall(r'href="(\d+\.\d+)/"', html)), key=patch_key, reverse=True)
+
+
+def raw_for(version: str, cache: Path | None) -> dict:
+    if cache and (cache / f"{version}.json").exists():
+        return json.loads((cache / f"{version}.json").read_text(encoding="utf-8"))
+    with urllib.request.urlopen(f"{CDRAGON}{version}/cdragon/tft/en_us.json", timeout=300) as resp:
+        return json.load(resp)
+
+
+def write(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
+
+
+def store_patches(mutator: str, versions: list[str], cache: Path | None = None, refresh: bool = False) -> dict[str, str]:
+    """Finds the client versions the set is live in and stores each as a patch; returns {client version: patch}.
+
+    Walks back from the newest version until one doesn't carry the set's full roster (the
+    version before launch ships a couple of placeholder champions). Patches are numbered
+    from the set's launch: the first live version is <set>.1."""
+    number = re.sub(r"\D", "", mutator)
+    folder = ROOT / "data" / f"set{number}"
+    stored = {}
+    for f in folder.glob("*.json"):
+        snap = json.loads(f.read_text(encoding="utf-8"))
+        if snap.get("client"):
+            stored[snap["client"]] = snap
+    found: dict[str, dict] = {}
+    roster = 0
+    for version in versions:
+        if version in stored and not refresh:
+            data = stored[version]
+        else:
+            try:
+                data = extract(raw_for(version, cache), mutator)
+            except StopIteration:  # the set isn't in this version at all
+                break
+        roster = max(roster, len(data["champions"]))
+        if len(data["champions"]) < 0.8 * roster:
+            break
+        found[version] = data
+    clients = sorted(found, key=patch_key)
+    names = {client: f"{number}.{i + 1}" for i, client in enumerate(clients)}
+    for client in clients:
+        if client in stored and not refresh:
+            continue
+        data = {**found[client], "patch": names[client], "client": client}
+        write(folder / f"{names[client]}.json", data)
+        print(f"stored patch {names[client]} (client {client}): {len(data['champions'])} champions, {len(data['traits'])} traits, {len(data['items'])} items")
+    return names
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--mutator", default="TFTSet18")
-    parser.add_argument("--source", default=SOURCE, help="URL or local path of en_us.json")
+    parser.add_argument("--cache", type=Path, help="folder of <client version>.json files to read instead of downloading")
+    parser.add_argument("--refresh", action="store_true", help="re-extract patches already stored")
     args = parser.parse_args()
-    if args.source.startswith("http"):
-        with urllib.request.urlopen(args.source, timeout=120) as resp:
-            raw = json.load(resp)
+    if args.cache:
+        versions = sorted((p.stem for p in args.cache.glob("*.json") if re.fullmatch(r"\d+\.\d+", p.stem)), key=patch_key, reverse=True)
     else:
-        raw = json.loads(Path(args.source).read_text(encoding="utf-8"))
-    data = extract(raw, args.mutator)
-    out = ROOT / "data" / f"set{data['set']}.json"
-    out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
-    print(
-        f"wrote {out.relative_to(ROOT)}: {len(data['champions'])} champions, {len(data['traits'])} traits, "
-        f"{len(data['items'])} items, {len(data['augments'])} augments"
-    )
-
+        versions = client_versions()
+    names = store_patches(args.mutator, versions, args.cache, args.refresh)
+    if not names:
+        raise SystemExit(f"no client version has {args.mutator}")
+    number = re.sub(r"\D", "", args.mutator)
+    latest = names[max(names, key=patch_key)]
+    data = json.loads((ROOT / "data" / f"set{number}" / f"{latest}.json").read_text(encoding="utf-8"))
+    data["patches"] = names
+    write(ROOT / "data" / f"set{number}.json", data)
+    print(f"set {number} patches: " + ", ".join(f"{n} (client {c})" for c, n in names.items()) + f"; data/set{number}.json is patch {latest}")
 
 if __name__ == "__main__":
     main()

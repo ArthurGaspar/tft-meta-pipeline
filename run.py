@@ -1,7 +1,7 @@
 """One end-to-end run of the TFT meta pipeline on minicloud.
 
-    python run.py                    # 3,000 simulated matches into a fresh stack
-    python run.py --matches 600      # a quicker run
+    python run.py                    # 5,000 simulated matches over Set 18's real patches
+    python run.py --matches 1000     # a quicker run
 
 1. Deploys infra/stack.yaml (buckets, queue, database schema, functions, triggers).
 2. Simulates matches and uploads the raw files to the raw bucket. Each upload
@@ -29,6 +29,7 @@ import pymysql
 from functions.common import PLAYSTYLES
 from minicloud.cloud import Cloud
 from minicloud.template import load
+from simulator.patches import load_patches
 from simulator.simulate import simulate
 
 ROOT = Path(__file__).resolve().parent
@@ -81,13 +82,22 @@ def truth_check(tierlists: dict, changes: list, truth: dict, boards: list[tuple]
                 "points": [{"id": r["id"], "name": r["name"], "power": round(hidden[kind][r["id"]], 3), "score": r["score"], "tier": r["tier"]} for r in rows],
             }
     for patch, change in truth["changes"].items():
-        flagged = {(c["kind"], c["id"]) for c in changes if c["to"] == patch and c["significant"]}
+        # The pipeline reports traits per breakpoint ("Invoker:1"); a trait counts once, by its strongest signal.
+        strongest: dict[tuple[str, str], dict] = {}
+        for c in changes:
+            if c["to"] != patch or not c["significant"]:
+                continue
+            key = (c["kind"], c["id"].split(":")[0] if c["kind"] == "trait" else c["id"])
+            if key not in strongest or abs(c["z"]) > abs(strongest[key]["z"]):
+                strongest[key] = c
+        flagged = set(strongest)
         actual = {(k, i) for k, ids in change.items() for i in ids}
-        right_direction = sum(
-            1 for c in changes if c["to"] == patch and c["significant"] and (c["kind"], c["id"]) in actual
-            and (change[c["kind"]][c["id"]] > 0) == (c["delta"] < 0)
-        )
+        # a buff (positive shift) should show up as a better (lower) average placement
+        right_direction = sum(1 for (k, i), c in strongest.items() if (k, i) in actual and (change[k][i] > 0) == (c["delta"] < 0))
+        riot = truth.get("riotChanges", {}).get(patch, [])
         out["changes"][patch] = {
+            # Riot's own patch: stat changes, and how many champions, traits and items they touched
+            "riotChanges": len(riot),
             "trueChanges": len(actual),
             "flagged": len(flagged),
             "flaggedAndReal": len(flagged & actual),
@@ -143,7 +153,7 @@ def quality_report(cloud: Cloud, bucket: str) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--matches", type=int, default=3000)
+    parser.add_argument("--matches", type=int, default=5000)
     parser.add_argument("--seed", type=int, default=18)
     parser.add_argument("--out", default="web/public/data")
     args = parser.parse_args()
@@ -166,7 +176,9 @@ def main() -> None:
 
     work = ROOT / ".work"
     shutil.rmtree(work, ignore_errors=True)
-    files = simulate(json.loads((ROOT / "data" / "set18.json").read_text(encoding="utf-8")), work, matches=args.matches, seed=args.seed)
+    patches = load_patches()
+    files = simulate(patches, work, matches=args.matches, seed=args.seed)
+    print(f"patches {', '.join(patches)}")
     print(f"simulated {args.matches} matches into {len(files)} files")
 
     raw = stack.resources["RawBucket"].props["name"]

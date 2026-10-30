@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HBars, Scatter } from "./charts";
 import { PLAYSTYLE_LABEL, load, type Lobby, type TruthCheck } from "./data";
-import { Empty, Tile, useAsync } from "./ui";
+import { Empty, useAsync } from "./ui";
 
 type Kind = "champion" | "item" | "augment";
 const LABEL: Record<Kind, string> = { champion: "Champions", item: "Items", augment: "Augments" };
@@ -17,8 +17,7 @@ export function Truth() {
   const patches = Object.keys(t.patches);
   const current = patch ?? patches[patches.length - 1];
   const view = t.patches[current][kind];
-  const changePatch = Object.keys(t.changes)[0];
-  const ch = t.changes[changePatch];
+  const changePatches = Object.keys(t.changes);
 
   return (
     <>
@@ -31,13 +30,36 @@ export function Truth() {
         </p>
       </section>
 
-      <div className="tiles">
-        {patches.flatMap((p) =>
-          (Object.keys(LABEL) as Kind[]).map((k) => (
-            <Tile key={`${p}${k}`} value={t.patches[p][k].spearman?.toFixed(2) ?? "-"} label={`${LABEL[k]}, patch ${p}`} sub="rank correlation with hidden power" />
-          )),
-        )}
-      </div>
+      <section className="panel">
+        <h2>Rank correlation with hidden power, per patch</h2>
+        <div style={{ overflowX: "auto" }}>
+          <table>
+            <thead>
+              <tr>
+                <th>Patch</th>
+                {(Object.keys(LABEL) as Kind[]).map((k) => (
+                  <th key={k} className="num">
+                    {LABEL[k]}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {patches.map((p) => (
+                <tr key={p}>
+                  <td>{p}</td>
+                  {(Object.keys(LABEL) as Kind[]).map((k) => (
+                    <td key={k} className="num">
+                      {t.patches[p][k].spearman?.toFixed(2) ?? "-"}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="small" style={{ marginBottom: 0 }}>1.00 would mean the tier list orders them exactly by hidden power.</p>
+      </section>
 
       <section className="panel">
         <div className="row" style={{ justifyContent: "space-between", marginBottom: 10 }}>
@@ -71,18 +93,46 @@ export function Truth() {
         </p>
       </section>
 
-      {ch && (
+      {changePatches.length > 0 && (
         <section className="panel">
-          <h2>Balance patch {changePatch}: changes caught</h2>
+          <h2>Riot's patches: changes caught</h2>
           <p>
-            The patch secretly changed <b>{ch.trueChanges}</b> champions, items and traits. The pipeline flagged <b>{ch.flagged}</b>{" "}
-            significant shifts, <b>{ch.flaggedAndReal}</b> of them real changes, all <b>{ch.rightDirection}</b> in the right direction.
-            {ch.flagged > ch.flaggedAndReal &&
-              ` The other ${ch.flagged - ch.flaggedAndReal} weren't changed directly; they may have moved through synergy with something that was.`}
+            Each patch, Riot changed some champions, traits and items (read from the data it shipped), and the simulator's hidden meta moved
+            with them. Did the pipeline's <a href="#/patch">patch changes</a> find them?
           </p>
-          <p className="small">
-            The {ch.missed.length} missed changes were too small to separate from noise with {` `}the matches in one patch. More matches
-            per patch would catch more of them.
+          <div style={{ overflowX: "auto" }}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Patch</th>
+                  <th className="num">Riot's stat changes</th>
+                  <th className="num">Champions, traits, items changed</th>
+                  <th className="num">Flagged</th>
+                  <th className="num">Real</th>
+                  <th className="num">Right direction</th>
+                </tr>
+              </thead>
+              <tbody>
+                {changePatches.map((p) => {
+                  const c = t.changes[p];
+                  return (
+                    <tr key={p}>
+                      <td>{p}</td>
+                      <td className="num">{c.riotChanges ?? "-"}</td>
+                      <td className="num">{c.trueChanges}</td>
+                      <td className="num">{c.flagged}</td>
+                      <td className="num">{c.flaggedAndReal}</td>
+                      <td className="num">{c.rightDirection}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="small" style={{ marginBottom: 0 }}>
+            Most of Riot's changes are small (a few percent of a stat, a point of mana) and can't be told apart from noise with the matches
+            one patch gets here; real stat sites see hundreds of thousands of games per patch. Flags that aren't real changes usually moved
+            through synergy: a trait change shifts every champion that carries it.
           </p>
         </section>
       )}

@@ -65,10 +65,9 @@ export function PatchChanges() {
           Patch {from} → {to}
         </h1>
         <p>
-          The simulated lobbies are played on Set {meta.set}'s real patches, with the data Riot shipped in each. Every change Riot made from
-          one patch to the next makes the simulator's hidden meta stronger or weaker, and the pipeline has to find it from match results alone.
-          A shift is listed only when it is at least {meta.method.zSignificant} standard errors from zero. The bar is strict because around a
-          hundred things are compared at once, and a looser one would flag noise.
+          Compare placement shifts with the stat differences recorded in Set {meta.set}'s stored patch snapshots.
+          Those differences move the simulator’s hidden strength; the ETL only sees match results. Shifts are flagged at
+          |z| ≥ {meta.method.zSignificant}. This is a screening threshold, not a guarantee that a patch caused the change.
         </p>
       </section>
 
@@ -112,7 +111,7 @@ function RiotPatch({ to, riot, flagged }: { to: string; riot: RiotChange[]; flag
       <p className="small" style={{ marginTop: 0 }}>
         {riot.length
           ? `${riot.length} stat changes to ${groups.size} champions, traits and items, read from the data Riot shipped in each patch (Community Dragon). Some only matter between rounds, like Coven's essence, and can't show in placements.`
-          : "Riot changed nothing in this set's champions, traits or items this patch."}
+          : "No stat differences were recorded in these snapshots."}
       </p>
       {list.length > 0 && (
         <div style={{ overflowX: "auto" }}>

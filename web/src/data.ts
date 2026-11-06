@@ -140,6 +140,9 @@ export function load<T>(name: string): Promise<T> {
       fetch(url).then((r) => {
         if (!r.ok) throw new Error(`${url} answered ${r.status}. Run \`python run.py\` to generate the data.`);
         return r.json();
+      }).catch((error) => {
+        cache.delete(name);
+        throw error;
       }),
     );
   }

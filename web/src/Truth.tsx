@@ -22,11 +22,11 @@ export function Truth() {
   return (
     <>
       <section>
-        <h1>Did the ETL find the real meta?</h1>
+        <h1>Did the ETL recover the simulated meta?</h1>
         <p>
           The simulator gives every champion, item and augment a hidden power and keeps it out of the pipeline. Here the published
-          tier lists are graded against it. A perfect pipeline would order everything exactly by hidden power; it can't, because
-          placements are noisy, items and augments ride on whole boards, and strong units pull weak teammates along.
+          tier lists are compared with those values using rank correlation. This measures recovery within the model, not accuracy on live matches.
+          Placements are noisy, items and augments appear on whole boards, and strong units can pull weak teammates along.
         </p>
       </section>
 

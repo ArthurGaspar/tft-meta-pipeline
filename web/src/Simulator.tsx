@@ -206,16 +206,13 @@ function SimulatorView({ game }: { game: GameData }) {
       <section>
         <h1>Fight simulator</h1>
         <p>
-          Build a board, place it, and watch it fight a real board from the simulated lobbies, in real time. Units use their Set{" "}
-          {game.set} base stats, and every ability, trait and item does what its in-game description says: traits and items with
-          Riot's own values, all scaled by the hidden meta of the patch you pick (the balance the tier lists are trying to recover).
-          Positioning matters: units walk to the nearest enemy, ranged units hit from afar, and spells hit areas, lines and cones.
+          Build a board, place your units, and fight a sampled opponent from the simulated lobbies. The seeded combat model uses Set{" "}
+          {game.set} snapshots, implemented abilities, and the selected patch’s hidden strength. Reposition units or change items to compare outcomes.
         </p>
         <p className="small">
-          Riot hasn't published Set {game.set}'s ability numbers yet (only {game.champions.filter((c) => Object.keys(c.spell?.vars ?? {}).length).length} of{" "}
-          {game.champions.length} abilities have them), so the rest are estimated by cost and marked as such. They switch to Riot's
-          values automatically once the game data has them. Effects that happen between rounds (shops, quests, rewards) aren't part of
-          a single fight and are listed where they apply.
+          This stored snapshot has ability values for {game.champions.filter((c) => Object.keys(c.spell?.vars ?? {}).length).length} of{" "}
+          {game.champions.length} champions. Missing values are estimated by cost and labeled. Shops, quests, and other effects between rounds
+          are outside this single-fight model. Results are an experiment, not a prediction of live TFT combat.
         </p>
       </section>
 

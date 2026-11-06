@@ -1,187 +1,113 @@
 # TFT Meta Pipeline
 
-A serverless-style ETL that turns raw Teamfight Tactics matches into tier lists for comps, champions, items, augments
-and traits. It runs on **minicloud**, a small imitation of AWS built for this project, so the whole thing costs nothing
-and needs no cloud account.
+I play Teamfight Tactics. This is my side project for messing with match data: simulated lobbies, comp rankings, and a board you can fight on.
 
-**Live:** https://arthurgaspar.github.io/tft-meta-pipeline/
+Python generates eight-player lobbies, an ETL loads the records into MySQL, and a React site shows the results. The simulator keeps its hidden strength values separate, so I can check whether the rankings recover them.
 
-## What happens in a run
+[Explore the project](https://arthurgaspar.github.io/tft-meta-pipeline/) · [Read the pipeline](functions/validate/handler.py) · [Inspect the tests](tests/test_etl.py)
 
-1. A **simulator** plays ~5,000 eight-player lobbies with the real Set 18 champions, traits, items and augments (static
-   data from [Community Dragon](https://communitydragon.org)), spread over the set's **real patches** (see
-   [Real patches](#real-patches)). Every piece has a hidden power, players lean towards what they believe is strong,
-   and each of Riot's patches moves the hidden meta the way Riot's own changes did. Lobbies have the
-   structure of real ones (see [Lobby dynamics](#lobby-dynamics)): economy plans, one shared champion pool, and
-   positioning, played out round by round until one player is left. Matches are written as NDJSON in the shape of Riot's
-   TFT match API, with ~2% deliberately broken records and one corrupt file.
-2. The files are uploaded to the **raw bucket**. Each upload fires an S3-style event.
-3. **Validate** checks every record (8 players, placements 1 to 8, known champions and items, a readable version...). Good
-   records go to the staged bucket; bad ones go to quarantine with their reasons. A file that isn't text raises, is retried
-   twice, and lands in the **dead-letter queue**.
-4. Each staged file fires **Load**, which upserts the matches into normalized **MySQL** tables and labels every board with
-   its comp ("Juggernaut Maokai": strongest trait plus the unit holding the most items) and its playstyle (reroll, fast 8
-   or fast 9, read from the board), and every unit with how many other boards in the lobby held the same champion.
-   Loading is idempotent.
-5. An hourly **schedule** runs **Aggregate**: average placement, top-4 and win rates per patch, small samples shrunk towards
-   average, tiers, patch winners and losers, best items per champion, how contested each comp is and what that costs, and
-   placement by playstyle and final level. It publishes JSON to the public bucket, which the website reads.
-6. A **truth check**, outside the pipeline, grades the tier lists and the playstyles against the simulator's hidden
-   values, and measures what positioning (which match data doesn't record) was worth.
+**By [Arthur](https://github.com/ArthurGaspar)** · Python / MySQL / React / TypeScript / GitHub Actions
 
-## Lobby dynamics
+![TFT project home with a scoutable hex board, champion portraits, and the last run](docs/overview.png)
 
-A board's placement depends on more than its parts. The simulator models three things real lobbies have:
+## What it does
 
-| Concept | In the simulator | What the ETL sees |
-|---|---|---|
-| **Economy** | Each player follows a plan. *Reroll* slow-rolls at level 6-8 for 3-star 1-3 costs: strong early, low ceiling. *Fast 8* is the standard. *Fast 9* skips rolling for level 9-10 and 5-costs: weak until stage 5, highest ceiling. The plan sets the final level, star odds and board strength at each stage. A player knocked out early is recorded with the board they had then, at a lower level. | `level`, star levels, `gold_left`. Load reads the playstyle back from the board and gets it right on about two boards in three. |
-| **Contested units** | All eight players draw from one pool (30 copies of each 1-cost down to 9 of each 5-cost; a 2-star takes 3, a 3-star 9). Players scout and lean away from champions and traits others are building. Each rival holding a champion lowers your odds of 2- and 3-starring it, and the pool can run out. | Who else in the lobby held each champion. Units held by one other board reach 2 stars 42% of the time instead of 60%, and a contested carry places about 0.2 worse. |
-| **Positioning** | Every player has a hidden positioning skill and a formation (corner, clump or spread), each of which beats another. A player who loses a fight may re-position to counter the board that beat them. | Nothing: Riot's match data has no positions. It shows up only as noise, and the truth check measures it. |
+- **Data quality at ingestion.** Reject malformed records before they reach SQL. Keep their source line and reason; isolate unreadable files through retries and a dead-letter queue.
+- **Repeatable loading.** A transaction covers each staged file. A key/ETag log skips re-delivered files, while match IDs prevent duplicate inserts across files.
+- **An explicit statistical method.** Small samples shrink toward average; low-volume entities stay unranked. Patch comparisons use a declared significance threshold.
+- **A check independent of the ETL.** Hidden powers and original economy plans stay outside the pipeline. The evaluation report uses them to expose ranking errors and selection bias.
 
-Fights are a logistic of the strength gap (board, stage tempo, positioning, counter) over a luck term. The loser takes
-stage damage plus one per surviving enemy unit, and placements are the order players hit zero health.
+The infrastructure runs on **minicloud**, a local AWS-style emulator written for this repository. This is not an AWS deployment or a production-scale benchmark.
 
-One lesson shows up in the data on its own: read from final boards, **Fast 9 looks dominant** (average placement ~2.7),
-but the plan itself places ~4.5, about the same as the others. Only players who survive reach level 9, so the final
-level is partly a result, not a choice. Any stat site that groups games by final level has the same survivorship bias.
-That's why playstyles get no tier. The site's Lobby dynamics page shows the numbers next to that warning.
+## Data path
 
-## Real patches
+```text
+Simulated lobbies -> raw NDJSON -> Validate -> staged NDJSON -> Load -> MySQL
+                                    |                           |
+                                    +-> quarantine              +-> Aggregate (schedule)
+                                                                      |
+Failed invocations -> 2 retries -> dead-letter queue                   v
+                                                             public JSON -> React
+```
 
-Riot names TFT patches by set: Set 18's are 18.1, 18.2, …, and 18.5 is live now. The game data and Riot's match API,
-though, carry the game client version (`"game_version": "Version 16.21.…"`), and patch 18.5 is client 16.21. So the
-pipeline does what real stat sites do: it reads the client version from each match and names the patch from a table in
-the static data (16.17 → 18.1, …, 16.21 → 18.5). A match from a client version the table doesn't know is quarantined as
-`unknown_patch` until the static data is refreshed.
+`infra/stack.yaml` declares buckets, functions, triggers, a queue, and a schedule. minicloud models S3 notification payloads, Lambda's `handler(event, context)` contract, warm environments, timeouts, logs, and a simulated clock. Functions run sequentially in one process. MariaDB locally, or MySQL in CI, provides the actual database.
 
-- **One snapshot per patch.** Community Dragon keeps Riot's data for every client version. `python -m simulator.static_data`
-  walks back from the newest client version and stops at the one before launch (16.16 ships only two placeholder
-  champions). The first version with the full roster is patch 18.1, the next 18.2, and so on, stored as
-  `data/set18/18.1.json` and so on, each recording its client version. Stored patches are never rewritten (`--refresh`
-  forces it), so old patches stay as Riot shipped them. `data/set18.json` is a copy of the latest one plus the table.
-  Run it again after a patch to add the new one.
-- **Riot's real changes.** `simulator/patches.py` compares consecutive snapshots stat by stat, the way patch notes read:
-  Kha'Zix's Attack Damage 30 → 40 in 18.2, Invoker's mana bonus cut by one in 18.3, Diana's mana 30 → 40 in 18.4, Fae's
-  heals up in 18.5. Riot's changes run to 54, 7, 31 and 27 stats in those four patches. Ability changes in the patch
-  notes (18.5's Azir and Kha'Zix nerfs, for example) don't show yet: Set 18's ability numbers aren't in the game data.
-- **They move the hidden meta.** Each change becomes a shift in hidden power, in proportion to how much of the stat changed:
-  a buff makes the champion, trait or item stronger in the lobbies from that patch on. How much a given stat change is worth
-  is the simulator's modeling choice; Riot publishes stats, not strength. The first patch's hidden powers are random, as
-  before.
-- **The website compares them.** The Patch changes page lists, for each pair of consecutive patches, what the pipeline
-  detected next to every change Riot made, and whether the pipeline saw each one. The fight simulator fights with each
-  patch's own stats.
+The simulator generates Riot-shaped match records from checked-in Set 18 snapshots. It models economy plans, a shared champion pool, and abstract positioning. Patch snapshot differences move the hidden strength values; translating a stat change into strength is a modeling choice.
 
-## Fight simulator (in the browser)
+## Results and the limits of the result
 
-The pipeline plays thousands of lobbies in bulk. The website's **Simulator** page plays one fight at a time, in real
-time, on a board you build: pick champions, stars and items, place them on your half of a 7×8 hex grid, and fight a
-random board from the simulated lobbies. You can watch the fight, or run 200 of them for a win rate, against one
-opponent or against 200 different lobby boards.
+The recorded run from **30 October 2026** processed **4,901 valid matches / 39,208 player boards** across five patch snapshots in **157 seconds**. It quarantined **153 records** and dead-lettered **one deliberately unreadable file**. Runtime depends on the machine; these are observations from that run.
 
-- **TFT's combat rules** (`web/src/sim/core.ts`): Damage Amp, Armor and Magic Resist (with Sunder and Shred), Durability,
-  shields, healing (with Wound), crits (Precision lets abilities crit), mana from attacks and damage taken, Mana Reave,
-  stuns, sleep, taunts, Burn and bleeds, summons, and overtime: after 30 seconds damage ramps up 25% per second so long
-  fights end.
-- **Every ability, trait and item, from its in-game description.** All 74 abilities (`spells.ts`), with their shapes:
-  lines, cones, areas, leaps, tethers, Krug splitting into Kruglettes, Zyra's plants, Lux's ten forms. All 35 traits
-  (`traits.ts`) and 39 items (`items.ts`) use Riot's real values. Riot hashes many of the variable names, so
-  `static_data.py` decodes them by FNV-1a-hashing the names each description uses (59 of 61 decoded). What happens
-  between rounds (shops, Coven's essence, quests, Wisps, Elderwood's plants) can't show in one fight. Those effects say so
-  in the page.
-- **Estimated numbers, until Riot publishes them.** Set 18's game data has every ability's description but numbers for
-  only 2 of 74, on live and on the test server alike, and in Riot's own map data as well. So each ability declares its
-  values in Riot's format (`[0, 1-star, 2-star, 3-star]`), with estimates sized by cost from earlier sets. A value the
-  game data has, under the same name, replaces the estimate automatically: Kobuko's and Alune's already do. The page
-  marks each ability as estimated or real.
-- **The same meta.** The simulator writes `game.json`: the set's data above, the hidden power of every champion, trait
-  breakpoint and item per patch (which scales their numbers in the browser too), and 240 full boards per patch from the
-  simulated lobbies. Boards that placed better in their lobby win about 70% of fights against boards that placed worse.
-- **Positioning matters.** Placement decides who gets hit first, what a cone or line catches, and which allies Lunar
-  buffs. The same boards with the front and back lines swapped win about 30% fewer fights.
-- **Deterministic.** The engine is seeded, has no dependencies, runs at about 1.5 ms per fight, and powers both the
-  animation and the batch runs. `npm run check:sim` (also in CI) checks the rules one by one (mitigation, Durability,
-  shields, burns, stuns, overtime, a trait and an item with Riot's values) and then whole fights against the generated
-  data. Every ability must cast without errors, fights must end and replay from a seed, and they must agree with the
-  simulated lobbies.
+| Rank correlation with hidden power | Range across patches |
+| --- | --- |
+| Champions | 0.60-0.76 |
+| Items | 0.94-0.99 |
+| Augments | 0.95-0.97 |
 
-## minicloud: the AWS pieces, imitated
+These are Spearman correlations **inside the simulation**, not evidence of predictive accuracy on real TFT matches. Champions are harder to rank because cost, teammates, economy, and competition for copies all affect placement.
 
-| AWS | minicloud | What's faithful |
-|---|---|---|
-| CloudFormation | `infra/stack.yaml` + `minicloud/template.py` | Declarative resources, `${Resource.attr}` and `${env:VAR:default}` references, the whole template validated before anything is created, stack state recorded |
-| S3 | `minicloud/storage.py` | Buckets, keys, ETags, and `ObjectCreated` events with the real notification shape (`Records[].s3.object.key`, URL-encoded) |
-| S3 event notifications | `trigger` resources | Event-name, prefix and suffix filters |
-| Lambda | `minicloud/functions.py` | `handler(event, context)`, a context object with request ID and remaining time, per-function environment variables, timeouts, cold vs warm starts, 1 ms billed duration |
-| Lambda async invocation | `Cloud.drain()` | Two automatic retries, then the dead-letter queue |
-| SQS dead-letter queue | `queue` resources | Failed events kept with the error and attempt count |
-| EventBridge schedule | `schedule` resources | `rate(1 hour)` on a simulated clock, with the scheduled-event payload |
-| CloudWatch Logs | `.cloud/logs/` | One stream per execution environment; `START`, `END` and `REPORT RequestId ... Billed Duration ... Init Duration` lines |
-| boto3 | `minicloud/sdk.py` | `sdk.client("s3")` with `get_object`, `put_object` and `list_objects_v2`, same arguments and response shapes |
-| RDS for MySQL | a real database | MariaDB locally, MySQL 8 in CI |
-| Billing | `minicloud/pricing.py` | What the run would cost at AWS list prices |
+**A weird result:** boards inferred as Fast 9 average about **2.77** placement, while all players actually assigned that plan average **4.52**. Players eliminated before level 9 disappear from the final-board category. The dashboard puts those views side by side instead of assigning economy plans a tier. The plan classifier agrees with the original plan on about **67%** of boards.
 
-Inspect a deployed stack like you would the console: `python -m minicloud status`, `ls tft-quarantine`, `logs Load`, `dlq`.
+Patch detection is less convincing: of 61 changed entities across patch transitions, the pipeline flagged 11 shifts, six on entities whose modeled power changed; five of those moved in the expected direction. With roughly 1,000 matches per patch, many small changes remain undetected. The report shows the misses as well as the hits.
 
-## Results
+## Explore the interface
 
-From one run of 4,901 valid matches (39,208 boards) over patches 18.1 to 18.5, in 157 seconds:
-
-| Measure | Result |
-|---|---|
-| Function invocations | Validate 28 (3 failed: the corrupt file, 1 try + 2 retries), Load 25, Aggregate 1 |
-| Data quality | 153 records quarantined across 7 reasons; 1 event dead-lettered |
-| What the run would cost on AWS | about $0.0009 in Lambda and S3 requests; the database (~$11.68/month for a db.t4g.micro) is the only real cost |
-
-**How well the tier lists recover the hidden meta** (Spearman rank correlation with hidden power; 1.0 is a perfect order):
-
-| Category | 18.1 | 18.2 | 18.3 | 18.4 | 18.5 |
-|---|---|---|---|---|---|
-| Champions | 0.76 | 0.71 | 0.74 | 0.68 | 0.60 |
-| Items | 0.94 | 0.95 | 0.95 | 0.99 | 0.94 |
-| Augments | 0.95 | 0.96 | 0.96 | 0.97 | 0.95 |
-
-Champions are the hardest to rank: strong units carry weak teammates, 5-costs appear on late (better) boards, and
-contest and economy decide how many stars a unit gets. With five patches each gets ~1,000 matches, so the champion
-lists are noisier than with fewer, larger patches.
-
-**Playstyles** are read correctly from 67% of boards. **Positioning**, invisible to the ETL, is worth about half a place:
-the third of players with the best hidden skill average 4.24, the worst third 4.75.
-
-**Riot's patches:** across 18.2 to 18.5, Riot's changes touched 61 champions, traits and items (counting each patch
-separately). The pipeline flagged 11 significant shifts: 6 were real changes, 5 of them in the right direction. Fae's
-heal buff and Invoker's back-and-forth are caught. Alune reads as nerfed in 18.5 even though her own Attack Speed went
-up, because Attuned, which she always carries, was nerfed harder. Most of Riot's changes are a few percent of one stat,
-too small to tell from noise in ~1,000 matches; Kha'Zix's big 18.2 buff moved him a whole 0.4 places and still stopped
-just short of the bar (z = −2.9). The significance bar (|z| ≥ 3) is strict on purpose, since about a hundred things are
-compared at once.
+- **Home:** a scoutable sample lobby, the last run, and a look at what’s going on with Fast 9.
+- **Tier lists:** per-patch rankings for comps, champions, items, augments, and trait breakpoints; champion item combinations pool all patches.
+- **Patch changes / Lobby dynamics / Truth check:** changes detected, competition for units, inferred economy plans, and evaluation against hidden values.
+- **Simulator:** a seeded TypeScript combat model on a hex board. Build a team, watch a fight, or run batches against sampled opponents. Missing ability values are estimated and labeled; this is not a replica of live TFT combat.
 
 ## Run it locally
 
-Needs Python 3.11+, Node 22+, and a MariaDB installation (only its binaries are used).
+Requires Python 3.11+, Node 22.12+, and MariaDB binaries (or an existing MySQL-compatible server).
 
-```bash
+```sh
 python -m venv .venv
-.venv/Scripts/activate            # Windows; `source .venv/bin/activate` elsewhere
-pip install -r requirements.txt
-
-python localdb.py start           # private database in .db/ on port 3307; no admin rights needed
-python run.py                     # the whole pipeline; ~2.5 min
-python -m pytest                  # 33 tests, including an end-to-end run against the database
-
-cd web && npm install && npm run dev   # npm run check:sim tests the fight simulator against the generated data
 ```
 
-`localdb.py` looks for `mariadbd` on PATH; set `MARIADB_BIN` to its folder otherwise. To use a MySQL server you already
-run instead, skip `localdb.py` and set `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` and `DB_NAME`. To refresh the static game data
-from Community Dragon (adding any new patch, keeping the stored ones): `python -m simulator.static_data`.
+Activate with `.venv\Scripts\Activate.ps1` in PowerShell or `source .venv/bin/activate` on macOS/Linux, then:
 
-## Limitations
+```sh
+pip install -r requirements.txt
+python localdb.py start
+python run.py
+python -m pytest -q
+```
 
-- The matches are simulated. That's what makes the truth check possible. Economy, contested units and positioning are
-  modeled, but simply: the board is decided before the game is played out (stage tempo stands in for how it grows), and
-  positioning is an abstract skill plus three formations rather than hexes.
-- Set 18 Lux has ten forms. A board holds one, and the tier lists rank each form separately.
-- minicloud runs functions one at a time in one process. Real Lambda runs them concurrently in isolated environments.
-- The icons are hot-linked from Community Dragon's `latest` folder and may change when the set rotates.
+`localdb.py` starts a private MariaDB instance in `.db/`, on port 3307. Set `MARIADB_BIN` to your installation's binary directory if needed. To use an existing server, skip that command and set `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` to a **dedicated project database**. Pipeline runs rebuild the project tables; the integration test does too.
+
+```sh
+cd web
+npm ci
+npm run check:sim
+npm run build
+npm run dev
+```
+
+Generate the data before opening the dashboard. `python run.py --matches 1000` makes a quicker run; the default generates 5,000 matches. To stop the private database, run `python localdb.py stop` from the repository root.
+
+## Verification
+
+Python tests cover the emulator's events, retries, timeouts and schedules; ingestion of malformed records; deduplication; patch mapping; simulated lobby mechanics; and the ranking/evaluation calculations. The database integration test is skipped when no database is reachable, so a green local run can exclude that check.
+
+`npm run check:sim` checks combat rules, ability coverage, seeded replay, termination, and agreement with sampled lobby results. `npm run build` checks TypeScript and builds the site. GitHub Actions starts MySQL, runs the Python tests and pipeline, checks the combat simulator, and builds the site; pushes to `master` also deploy to GitHub Pages.
+
+## Code map
+
+| Location | Responsibility |
+| --- | --- |
+| [`simulator/`](simulator/) | Static snapshots, patch differences, lobby generation |
+| [`minicloud/`](minicloud/) | Local storage, function execution, retries, scheduling, template validation |
+| [`functions/`](functions/) | Validate, transform/load, aggregate |
+| [`sql/schema.sql`](sql/schema.sql) | Normalized match tables and derived statistics |
+| [`run.py`](run.py) | Orchestration, report export, independent evaluation |
+| [`web/src/`](web/src/) | Dashboard and browser combat model |
+| [`tests/`](tests/) | Python unit and integration checks |
+
+## Boundaries
+
+- **Synthetic matches:** a controlled experiment enables the answer key, but does not validate the model against real players. Boards are selected before round-by-round elimination; positioning is an abstract skill and formation.
+- **Inferred labels:** a comp is the strongest active trait plus its most itemized unit. Economy plans inferred from final boards are imperfect and affected by survival.
+- **Statistics:** sample shrinkage and a strict z threshold reduce noise; they do not establish causality or formally control multiple comparisons. Boards in a lobby are dependent observations.
+- **Local infrastructure:** minicloud does not provide cloud isolation, concurrent workers, or distributed delivery guarantees. Its AWS cost report uses illustrative rates stored in the source, not live pricing or actual billing.
+- **Stored game data:** the demo uses checked-in snapshots, not a live patch feed. `python -m simulator.static_data` refreshes snapshots; icons are externally hosted and may change. The combat model estimates missing ability values and omits between-round systems.

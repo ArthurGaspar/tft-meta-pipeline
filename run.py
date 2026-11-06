@@ -1,21 +1,6 @@
-"""One end-to-end run of the TFT meta pipeline on minicloud.
+"""Run the local stack, generate matches, drain events and export dashboard data.
 
-    python run.py                    # 5,000 simulated matches over Set 18's real patches
-    python run.py --matches 1000     # a quicker run
-
-1. Deploys infra/stack.yaml (buckets, queue, database schema, functions, triggers).
-2. Simulates matches and uploads the raw files to the raw bucket. Each upload
-   fires an S3-style event: Validate stages or quarantines the records, and each
-   staged file fires Load, which writes MySQL.
-3. Advances the simulated clock by an hour, so the hourly Aggregate runs and
-   publishes the tier lists to the public bucket.
-4. Copies the published files to web/public/data and adds two reports the
-   website shows: the pipeline run itself, and a truth check that compares the
-   tier lists and the playstyles read from each board with the simulator's
-   hidden values (which the ETL never sees), and measures what positioning,
-   which match data doesn't record, was worth. It also copies the simulator's
-   game data (unit stats, the hidden meta, sample boards) for the website's
-   real-time fight simulator.
+Evaluation uses hidden simulation values that the ETL functions never receive.
 """
 
 import argparse

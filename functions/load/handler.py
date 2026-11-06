@@ -1,11 +1,7 @@
 """Load: staged match files -> normalized MySQL tables.
 
-Triggered by every new object in the staged bucket. One file is one transaction.
-Loading is idempotent at two levels: a file already in load_log (same key and
-ETag) is skipped, and a match already in the database (re-delivered in another
-file) is not inserted twice. The transform step happens here too: each board is
-labeled with its comp, carry and playstyle, and each unit with how many other
-boards in the lobby were competing for the same champion's copies.
+One transaction per file. Skip known key/ETag pairs and existing match IDs;
+label each board's comp, carry, playstyle and competition for champion copies.
 """
 
 import json

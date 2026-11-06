@@ -1,6 +1,7 @@
 import json
 import re
 import random
+from copy import deepcopy
 from pathlib import Path
 
 import pymysql
@@ -37,6 +38,72 @@ def match():
 def test_simulated_match_is_valid(match):
     assert problems(match, INDEXED) == []
     assert sorted(p["placement"] for p in match["info"]["participants"]) == list(range(1, 9))
+
+
+@pytest.mark.parametrize("value", [None, [], 42, "match", {"metadata": None}, {"info": []}])
+def test_non_record_json_is_rejected(value):
+    assert problems(value, INDEXED)
+
+
+@pytest.mark.parametrize("path,value", [
+    (("info", "participants"), None),
+    (("info", "participants", 0), []),
+    (("info", "game_datetime"), "yesterday"),
+    (("info", "game_datetime"), 10**500),
+    (("info", "game_length"), float("nan")),
+    (("info", "game_length"), 10**500),
+    (("info", "participants", 0, "level"), None),
+    (("info", "participants", 0, "gold_left"), True),
+    (("info", "participants", 0, "puuid"), "x" * 65),
+    (("info", "participants", 0, "units"), []),
+    (("info", "participants", 0, "units", 0), None),
+    (("info", "participants", 0, "units", 0, "character_id"), {}),
+    (("info", "participants", 0, "units", 0, "tier"), 0),
+    (("info", "participants", 0, "units", 0, "rarity"), "one"),
+    (("info", "participants", 0, "units", 0, "itemNames"), [None]),
+    (("info", "participants", 0, "traits"), [None]),
+    (("info", "participants", 0, "traits", 0, "tier_current"), "active"),
+    (("info", "participants", 0, "augments"), [["nested"]]),
+])
+def test_unloadable_records_are_quarantined(match, path, value):
+    record = deepcopy(match)
+    target = record
+    for key in path[:-1]:
+        target = target[key]
+    target[path[-1]] = value
+    assert "invalid_schema" in problems(record, INDEXED)
+
+
+def test_duplicate_players_and_mixed_placements_are_rejected(match):
+    record = deepcopy(match)
+    players = record["info"]["participants"]
+    players[0]["puuid"] = players[1]["puuid"]
+    players[0]["placement"] = "first"
+    assert {"duplicate_player", "invalid_placements"} <= set(problems(record, INDEXED))
+    assert patch_of(["Version 16.21.1"]) is None
+
+
+def test_bad_record_does_not_poison_valid_neighbors(match, tmp_path, monkeypatch):
+    from functions.validate import handler as validate
+    from minicloud import sdk
+    from minicloud.storage import ObjectStore, s3_event
+
+    store = ObjectStore(tmp_path, "local-1")
+    for bucket in ("raw", "staged", "quarantine"):
+        store.create_bucket(bucket)
+    monkeypatch.setattr(sdk, "client", lambda service: sdk._S3Client(store))
+    monkeypatch.setattr(validate, "static_data", lambda: INDEXED)
+    monkeypatch.setenv("STAGED_BUCKET", "staged")
+    monkeypatch.setenv("QUARANTINE_BUCKET", "quarantine")
+    lines = ["null", "42", '{"metadata": []}', '{"broken":', json.dumps(match), json.dumps(match)]
+    obj = store.put_object("raw", "raw/mixed.ndjson", "\n".join(lines).encode())
+    result = validate.handler(s3_event("local-1", "raw", obj), None)
+    assert result == {"valid": 1, "quarantined": 5}
+    staged = store.get_object("staged", "staged/mixed.ndjson").decode().splitlines()
+    assert [json.loads(line) for line in staged] == [match]
+    bad = [json.loads(line) for line in store.get_object("quarantine", "quarantine/mixed.ndjson").splitlines()]
+    assert [row["line"] for row in bad] == [1, 2, 3, 4, 6]
+    assert bad[-1]["reasons"] == ["duplicate_in_file"]
 
 
 def test_every_defect_is_caught(match):

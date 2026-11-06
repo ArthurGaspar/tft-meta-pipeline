@@ -24,11 +24,11 @@ export function TierLists() {
       <section>
         <h1>Set {meta.set} tier lists</h1>
         <p>
-          Computed by the ETL from {fmt.int(meta.matches)} simulated matches ({fmt.int(Object.values(meta.boards).reduce((a, b) => a + b, 0))}{" "}
-          boards). A tier is how far an entity's average placement sits from the lobby average of 4.5, in standard deviations of
-          its own kind; small samples are pulled towards average first, and anything with fewer than {meta.method.minGames} games
-          stays unranked.
+          Rankings from {fmt.int(meta.matches)} simulated matches. Lower average placement is better; top 4 means finishing in the
+          first half of an eight-player lobby. Select a patch and category to compare the results.
         </p>
+        <p className="small">Synthetic data, not ranked-game advice. Scores are pulled toward the lobby average of 4.5 with {meta.method.priorGames} prior games.
+          Tiers compare scores within each category; fewer than {meta.method.minGames} appearances stays unranked. <a href="#/truth">Check the ranking’s accuracy ↗</a></p>
       </section>
 
       <div className="row">
@@ -57,7 +57,7 @@ export function TierLists() {
 
       {champion && (
         <section className="panel">
-          <h2>Best items on {champion.name} (both patches)</h2>
+          <h2>Best items on {champion.name} (all patches combined)</h2>
           {(builds[champion.id] ?? []).length ? (
             <div className="row">
               {builds[champion.id].map((b) => (

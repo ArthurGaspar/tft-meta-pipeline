@@ -31,7 +31,7 @@ def object_from_event(event: dict) -> tuple[str, str]:
 
 def patch_of(game_version: str) -> str | None:
     """"Version 16.21.512.4471 (...)" -> "16.21": the game client version a match was played on."""
-    m = VERSION.match(game_version or "")
+    m = VERSION.match(game_version) if isinstance(game_version, str) else None
     return m.group(1) if m else None
 
 

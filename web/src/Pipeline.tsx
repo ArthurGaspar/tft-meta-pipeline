@@ -23,6 +23,10 @@ const REASON: Record<string, string> = {
   duplicate_in_file: "Duplicate match in a file",
   missing_placement: "Missing placement",
   unknown_version: "Unreadable game version",
+  unknown_patch: "Patch absent from the snapshot",
+  invalid_schema: "Invalid record structure or field type",
+  duplicate_player: "Duplicate player in a lobby",
+  unknown_trait: "Unknown trait",
   unknown_champion: "Unknown champion",
   wrong_lobby_size: "Not 8 players",
   malformed_json: "Malformed JSON line",
@@ -44,9 +48,8 @@ export function Pipeline() {
       <section>
         <h1>How the data gets here</h1>
         <p>
-          A serverless ETL on <b>minicloud</b>, a small AWS imitation built for this project. It reads an infrastructure template,
-          stores files in buckets, fires S3-style events, runs functions with Lambda's <code>handler(event, context)</code> contract,
-          retries failures and parks the hopeless ones in a dead-letter queue. The database is real MySQL.
+          An event-driven ETL on <b>minicloud</b>, a local Python emulator. Buckets, functions, and schedules follow an infrastructure
+          template; the database is MySQL-compatible. AWS names below describe the services being modeled, not a deployed AWS stack.
         </p>
       </section>
 
@@ -77,7 +80,7 @@ export function Pipeline() {
         <Tile value={fmt.int(invocations)} label="Function invocations" sub={`${r.rawFiles} raw files uploaded`} />
         <Tile value={fmt.int(r.quality.quarantined)} label="Records quarantined" sub="kept with their reasons" />
         <Tile value={r.deadLetters.length} label="Events dead-lettered" sub="after 3 attempts each" />
-        <Tile value={`$${(r.cost.lambdaUsd + r.cost.s3RequestsUsd).toFixed(4)}`} label="This run on AWS" sub="Lambda + S3 requests, list prices" />
+        <Tile value={`$${(r.cost.lambdaUsd + r.cost.s3RequestsUsd).toFixed(4)}`} label="Modeled request + compute cost" sub="Illustrative AWS rates; not a cloud bill" />
       </div>
 
       <div className="grid-2">
@@ -165,7 +168,7 @@ export function Pipeline() {
             </tbody>
           </table>
           <p className="small" style={{ marginTop: 8 }}>
-            {r.cost.note} The database is the only real cost; the serverless parts are fractions of a cent per run.
+            {r.cost.note} These estimates use rates stored in the source, not a live quote. The project runs locally; no AWS bill is incurred.
           </p>
         </section>
       </div>

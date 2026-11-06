@@ -8,6 +8,7 @@ __pycache__/
 .work/
 .db/
 .scratch/
+.playwright-mcp/
 
 # Web
 web/node_modules/
@@ -17,3 +18,4 @@ web/public/data/
 
 # Personal
 todo.txt
+Arthur-Gaspar-Resume.pdf

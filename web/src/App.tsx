@@ -1,29 +1,34 @@
-import { useEffect, useState } from "react";
-import { Lobby } from "./Lobby";
-import { PatchChanges } from "./PatchChanges";
-import { Simulator } from "./Simulator";
-import { Pipeline } from "./Pipeline";
-import { TierLists } from "./TierLists";
-import { Truth } from "./Truth";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Overview } from "./Overview";
+
+const TierLists = lazy(() => import("./TierLists").then((m) => ({ default: m.TierLists })));
+const PatchChanges = lazy(() => import("./PatchChanges").then((m) => ({ default: m.PatchChanges })));
+const Lobby = lazy(() => import("./Lobby").then((m) => ({ default: m.Lobby })));
+const Simulator = lazy(() => import("./Simulator").then((m) => ({ default: m.Simulator })));
+const Pipeline = lazy(() => import("./Pipeline").then((m) => ({ default: m.Pipeline })));
+const Truth = lazy(() => import("./Truth").then((m) => ({ default: m.Truth })));
 
 type Theme = "system" | "light" | "dark";
 
 const PAGES = [
-  { hash: "#/", label: "Tier lists" },
-  { hash: "#/patch", label: "Patch changes" },
-  { hash: "#/lobby", label: "Lobby dynamics" },
-  { hash: "#/simulator", label: "Simulator" },
-  { hash: "#/pipeline", label: "Pipeline" },
-  { hash: "#/truth", label: "Truth check" },
+  { hash: "#/", label: "Home", component: Overview },
+  { hash: "#/tiers", label: "Tier lists", component: TierLists },
+  { hash: "#/patch", label: "Patch changes", component: PatchChanges },
+  { hash: "#/lobby", label: "Lobby dynamics", component: Lobby },
+  { hash: "#/simulator", label: "Simulator", component: Simulator },
+  { hash: "#/pipeline", label: "Pipeline", component: Pipeline },
+  { hash: "#/truth", label: "Truth check", component: Truth },
 ];
 
 export function App() {
   const [hash, setHash] = useState(location.hash || "#/");
+  const main = useRef<HTMLElement>(null);
   const [theme, setTheme] = useState<Theme>(() => {
     try {
-      return (localStorage.getItem("tft-theme") as Theme) || "system";
+      const saved = localStorage.getItem("tft-theme");
+      return saved === "light" || saved === "dark" || saved === "system" ? saved : "dark";
     } catch {
-      return "system";
+      return "dark";
     }
   });
 
@@ -31,6 +36,7 @@ export function App() {
     const on = () => {
       setHash(location.hash || "#/");
       window.scrollTo(0, 0);
+      main.current?.focus();
     };
     window.addEventListener("hashchange", on);
     return () => window.removeEventListener("hashchange", on);
@@ -46,18 +52,28 @@ export function App() {
     }
   }, [theme]);
 
-  const page = PAGES.some((p) => p.hash === hash) ? hash : "#/";
+  const page = PAGES.find((p) => p.hash === hash) ?? PAGES[0];
+  const Page = page.component;
+
+  useEffect(() => {
+    document.title = `${page.label} · TFT Meta Pipeline · Arthur`;
+  }, [page]);
 
   return (
     <>
+      <a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); main.current?.focus(); }}>Skip to content</a>
       <header className="top">
         <a className="brand" href="#/">
-          <b>TFT Meta Pipeline</b>
-          <span>tier lists from a serverless-style ETL</span>
+          <svg className="brand-mark" viewBox="0 0 44 44" aria-hidden="true">
+            <path d="m22 2 18 10v20L22 42 4 32V12Z" fill="#6650b7" stroke="#c1a4ff" strokeWidth="2" />
+            <path d="m22 9 4 9 10 4-10 4-4 10-4-10-10-4 10-4Z" fill="#ffe09a" />
+            <path d="m35 4 2 4 5 1-5 2-2 4-1-4-5-2 5-1Z" fill="#65e2cf" />
+          </svg>
+          <span className="brand-text"><b>TFT Meta Pipeline</b><span>Arthur’s corner of TFT</span></span>
         </a>
-        <nav>
+        <nav aria-label="Project">
           {PAGES.map((p) => (
-            <a key={p.hash} href={p.hash} aria-current={page === p.hash ? "page" : undefined}>
+            <a key={p.hash} href={p.hash} aria-current={page.hash === p.hash ? "page" : undefined}>
               {p.label}
             </a>
           ))}
@@ -66,14 +82,15 @@ export function App() {
           {theme === "system" ? "Auto" : theme === "light" ? "Light" : "Dark"}
         </button>
       </header>
-      <main>
-        {page === "#/" && <TierLists />}
-        {page === "#/patch" && <PatchChanges />}
-        {page === "#/lobby" && <Lobby />}
-        {page === "#/simulator" && <Simulator />}
-        {page === "#/pipeline" && <Pipeline />}
-        {page === "#/truth" && <Truth />}
+      <main id="main" ref={main} tabIndex={-1}>
+        <Suspense fallback={<p role="status">Loading section…</p>}>
+          <Page />
+        </Suspense>
       </main>
+      <footer className="site-footer">
+        <span>Made by Arthur <span className="footer-separator">✦</span> A TFT side project</span>
+        <span>Game art via Community Dragon · Unofficial fan project <a href="https://github.com/ArthurGaspar/tft-meta-pipeline">GitHub ↗</a></span>
+      </footer>
     </>
   );
 }
